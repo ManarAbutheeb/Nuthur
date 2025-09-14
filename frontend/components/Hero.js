@@ -6,9 +6,10 @@ export default function Hero() {
     <section
       className="text-center d-flex align-items-center justify-content-center"
       style={{
-        backgroundColor: "#0f420fff",
+        backgroundColor: "#051b05ff",
         color: "white",
         height: "100vh",
+       
       }}
     >
       <div className="container">

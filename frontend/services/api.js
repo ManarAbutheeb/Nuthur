@@ -26,3 +26,5 @@ export const createReport = (data) => API.post("/reports/create", data);
 export const getReports = () => API.get("/reports");
 export const updateReport = (id, data) => API.put(`/reports/update/${id}`, data);
 export const deleteReport = (id) => API.delete(`/reports/delete/${id}`);
+// مثال بعد ما يجيك الرد من الباك اند
+localStorage.setItem("token", data.token);

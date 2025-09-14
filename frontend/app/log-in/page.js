@@ -8,7 +8,7 @@ export default function LogInPage() {
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // يمنع إعادة تحميل الصفحة
+    e.preventDefault();
     setError("");
 
     try {
@@ -21,12 +21,13 @@ export default function LogInPage() {
       const data = await res.json();
 
       if (res.ok) {
-        // ✅ تسجيل الدخول نجح
+        // ✅ حفظ التوكن والدور في localStorage
+        localStorage.setItem("authToken", data.token);
+        localStorage.setItem("userRole", data.role);
         console.log("Login success:", data);
-        window.location.href = "/"; // يوديه للصفحة الرئيسية
+        window.location.href = "/"; 
       } else {
-        // ❌ خطأ
-        setError(data.message || "Invalid credentials");
+        setError(data.error || "Invalid credentials"); 
       }
     } catch (err) {
       setError("Server error, try again later.");
@@ -38,13 +39,14 @@ export default function LogInPage() {
       <h1 className="mb-4">Log In</h1>
       <form className="w-50 mx-auto" onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label"> Email</label>
+          <label className="form-label">Email</label>
           <input
-            type="text"
+            type="email" // غيري type إلى email
             className="form-control"
-            placeholder="Enter username or email"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className="mb-3">
@@ -55,6 +57,7 @@ export default function LogInPage() {
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <button type="submit" className="btn btn-danger w-100 mb-3">
@@ -70,4 +73,3 @@ export default function LogInPage() {
     </div>
   );
 }
-

@@ -19,7 +19,7 @@ function authMiddleware(req, res, next) {
 }
 
 // إنشاء بلاغ جديد
-router.post("/create", authMiddleware, async (req, res) => {
+router.post("/create",authMiddleware, async (req, res) => {
   try {
     const { description, location, image } = req.body;
     const report = new FireReport({ user: req.user.id, description, location, image });

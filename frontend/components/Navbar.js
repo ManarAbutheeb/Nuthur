@@ -19,7 +19,7 @@ const router = useRouter();
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor:"#000000b7", zIndex: 1000 }}>
+    <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor:"#001a08de", zIndex: 1000}}>
       <div className="container">
         <Link className="navbar-brand fw-bold" href="/">Nuthur</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -33,7 +33,7 @@ const router = useRouter();
               <>
             <li className="nav-item"><Link className="nav-link active" href="/" style={{ color: "#ffffffff" }}>Home</Link></li>
             <li className="nav-item"><Link className="nav-link" href="#features" style={{ color: "#ffffffff" }}>Features</Link></li>
-            <li className="nav-item"><Link className="nav-link" href="#contact" style={{ color: "#f3ededff" }}>Contact Us</Link></li>
+            <li className="nav-item"><Link className="nav-link" href="#contact" style={{ color: "#ffffffff" }}>Contact Us</Link></li>
             <li className="nav-item"><Link className="nav-link" href="/"style={{ color: "#ffffffff" }}>Profile</Link></li>
              <li className="nav-item">
             <button className="nav-link btn btn-link" onClick={handleLogout} style={{ color: "#ffffffff",textDecoration: 'none' }}>
@@ -43,8 +43,8 @@ const router = useRouter();
               </>
             ) : (
               <>
-                <li className="nav-item"><Link className="nav-link" href="/sign-in">Sign In</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="/log-in">Log In</Link></li>
+                <li className="nav-item"><Link className="nav-link" href="/sign-in" style={{ color: "#ffffffff" }}>Sign In</Link></li>
+                <li className="nav-item"><Link className="nav-link" href="/log-in" style={{ color: "#ffffffff" }}>Log In</Link></li>
               </>
             )}
           </ul>

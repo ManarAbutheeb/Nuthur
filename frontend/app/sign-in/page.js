@@ -57,7 +57,7 @@ setMessage("");
             <option value="employee">Employee</option>
           </select>
         </div>
-        <button type="submit" className="btn btn-danger w-100">Register</button>
+        <button type="submit" className="btn btn-danger w-100" >Register</button>
       {/* رسالة النجاح أو الخطأ (يتغير لونها حسب الحالة) */}
         {message && (
           <p className={`text-center mt-3 ${isError ? 'text-danger' : 'text-success'}`}>

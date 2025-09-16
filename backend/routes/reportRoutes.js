@@ -1,8 +1,44 @@
 const express = require("express");
 const FireReport = require("../models/report");
 const jwt = require("jsonwebtoken");
-
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const router = express.Router();
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadDir = 'uploads/';
+    // التأكد من وجود مجلد التحميل
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    // إنشاء اسم فريد للملف
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+// تصفية الملفات للسماح بالصور فقط
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image/')) {
+    cb(null, true);
+  } else {
+    cb(new Error('يسمح برفع الصور فقط!'), false);
+  }
+};
+
+const upload = multer({ 
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // الحد الأقصى لحجم الملف: 5MB
+  }
+});
+
 
 // ميدل وير للتحقق من المستخدم
 function authMiddleware(req, res, next) {
@@ -21,8 +57,19 @@ function authMiddleware(req, res, next) {
 // إنشاء بلاغ جديد
 router.post("/create",authMiddleware, async (req, res) => {
   try {
-    const { description, location, image } = req.body;
-    const report = new FireReport({ user: req.user.id, description, location, image });
+    const { description, location} = req.body;
+
+  let imagePath = null;
+    if (req.file) {
+      imagePath = req.file.path;
+    }
+
+    const report = new FireReport({ 
+      user: req.user.id,
+       description, 
+       location, 
+       image: imagePath  });
+
     await report.save();
     res.json({ message: "Report created", report });
   } catch (err) {
@@ -43,24 +90,23 @@ router.get("/list", authMiddleware, async (req, res) => {
 
 router.put("/update/:id", authMiddleware, async (req, res) => {
   try {
-    // تنظيف معرّف التقرير من أي أحرف غير مرغوب فيها (مثل \n)
+
     const reportId = req.params.id.trim();
     
-    // البحث عن التقرير وتحديثه
+
     const report = await FireReport.findByIdAndUpdate(
       reportId,
       { status: req.body.status },
       { new: true }
     );
     
-    // إذا لم يتم العثور على التقرير
+
     if (!report) {
       return res.status(404).json({ error: "Report not found" });
     }
     
     res.json(report);
   } catch (err) {
-    // معالجة خطأ CastError بشكل خاص
     if (err.name === 'CastError') {
       return res.status(400).json({ error: "Invalid report ID format" });
     }
@@ -68,6 +114,18 @@ router.put("/update/:id", authMiddleware, async (req, res) => {
     // معالجة الأخطاء العامة
     res.status(500).json({ error: err.message });
   }
+});
+
+router.get("/image/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const imagePath = path.join(__dirname, '../uploads', filename);
+  
+  // التحقق من وجود الملف
+  if (!fs.existsSync(imagePath)) {
+    return res.status(404).json({ error: "Image not found" });
+  }
+  
+  res.sendFile(imagePath);
 });
 
 module.exports = router;

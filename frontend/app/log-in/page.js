@@ -21,7 +21,7 @@ export default function LogInPage() {
       const data = await res.json();
 
       if (res.ok) {
-        // ✅ حفظ التوكن والدور في localStorage
+      
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("userRole", data.role);
         console.log("Login success:", data);
@@ -30,6 +30,7 @@ export default function LogInPage() {
         setError(data.error || "Invalid credentials"); 
       }
     } catch (err) {
+       console.error("Full error details:", err);
       setError("Server error, try again later.");
     }
   };
@@ -60,7 +61,7 @@ export default function LogInPage() {
             required
           />
         </div>
-        <button type="submit" className="btn btn-danger w-100 mb-3">
+        <button type="submit" className="btn btn-danger w-100 mb-3" >
           Log In
         </button>
         {error && <p className="text-danger text-center">{error}</p>}

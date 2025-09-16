@@ -1,5 +1,5 @@
-// components/Features.js
-import React from "react";
+import React from 'react';
+import backgroundImage from '../public/Visual Branding.jpg'; 
 
 export default function Features() {
   const features = [
@@ -9,7 +9,16 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-5">
+    <section 
+      id="features" 
+      className="py-5"
+   style={{
+       // backgroundColor: "#f8f9fa", // لون فاتح
+        // أو
+        background: "linear-gradient(135deg, #e1e4e1ff 0%, #87b190ff 100%)", // تدرج أخضر
+       
+      }}
+    >
       <div className="container">
         <h2 className="text-center mb-4">System Features</h2>
         <div className="row">

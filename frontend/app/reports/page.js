@@ -1,33 +1,124 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+// Import map dynamically without SSR
+const ReportMap = dynamic(() => import("../../components/MapComponent"), {
+  ssr: false,
+});
 
 export default function ReportPage() {
   const [description, setDescription] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
-  const [imageBase64, setImageBase64] = useState("");
+  const [position, setPosition] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userLocation, setUserLocation] = useState([24.7136, 46.6753]);
+  const [isLocating, setIsLocating] = useState(false);
+  const [locationAccuracy, setLocationAccuracy] = useState(null);
+  const [locationMethod, setLocationMethod] = useState("auto"); // auto or manual
+
+  useEffect(() => {
+    locateUser(true);
+  }, []);
+
+  const locateUser = (isInitial = false) => {
+    if (navigator.geolocation) {
+      setIsLocating(true);
+      setMessage("📍 Detecting your location with high accuracy...");
+      setLocationMethod("auto");
+      
+      const options = {
+        enableHighAccuracy: true, // Use GPS for better accuracy
+        timeout: 20000, // Increase timeout to 20 seconds
+        maximumAge: 0 // Don't use cached positions
+      };
+
+      const watchId = navigator.geolocation.watchPosition(
+        (pos) => {
+          const newPos = [pos.coords.latitude, pos.coords.longitude];
+          const accuracy = pos.coords.accuracy;
+          
+          setUserLocation(newPos);
+          setPosition(newPos);
+          setLocationAccuracy(accuracy);
+          
+          // Stop watching once we get accurate enough position
+          if (accuracy < 50) { // Wait for accuracy better than 50 meters
+            navigator.geolocation.clearWatch(watchId);
+            setIsLocating(false);
+            
+            if (accuracy > 30) {
+              setMessage(`📍 Location detected (Accuracy: ${Math.round(accuracy)}m)`);
+            } else {
+              setMessage("📍 Location detected with high accuracy");
+            }
+          } else {
+            setMessage(`📍 Improving accuracy... Current: ${Math.round(accuracy)}m`);
+          }
+        },
+        (err) => {
+          navigator.geolocation.clearWatch(watchId);
+          console.error("Error getting location: ", err);
+          let errorMessage = "❌ Could not get your current location";
+          
+          if (err.code === err.PERMISSION_DENIED) {
+            errorMessage = "❌ Location access denied. Please allow location access in your browser settings.";
+          } else if (err.code === err.TIMEOUT) {
+            errorMessage = "❌ Location request timed out. Please try again.";
+          } else if (err.code === err.POSITION_UNAVAILABLE) {
+            errorMessage = "❌ Location information unavailable. Please enable GPS and check your internet connection.";
+          }
+          
+          setMessage(errorMessage);
+          setIsLocating(false);
+          
+          if (!position && !isInitial) {
+            setPosition([24.7136, 46.6753]);
+          }
+        },
+        options
+      );
+
+      // Fallback timeout
+      setTimeout(() => {
+        navigator.geolocation.clearWatch(watchId);
+        if (isLocating) {
+          setIsLocating(false);
+          setMessage("⚠️ Location detection taking longer than expected. You can manually select your location on the map.");
+        }
+      }, 25000);
+    } else {
+      setMessage("❌ Browser does not support geolocation");
+      setIsLocating(false);
+    }
+  };
+
+  const handleMapPositionChange = (newPosition) => {
+    setPosition(newPosition);
+    setLocationMethod("manual");
+    setLocationAccuracy(5); // Manual selection has high accuracy
+    setMessage("📍 Location selected manually on map");
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // التحقق من نوع الملف
-      if (!file.type.startsWith('image/')) {
+      if (!file.type.startsWith("image/")) {
         setMessage("❌ Only images are allowed!");
         return;
       }
-      
-      // التحقق من حجم الملف (5MB كحد أقصى)
       if (file.size > 5 * 1024 * 1024) {
         setMessage("❌ Image size must be less than 5MB!");
         return;
       }
-      
-      // تحويل الصورة إلى Base64
+
+      setImageFile(file);
+
       const reader = new FileReader();
       reader.onload = (event) => {
-        setImageBase64(event.target.result); // حفظ الصورة كـ Base64
+        setImagePreview(event.target.result);
       };
       reader.readAsDataURL(file);
       setMessage("");
@@ -36,29 +127,44 @@ export default function ReportPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!position) {
+      setMessage("❌ Please select a location on the map");
+      return;
+    }
+    
+    // Show accuracy warning if location is not accurate
+    if (locationAccuracy > 100 && locationMethod === "auto") {
+      if (!confirm(`Your location accuracy is ${Math.round(locationAccuracy)} meters. This might not be precise. Do you want to continue?`)) {
+        return;
+      }
+    }
+
     setIsSubmitting(true);
 
     try {
       const token = localStorage.getItem("authToken");
-
       if (!token) {
         setMessage("⚠️ Please log in first");
         setIsSubmitting(false);
         return;
       }
 
-      // إرسال البيانات كـ JSON (بما في ذلك الصورة كـ Base64)
+      // Create FormData
+      const formData = new FormData();
+      formData.append("description", description);
+      formData.append("location[lat]", position[0].toString());
+      formData.append("location[lng]", position[1].toString());
+      
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
       const res = await fetch("http://localhost:5000/reports/create", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          description,
-          location: { lat, lng },
-          image: imageBase64, // الصورة كنص Base64
-        }),
+        body: formData,
       });
 
       const data = await res.json();
@@ -66,10 +172,9 @@ export default function ReportPage() {
       if (res.ok) {
         setMessage("✅ Report submitted successfully!");
         setDescription("");
-        setLat("");
-        setLng("");
-        setImageBase64("");
-
+        setPosition(null);
+        setImageFile(null);
+        setImagePreview("");
         setTimeout(() => {
           window.location.href = "/";
         }, 2000);
@@ -77,7 +182,7 @@ export default function ReportPage() {
         setMessage(data.error || data.message || "❌ Failed to submit report");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Submission error:", error);
       setMessage("🚨 Server error, please try again later");
     } finally {
       setIsSubmitting(false);
@@ -88,7 +193,8 @@ export default function ReportPage() {
     <div className="container py-5">
       <h1 className="mb-4 text-danger">Submit a New Report</h1>
 
-      <form className="w-75 mx-auto" onSubmit={handleSubmit}>
+      <form className="w-75 mx-auto" onSubmit={handleSubmit} encType="multipart/form-data">
+        {/* Description */}
         <div className="mb-3">
           <label className="form-label">Description</label>
           <textarea
@@ -97,32 +203,64 @@ export default function ReportPage() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
+            rows="4"
           />
         </div>
 
-        <div className="row">
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Latitude</label>
-            <input
-              type="text"
-              className="form-control"
-              value={lat}
-              onChange={(e) => setLat(e.target.value)}
-              required
-            />
+        {/* Map */}
+        <div className="mb-3">
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <label className="form-label mb-0">Select Location on Map</label>
+            <div>
+              <button 
+                type="button" 
+                className="btn btn-outline-primary btn-sm me-2"
+                onClick={() => locateUser(false)}
+                disabled={isLocating}
+              >
+                {isLocating ? "🔄 Detecting..." : "📍 Use My Current Location"}
+              </button>
+              <button 
+                type="button" 
+                className="btn btn-outline-secondary btn-sm"
+                onClick={() => {
+                  setPosition(null);
+                  setMessage("Location selection cleared");
+                }}
+                disabled={!position}
+              >
+                ❌ Clear Selection
+              </button>
+            </div>
           </div>
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Longitude</label>
-            <input
-              type="text"
-              className="form-control"
-              value={lng}
-              onChange={(e) => setLng(e.target.value)}
-              required
-            />
+          
+          <div className="alert alert-info mb-2">
+            <small>
+              💡 <strong>Tip:</strong> For best accuracy, enable GPS and use Wi-Fi. 
+              If automatic detection is not precise, click directly on the map to select your exact location.
+            </small>
           </div>
+          
+          <ReportMap
+            userLocation={userLocation}
+            position={position}
+            setPosition={handleMapPositionChange}
+            setMessage={setMessage}
+          />
+          
+          {position && (
+            <div className="form-text mt-2">
+              <strong>Selected Location:</strong> {position[0].toFixed(6)}, {position[1].toFixed(6)}
+              {locationAccuracy && (
+                <span className="ms-2 text-muted">
+                  (Accuracy: {Math.round(locationAccuracy)}m - {locationMethod === "auto" ? "Auto-detected" : "Manual selection"})
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
+        {/* Image upload */}
         <div className="mb-3">
           <label className="form-label">Report Image</label>
           <input
@@ -130,33 +268,44 @@ export default function ReportPage() {
             className="form-control"
             accept="image/*"
             onChange={handleImageChange}
+            name="image"
           />
           <div className="form-text">Only images are allowed (Max size: 5MB)</div>
         </div>
 
-        {imageBase64 && (
+        {/* Image preview */}
+        {imagePreview && (
           <div className="mb-3">
             <label className="form-label">Image Preview:</label>
             <div>
-              <img 
-                src={imageBase64} 
-                alt="Preview" 
+              <img
+                src={imagePreview}
+                alt="Preview"
                 className="img-thumbnail mt-2"
-                style={{ maxWidth: '300px', maxHeight: '300px' }}
+                style={{ maxWidth: "300px", maxHeight: "300px" }}
               />
             </div>
           </div>
         )}
 
-        <button 
-          type="submit" 
+        {/* Submit */}
+        <button
+          type="submit"
           className="btn btn-danger w-100"
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Report'}
+          {isSubmitting ? "Submitting..." : "Submit Report"}
         </button>
 
-        {message && <p className="mt-3 text-center">{message}</p>}
+        {message && (
+          <div className={`mt-3 text-center ${
+            message.includes('❌') ? 'text-danger' : 
+            message.includes('✅') ? 'text-success' : 
+            'text-info'
+          }`}>
+            {message}
+          </div>
+        )}
       </form>
     </div>
   );

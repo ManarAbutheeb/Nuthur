@@ -55,20 +55,21 @@ function authMiddleware(req, res, next) {
 }
 
 // إنشاء بلاغ جديد
-router.post("/create",authMiddleware, async (req, res) => {
+router.post("/create", authMiddleware, upload.single("image"), async (req, res) => {
   try {
-    const { description, location} = req.body;
+    const { description, location } = req.body;
 
-  let imagePath = null;
+    let imagePath = null;
     if (req.file) {
       imagePath = req.file.path;
     }
 
-    const report = new FireReport({ 
+    const report = new FireReport({
       user: req.user.id,
-       description, 
-       location, 
-       image: imagePath  });
+      description,
+      location,
+      image: imagePath,
+    });
 
     await report.save();
     res.json({ message: "Report created", report });
@@ -76,6 +77,7 @@ router.post("/create",authMiddleware, async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+
 
 // عرض كل البلاغات (للموظفين)
 router.get("/list", authMiddleware, async (req, res) => {

@@ -8,32 +8,42 @@ export default function LogInPage() {
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    try {
-      const res = await fetch("http://localhost:5000/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const res = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-      const data = await res.json();
+    const data = await res.json();
+if (res.ok) {
+  // نحاول نجيب الدور سواء من data.user.role أو data.role
+  const role = data.user?.role || data.role;
 
-      if (res.ok) {
-      
-        localStorage.setItem("authToken", data.token);
-        localStorage.setItem("userRole", data.role);
-        console.log("Login success:", data);
-        window.location.href = "/"; 
-      } else {
-        setError(data.error || "Invalid credentials"); 
-      }
-    } catch (err) {
-       console.error("Full error details:", err);
-      setError("Server error, try again later.");
-    }
-  };
+  localStorage.setItem("authToken", data.token);
+  localStorage.setItem("userRole", role);
+
+  console.log("Login success:", data, "Role:", role);
+
+  // التوجيه حسب الدور
+ if (role === "employee") {
+  window.location.href = "/employeeDashboard";
+} else {
+ window.location.href = "/"; // إذا هذه صفحة Next
+}
+
+} else {
+  setError(data.error || "Invalid credentials");
+}
+
+  } catch (err) {
+    console.error("Full error details:", err);
+    setError("Server error, try again later.");
+  }
+};
 
   return (
     <div className="container py-5">

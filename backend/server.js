@@ -5,6 +5,8 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
 const reportRoutes = require("./routes/reportRoutes");
+const weatherRoutes = require("./routes/weatherRoutes");
+
 
 const app = express();
 app.use(express.json());
@@ -18,6 +20,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 // ربط الراوتات
 app.use("/auth", authRoutes);
 app.use("/reports", reportRoutes);
+app.use("/weatherData", weatherRoutes); 
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(` Server running on port ${PORT}`));

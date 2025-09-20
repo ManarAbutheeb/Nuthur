@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/middleware.js"],"sourcesContent":["import { NextResponse } from \"next/server\";\r\n\r\nexport function middleware(req) {\r\n  const token = req.cookies.get(\"token\"); // يشوف هل فيه توكن\r\n\r\n  // الصفحات المحمية\r\n  const protectedRoutes = [\"/\", \"/reports\"];\r\n\r\n  if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {\r\n    if (!token) {\r\n      return NextResponse.redirect(new URL(\"/log-in\", req.url));\r\n    }\r\n  }\r\n\r\n  return NextResponse.next();\r\n}\r\n\r\nexport const config = {\r\n  matcher: [\"/\", \"/reports/:path*\"], // الصفحات اللي تنطبق عليها الحماية\r\n};\r\n"],"names":[],"mappings":";;;;;;AAAA;AAAA;;AAEO,SAAS,WAAW,GAAG;IAC5B,MAAM,QAAQ,IAAI,OAAO,CAAC,GAAG,CAAC,UAAU,mBAAmB;IAE3D,kBAAkB;IAClB,MAAM,kBAAkB;QAAC;QAAK;KAAW;IAEzC,IAAI,gBAAgB,IAAI,CAAC,CAAC,QAAU,IAAI,OAAO,CAAC,QAAQ,CAAC,UAAU,CAAC,SAAS;QAC3E,IAAI,CAAC,OAAO;YACV,OAAO,gMAAY,CAAC,QAAQ,CAAC,IAAI,IAAI,WAAW,IAAI,GAAG;QACzD;IACF;IAEA,OAAO,gMAAY,CAAC,IAAI;AAC1B;AAEO,MAAM,SAAS;IACpB,SAAS;QAAC;QAAK;KAAkB;AACnC"}}]
+}

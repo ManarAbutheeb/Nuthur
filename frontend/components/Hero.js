@@ -9,7 +9,7 @@ export default function Hero() {
         backgroundColor: "#ffffffff",
         color: "#041609ff",
         height: "100vh",
-     
+   marginTop: "-200px"
        
       }}
     >
@@ -21,7 +21,7 @@ export default function Hero() {
           Protecting the environment and promoting sustainability in the Soudah region using Artificial Intelligence.
         </p>
          <a
-          href="/reports"
+          href="/reportForm"
           className="btn btn-danger btn-lg mt-3"
           style={{ backgroundColor: "#680707ff" }}
         >Create Report</a>

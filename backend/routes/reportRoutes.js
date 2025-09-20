@@ -10,19 +10,17 @@ const router = express.Router();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadDir = 'uploads/';
-    // التأكد من وجود مجلد التحميل
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-    // إنشاء اسم فريد للملف
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
   }
 });
-// تصفية الملفات للسماح بالصور فقط
+
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image/')) {
     cb(null, true);
@@ -40,7 +38,7 @@ const upload = multer({
 });
 
 
-// ميدل وير للتحقق من المستخدم
+
 function authMiddleware(req, res, next) {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).json({ error: "No token provided" });
@@ -54,7 +52,7 @@ function authMiddleware(req, res, next) {
   }
 }
 
-// إنشاء بلاغ جديد
+
 router.post("/create", authMiddleware, upload.single("image"), async (req, res) => {
   try {
     const { description, location } = req.body;
@@ -79,7 +77,7 @@ router.post("/create", authMiddleware, upload.single("image"), async (req, res) 
 });
 
 
-// عرض كل البلاغات (للموظفين)
+
 router.get("/list", authMiddleware, async (req, res) => {
   try {
     if (req.user.role !== "employee") return res.status(403).json({ error: "Access denied" });

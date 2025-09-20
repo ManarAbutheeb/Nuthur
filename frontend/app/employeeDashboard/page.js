@@ -1,6 +1,9 @@
 "use client";
+import WeatherWidget from "../../components/WeatherWidget";
 
 export default function EmployeeDashboard() {
+
+
   return (
     <div style={{
       display: "flex",
@@ -8,16 +11,17 @@ export default function EmployeeDashboard() {
       minHeight: "100vh", // يملأ كامل ارتفاع الصفحة
       justifyContent: "space-between"
     }}>
-      
+
+ <WeatherWidget />
       {/* الجزء العلوي - المحتوى الرئيسي */}
-      <div style={{ textAlign: "center", paddingTop: "100px" }}>
-        <h1>Welcome, Employee!</h1>
+      <div style={{ textAlign: "center" }}>
+        <h1>Welcome Back, Employee!</h1>
         <button
           onClick={() => window.location.href = "/employeeReport"}
           style={{
             padding: "10px 20px",
             fontSize: "16px",
-            backgroundColor: "#007bff",
+            backgroundColor: "#628665ff",
             color: "white",
             border: "none",
             borderRadius: "5px",
@@ -28,7 +32,7 @@ export default function EmployeeDashboard() {
         </button>
       </div>
 
-      {/* Footer في أسفل الصفحة */}
+
       <footer >
        
       </footer>

@@ -1,5 +1,4 @@
 import React from 'react';
-import backgroundImage from '../public/Visual Branding.jpg'; 
 
 export default function Features() {
   const features = [

@@ -1,72 +1,67 @@
 const express = require("express");
-const FireReport = require("../models/report");
+const Report = require("../models/report");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const authMiddleware = require("../middleware/authMiddleware"); // 👈 استدعاء 
+
 const router = express.Router();
 
-
+// إعداد التخزين للصور
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadDir = 'uploads/';
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
+    const uploadDir = "uploads/";
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
+  },
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image/')) {
-    cb(null, true);
-  } else {
-    cb(new Error('يسمح برفع الصور فقط!'), false);
-  }
+  if (file.mimetype.startsWith("image/")) cb(null, true);
+  else cb(new Error("يسمح برفع الصور فقط!"), false);
 };
 
-const upload = multer({ 
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: {
-    fileSize: 5 * 1024 * 1024 // الحد الأقصى لحجم الملف: 5MB
-  }
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
+// Middleware للتحقق من JWT
+// function authMiddleware(req, res, next) {
+//   const token = req.headers.authorization?.split(" ")[1];
+//   if (!token) return res.status(401).json({ error: "No token provided" });
 
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     req.user = decoded;
+//     next();
+//   } catch (err) {
+//     res.status(401).json({ error: "Invalid token" });
+//   }
+// }
 
-function authMiddleware(req, res, next) {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) return res.status(401).json({ error: "No token provided" });
+/* ============================
+        ROUTES
+============================ */
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    res.status(401).json({ error: "Invalid token" });
-  }
-}
-
-
-router.post("/create", authMiddleware, upload.single("image"), async (req, res) => {
+// 1. إنشاء تقرير
+router.post("/", authMiddleware, upload.single("image"), async (req, res) => {
   try {
     const { description, location } = req.body;
+    const imagePath = req.file ? req.file.path : null;
 
-    let imagePath = null;
-    if (req.file) {
-      imagePath = req.file.path;
-    }
-
-    const report = new FireReport({
+    const report = new Report({
       user: req.user.id,
       description,
       location,
       image: imagePath,
+      status: "pending",
     });
 
     await report.save();
@@ -76,56 +71,55 @@ router.post("/create", authMiddleware, upload.single("image"), async (req, res) 
   }
 });
 
-
-
-router.get("/list", authMiddleware, async (req, res) => {
+// 2. جلب كل التقارير
+router.get("/", authMiddleware, async (req, res) => {
   try {
-    if (req.user.role !== "employee") return res.status(403).json({ error: "Access denied" });
-    const reports = await FireReport.find().populate("user", "name email");
+    const reports = await Report.find().populate("user", "name email");
     res.json(reports);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-router.put("/update/:id", authMiddleware, async (req, res) => {
+// 3. تحديث حالة التقرير
+router.put("/:id/status", authMiddleware, async (req, res) => {
   try {
+    const { status } = req.body;
+    if (!["pending", "approved", "rejected"].includes(status)) {
+      return res.status(400).json({ error: "Invalid status" });
+    }
 
-    const reportId = req.params.id.trim();
-    
-
-    const report = await FireReport.findByIdAndUpdate(
-      reportId,
-      { status: req.body.status },
+    const report = await Report.findByIdAndUpdate(
+      req.params.id,
+      { status },
       { new: true }
     );
-    
 
-    if (!report) {
-      return res.status(404).json({ error: "Report not found" });
-    }
-    
+    if (!report) return res.status(404).json({ error: "Report not found" });
+
     res.json(report);
   } catch (err) {
-    if (err.name === 'CastError') {
-      return res.status(400).json({ error: "Invalid report ID format" });
-    }
-    
-    // معالجة الأخطاء العامة
     res.status(500).json({ error: err.message });
   }
 });
 
+// 4. جلب صورة التقرير
 router.get("/image/:filename", (req, res) => {
   const filename = req.params.filename;
-  const imagePath = path.join(__dirname, '../uploads', filename);
-  
-  // التحقق من وجود الملف
-  if (!fs.existsSync(imagePath)) {
-    return res.status(404).json({ error: "Image not found" });
-  }
-  
+  const imagePath = path.join(__dirname, "../uploads", filename);
+
+  if (!fs.existsSync(imagePath)) return res.status(404).json({ error: "Image not found" });
+
   res.sendFile(imagePath);
 });
 
 module.exports = router;
+// // جلب جميع التقارير
+// router.get("/", async (req, res) => {
+//   try {
+//     const reports = await Report.find().populate("user", "name email");
+//     res.json(reports);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });

@@ -1,0 +1,19 @@
+/* [project]/Downloads/Nuthur/frontend/app/style/globals.css [app-client] (css) */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.fire-gradient {
+  background: linear-gradient(90deg, #510202, #51200f);
+}
+
+.forest-gradient {
+  background: linear-gradient(90deg, #006400, #68c168);
+}
+
+.bg-fire {
+  background-color: #680707 !important;
+}
+
+/*# sourceMappingURL=Downloads_Nuthur_frontend_app_style_globals_css_bad6b30c._.single.css.map*/

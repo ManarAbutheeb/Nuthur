@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Downloads/Nuthur/frontend/app/style/globals.css"],"sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: Arial, sans-serif;\r\n}\r\n.fire-gradient {\r\n  background: linear-gradient(90deg, #510202, #51200f);\r\n}\r\n.forest-gradient {\r\n  background: linear-gradient(90deg, #006400, #68c168);\r\n}\r\n.bg-fire {\r\n  background-color: #680707ff !important;\r\n}\r\n"],"names":[],"mappings":"AAAA;;;;;AAIA;;;;AAGA;;;;AAGA"}}]
+}

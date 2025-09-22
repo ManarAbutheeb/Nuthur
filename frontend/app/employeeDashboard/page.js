@@ -17,7 +17,7 @@ export default function EmployeeDashboard() {
       <div style={{ textAlign: "center" }}>
         <h1>Welcome Back, Employee!</h1>
         <button
-          onClick={() => window.location.href = "/employeeReport"}
+          onClick={() => window.location.href = "/employee/reports"}
           style={{
             padding: "10px 20px",
             fontSize: "16px",

@@ -21,7 +21,7 @@ function LogInPage() {
         e.preventDefault();
         setError("");
         try {
-            const res = await fetch("http://localhost:5000/auth/login", {
+            const res = await fetch("http://localhost:5000/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -42,7 +42,7 @@ function LogInPage() {
                 if (role === "employee") {
                     window.location.href = "/employeeDashboard";
                 } else {
-                    window.location.href = "/"; // إذا هذه صفحة Next
+                    window.location.href = "/volunteerDashboard"; // إذا هذه صفحة Next
                 }
             } else {
                 setError(data.error || "Invalid credentials");

@@ -20,6 +20,12 @@ export default function Hero() {
         <p className="lead mt-3">
           Protecting the environment and promoting sustainability in the Soudah region using Artificial Intelligence.
         </p>
+          <a
+          href="/reportForm"
+          className="btn btn-danger btn-lg mt-3"
+          style={{ backgroundColor: "#680707ff" }}
+        >My Report</a>
+        <p></p>
          <a
           href="/reportForm"
           className="btn btn-danger btn-lg mt-3"

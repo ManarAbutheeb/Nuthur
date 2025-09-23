@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function EmployeeReports() {
   const [allReports, setAllReports] = useState([]);
@@ -73,7 +74,7 @@ export default function EmployeeReports() {
           style={{ padding: "5px 10px", margin: "0 5px", fontSize: "14px" }}
         >
           <option value="All">All Statuses</option>
-          <option value="approved">Approved</option>
+          <option value="resolved">resolved</option>
           <option value="rejected">Rejected</option>
           <option value="pending">Pending</option>
         </select>
@@ -95,7 +96,7 @@ export default function EmployeeReports() {
                 width: "300px",
                 boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
                 backgroundColor:
-                  report.status === "approved" ? "#d4edda" :
+                  report.status === "resolved" ? "#d4edda" :
                   report.status === "rejected" ? "#f8d7da" :
                   "#fff3cd",
                 transition: "transform 0.2s"
@@ -112,19 +113,20 @@ export default function EmployeeReports() {
               </p>
 
               {/* صورة البلاغ */}
-              {report.image && (
-                <img
-                  src={`http://localhost:5000/api/reports/image/${report.image.split("/").pop()}`}
-                  alt="report"
-                  width="100%"
-                  style={{ borderRadius: "5px", marginTop: "10px" }}
-                />
-              )}
+      
+  <img
+    src={`http://localhost:5000/api/reports/image/${report.image.split("\\").pop().split("/").pop()}`} 
+    alt="report"
+    width="100%"
+    style={{ borderRadius: "5px", marginTop: "10px" }}
+  />
+
+
 
               {/* أزرار التحكم */}
               <div style={{ marginTop: "10px" }}>
                 <button
-                  onClick={() => updateStatus(report._id, "approved")}
+                  onClick={() => updateStatus(report._id, "resolved")}
                   style={{ margin: "5px 5px 0 0", padding: "5px 10px", borderRadius: "4px", cursor: "pointer", backgroundColor: "#28a745", color: "white", border: "none", fontSize: "13px" }}
                 >
                   Approve

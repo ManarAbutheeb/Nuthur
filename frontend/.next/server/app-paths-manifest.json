@@ -1,7 +1,6 @@
 {
   "/employee/reports/page": "app/employee/reports/page.js",
   "/employeeDashboard/page": "app/employeeDashboard/page.js",
-  "/employeeReport/page": "app/employeeReport/page.js",
   "/log-in/page": "app/log-in/page.js",
   "/page": "app/page.js",
   "/reportForm/page": "app/reportForm/page.js",

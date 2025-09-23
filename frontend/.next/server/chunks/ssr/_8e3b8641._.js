@@ -158,7 +158,7 @@ function ReportPage() {
             if (imageFile) {
                 formData.append("image", imageFile);
             }
-            const res = await fetch("http://localhost:5000/reports/create", {
+            const res = await fetch("http://localhost:5000/api/reports/create", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`

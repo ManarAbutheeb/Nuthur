@@ -52,7 +52,7 @@ if (res.ok) {
         <div className="mb-3">
           <label className="form-label">Email</label>
           <input
-            type="email" // غيري type إلى email
+            type="email" 
             className="form-control"
             placeholder="Enter your email"
             value={email}

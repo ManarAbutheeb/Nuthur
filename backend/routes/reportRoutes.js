@@ -32,26 +32,9 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
-// Middleware للتحقق من JWT
-// function authMiddleware(req, res, next) {
-//   const token = req.headers.authorization?.split(" ")[1];
-//   if (!token) return res.status(401).json({ error: "No token provided" });
-
-//   try {
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     req.user = decoded;
-//     next();
-//   } catch (err) {
-//     res.status(401).json({ error: "Invalid token" });
-//   }
-// }
-
-/* ============================
-        ROUTES
-============================ */
 
 // 1. إنشاء تقرير
-router.post("/", authMiddleware, upload.single("image"), async (req, res) => {
+router.post("/create", authMiddleware, upload.single("image"), async (req, res) => {
   try {
     const { description, location } = req.body;
     const imagePath = req.file ? req.file.path : null;
@@ -85,7 +68,7 @@ router.get("/", authMiddleware, async (req, res) => {
 router.put("/:id/status", authMiddleware, async (req, res) => {
   try {
     const { status } = req.body;
-    if (!["pending", "approved", "rejected"].includes(status)) {
+    if (!["pending", "resolved", "rejected"].includes(status)) {
       return res.status(400).json({ error: "Invalid status" });
     }
 
@@ -114,12 +97,3 @@ router.get("/image/:filename", (req, res) => {
 });
 
 module.exports = router;
-// // جلب جميع التقارير
-// router.get("/", async (req, res) => {
-//   try {
-//     const reports = await Report.find().populate("user", "name email");
-//     res.json(reports);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });

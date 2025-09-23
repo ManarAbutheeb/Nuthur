@@ -13,19 +13,19 @@ const fireReportSchema = new mongoose.Schema({
 
 module.exports = mongoose.model("FireReport", fireReportSchema);
 
-
+//ماادري ليه مسويه سكيما جديده ماينفع
 // models/Report.js
 
-const reportSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  description: { type: String, required: true },
-  status: {
-    type: String,
-    enum: ["pending", "approved", "rejected"],
-    default: "pending",
-  },
-  createdAt: { type: Date, default: Date.now },
-});
+// const reportSchema = new mongoose.Schema({
+//   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+//   description: { type: String, required: true },
+//   status: {
+//     type: String,
+//     enum: ["pending", "approved", "rejected"],
+//     default: "pending",
+//   },
+//   createdAt: { type: Date, default: Date.now },
+// });
 
-module.exports = mongoose.model("Report", reportSchema);
+// module.exports = mongoose.model("Report", reportSchema);
 

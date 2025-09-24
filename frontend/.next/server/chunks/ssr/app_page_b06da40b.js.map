@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Admin/OneDrive%20-%20Imam%20university/Desktop/Nuthur/frontend/app/page.js"],"sourcesContent":["\"use client\";\r\n\r\nimport Hero from \"../../components/Hero\";\r\nimport Features from \"../../components/Features\";\r\nimport WeatherWidget from \"../../components/WeatherWidget\";\r\nexport default function HomePage() {\r\n\r\n  return (\r\n    <>\r\n    <WeatherWidget />\r\n      <Hero />\r\n      <Features />\r\n    </>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;AAAA;;;;;AAKe,SAAS;IAEtB,qBACE;;0BACA,8OAAC;;;;;0BACC,8OAAC;;;;;0BACD,8OAAC;;;;;;;AAGP","debugId":null}}]
+}

@@ -21,13 +21,13 @@ export default function Hero() {
           Protecting the environment and promoting sustainability in the Soudah region using Artificial Intelligence.
         </p>
           <a
-          href="/reportForm"
+          href="Volunteer/MyReports"
           className="btn btn-danger btn-lg mt-3"
           style={{ backgroundColor: "#680707ff" }}
         >My Report</a>
         <p></p>
          <a
-          href="/reportForm"
+          href="Volunteer/reportForm"
           className="btn btn-danger btn-lg mt-3"
           style={{ backgroundColor: "#680707ff" }}
         >Create Report</a>

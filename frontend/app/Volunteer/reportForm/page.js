@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 // Import map dynamically without SSR
-const ReportMap = dynamic(() => import("../../components/MapComponent"), {
+const ReportMap = dynamic(() => import("../../../components/MapComponent"), {
   ssr: false,
 });
 

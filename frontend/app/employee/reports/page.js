@@ -104,14 +104,19 @@ export default function EmployeeReports() {
               onMouseEnter={e => e.currentTarget.style.transform = "translateY(-5px)"}
               onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
             >
-              <h3 style={{ margin: "0 0 10px 0", fontSize: "18px", color: "#555" }}>
-                {report.user?.name} ({report.user?.email})
-              </h3>
-              <p style={{ margin: "5px 0", fontSize: "14px", color: "#666" }}>Description: {report.description}</p>
+                 <h6 className="card-title text-truncate mb-0">
+            Report #{report._id.slice(-6)}
+          </h6>
+          
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#666" }}><strong>Volunteer Name:</strong> {report.user?.name}</p>
+                 <p style={{ margin: "5px 0", fontSize: "14px", color: "#666" }}><strong>Email:</strong> {report.user?.email}</p>
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#666" }}><strong>Description:</strong> {report.description}</p>
+               <p style={{ margin: "5px 0", fontSize: "14px", color: "#666" }}><strong>Location: </strong>{report.location?.lat?.toFixed(4)}, {report.location?.lng?.toFixed(4)}</p>
+                <p style={{ margin: "5px 0", fontSize: "14px", color: "#666" }}><strong>Created At: </strong> {new Date(report.createdAt).toLocaleDateString()}</p>
               <p style={{ margin: "5px 0", fontSize: "14px", color: "#666" }}>
-                Status: <span style={{ fontWeight: "bold" }}>{report.status}</span>
+                <span style={{ fontWeight: "bold" }}> Status: {report.status}</span>
               </p>
-
+               
               {/* صورة البلاغ */}
       
   <img

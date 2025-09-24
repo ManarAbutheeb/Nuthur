@@ -1,9 +1,12 @@
 {
+  "/Volunteer/MyReports/page": "app/Volunteer/MyReports/page.js",
+  "/Volunteer/reportForm/page": "app/Volunteer/reportForm/page.js",
+  "/Volunteer/volunteerDashboard/page": "app/Volunteer/volunteerDashboard/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/employee/reports/page": "app/employee/reports/page.js",
   "/employeeDashboard/page": "app/employeeDashboard/page.js",
+  "/forgot-password/page": "app/forgot-password/page.js",
   "/log-in/page": "app/log-in/page.js",
   "/page": "app/page.js",
-  "/reportForm/page": "app/reportForm/page.js",
-  "/sign-in/page": "app/sign-in/page.js",
-  "/volunteerDashboard/page": "app/volunteerDashboard/page.js"
+  "/sign-in/page": "app/sign-in/page.js"
 }

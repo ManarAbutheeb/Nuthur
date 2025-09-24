@@ -177,22 +177,16 @@ function EmployeeReports() {
                         onMouseEnter: (e)=>e.currentTarget.style.transform = "translateY(-5px)",
                         onMouseLeave: (e)=>e.currentTarget.style.transform = "translateY(0)",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                style: {
-                                    margin: "0 0 10px 0",
-                                    fontSize: "18px",
-                                    color: "#555"
-                                },
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h6", {
+                                className: "card-title text-truncate mb-0",
                                 children: [
-                                    report.user?.name,
-                                    " (",
-                                    report.user?.email,
-                                    ")"
+                                    "Report #",
+                                    report._id.slice(-6)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/employee/reports/page.js",
                                 lineNumber: 107,
-                                columnNumber: 15
+                                columnNumber: 18
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 style: {
@@ -201,36 +195,132 @@ function EmployeeReports() {
                                     color: "#666"
                                 },
                                 children: [
-                                    "Description: ",
-                                    report.description
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/employee/reports/page.js",
-                                lineNumber: 110,
-                                columnNumber: 15
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                style: {
-                                    margin: "5px 0",
-                                    fontSize: "14px",
-                                    color: "#666"
-                                },
-                                children: [
-                                    "Status: ",
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        style: {
-                                            fontWeight: "bold"
-                                        },
-                                        children: report.status
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Volunteer Name:"
                                     }, void 0, false, {
                                         fileName: "[project]/app/employee/reports/page.js",
-                                        lineNumber: 112,
-                                        columnNumber: 25
-                                    }, this)
+                                        lineNumber: 111,
+                                        columnNumber: 79
+                                    }, this),
+                                    " ",
+                                    report.user?.name
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/employee/reports/page.js",
                                 lineNumber: 111,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                style: {
+                                    margin: "5px 0",
+                                    fontSize: "14px",
+                                    color: "#666"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Email:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/employee/reports/page.js",
+                                        lineNumber: 112,
+                                        columnNumber: 82
+                                    }, this),
+                                    " ",
+                                    report.user?.email
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/employee/reports/page.js",
+                                lineNumber: 112,
+                                columnNumber: 18
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                style: {
+                                    margin: "5px 0",
+                                    fontSize: "14px",
+                                    color: "#666"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Description:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/employee/reports/page.js",
+                                        lineNumber: 113,
+                                        columnNumber: 79
+                                    }, this),
+                                    " ",
+                                    report.description
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/employee/reports/page.js",
+                                lineNumber: 113,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                style: {
+                                    margin: "5px 0",
+                                    fontSize: "14px",
+                                    color: "#666"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Location: "
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/employee/reports/page.js",
+                                        lineNumber: 114,
+                                        columnNumber: 80
+                                    }, this),
+                                    report.location?.lat?.toFixed(4),
+                                    ", ",
+                                    report.location?.lng?.toFixed(4)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/employee/reports/page.js",
+                                lineNumber: 114,
+                                columnNumber: 16
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                style: {
+                                    margin: "5px 0",
+                                    fontSize: "14px",
+                                    color: "#666"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Created At: "
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/employee/reports/page.js",
+                                        lineNumber: 115,
+                                        columnNumber: 81
+                                    }, this),
+                                    " ",
+                                    new Date(report.createdAt).toLocaleDateString()
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/employee/reports/page.js",
+                                lineNumber: 115,
+                                columnNumber: 17
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                style: {
+                                    margin: "5px 0",
+                                    fontSize: "14px",
+                                    color: "#666"
+                                },
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    style: {
+                                        fontWeight: "bold"
+                                    },
+                                    children: [
+                                        " Status: ",
+                                        report.status
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/employee/reports/page.js",
+                                    lineNumber: 117,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/employee/reports/page.js",
+                                lineNumber: 116,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -243,7 +333,7 @@ function EmployeeReports() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/app/employee/reports/page.js",
-                                lineNumber: 117,
+                                lineNumber: 122,
                                 columnNumber: 3
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -266,7 +356,7 @@ function EmployeeReports() {
                                         children: "Approve"
                                     }, void 0, false, {
                                         fileName: "[project]/app/employee/reports/page.js",
-                                        lineNumber: 128,
+                                        lineNumber: 133,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -284,7 +374,7 @@ function EmployeeReports() {
                                         children: "Reject"
                                     }, void 0, false, {
                                         fileName: "[project]/app/employee/reports/page.js",
-                                        lineNumber: 134,
+                                        lineNumber: 139,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -302,13 +392,13 @@ function EmployeeReports() {
                                         children: "Pending"
                                     }, void 0, false, {
                                         fileName: "[project]/app/employee/reports/page.js",
-                                        lineNumber: 140,
+                                        lineNumber: 145,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/employee/reports/page.js",
-                                lineNumber: 127,
+                                lineNumber: 132,
                                 columnNumber: 15
                             }, this)
                         ]

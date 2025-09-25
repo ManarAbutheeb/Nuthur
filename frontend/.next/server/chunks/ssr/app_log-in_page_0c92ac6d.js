@@ -42,7 +42,8 @@ function LogInPage() {
                 if (role === "employee") {
                     window.location.href = "/employeeDashboard";
                 } else {
-                    window.location.href = "/Volunteer/volunteerDashboard"; // إذا هذه صفحة Next
+                    // window.location.href = "/Volunteer/volunteerDashboard"; // إذا هذه صفحة Next
+                    window.location.href = "/";
                 }
             } else {
                 setError(data.error || "Invalid credentials");
@@ -60,7 +61,7 @@ function LogInPage() {
                 children: "Log In"
             }, void 0, false, {
                 fileName: "[project]/app/log-in/page.js",
-                lineNumber: 50,
+                lineNumber: 51,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -75,7 +76,7 @@ function LogInPage() {
                                 children: "Email"
                             }, void 0, false, {
                                 fileName: "[project]/app/log-in/page.js",
-                                lineNumber: 53,
+                                lineNumber: 54,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -87,13 +88,13 @@ function LogInPage() {
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/app/log-in/page.js",
-                                lineNumber: 54,
+                                lineNumber: 55,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/log-in/page.js",
-                        lineNumber: 52,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -104,7 +105,7 @@ function LogInPage() {
                                 children: "Password"
                             }, void 0, false, {
                                 fileName: "[project]/app/log-in/page.js",
-                                lineNumber: 64,
+                                lineNumber: 65,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -116,13 +117,13 @@ function LogInPage() {
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/app/log-in/page.js",
-                                lineNumber: 65,
+                                lineNumber: 66,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/log-in/page.js",
-                        lineNumber: 63,
+                        lineNumber: 64,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -131,7 +132,7 @@ function LogInPage() {
                         children: "Log In"
                     }, void 0, false, {
                         fileName: "[project]/app/log-in/page.js",
-                        lineNumber: 74,
+                        lineNumber: 75,
                         columnNumber: 9
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -139,7 +140,7 @@ function LogInPage() {
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/app/log-in/page.js",
-                        lineNumber: 77,
+                        lineNumber: 78,
                         columnNumber: 19
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -150,24 +151,24 @@ function LogInPage() {
                             children: "Forgot Password?"
                         }, void 0, false, {
                             fileName: "[project]/app/log-in/page.js",
-                            lineNumber: 79,
+                            lineNumber: 80,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/log-in/page.js",
-                        lineNumber: 78,
+                        lineNumber: 79,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/log-in/page.js",
-                lineNumber: 51,
+                lineNumber: 52,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/log-in/page.js",
-        lineNumber: 49,
+        lineNumber: 50,
         columnNumber: 5
     }, this);
 }

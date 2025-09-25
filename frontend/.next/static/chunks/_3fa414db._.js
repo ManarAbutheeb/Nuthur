@@ -40,23 +40,6 @@ function Hero() {
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                    href: "Volunteer/MyReports",
-                    className: "btn btn-danger btn-lg mt-3",
-                    style: {
-                        backgroundColor: "#680707ff"
-                    },
-                    children: "My Report"
-                }, void 0, false, {
-                    fileName: "[project]/components/Hero.js",
-                    lineNumber: 23,
-                    columnNumber: 11
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {}, void 0, false, {
-                    fileName: "[project]/components/Hero.js",
-                    lineNumber: 28,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                     href: "Volunteer/reportForm",
                     className: "btn btn-danger btn-lg mt-3",
                     style: {
@@ -65,12 +48,12 @@ function Hero() {
                     children: "Create Report"
                 }, void 0, false, {
                     fileName: "[project]/components/Hero.js",
-                    lineNumber: 29,
+                    lineNumber: 24,
                     columnNumber: 10
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {}, void 0, false, {
                     fileName: "[project]/components/Hero.js",
-                    lineNumber: 34,
+                    lineNumber: 29,
                     columnNumber: 1
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -82,7 +65,7 @@ function Hero() {
                     children: "Discover Features"
                 }, void 0, false, {
                     fileName: "[project]/components/Hero.js",
-                    lineNumber: 35,
+                    lineNumber: 30,
                     columnNumber: 9
                 }, this)
             ]

@@ -1,0 +1,6 @@
+pytorch-tabnet
+torch
+pandas
+scikit-learn
+joblib
+numpy

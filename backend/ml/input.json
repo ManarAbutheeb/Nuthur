@@ -1,0 +1,15 @@
+{
+  "day": 11,
+  "month": 10,
+  "year": 2025,
+  "Temperature": 42,
+  "RH": 15,
+  "Ws": 25,
+  "Rain": 0,
+  "FFMC": 95,
+  "DMC": 60,
+  "DC": 400,
+  "ISI": 20,
+  "BUI": 90,
+  "FWI": 35
+}

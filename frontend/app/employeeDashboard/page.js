@@ -3,8 +3,9 @@ import WeatherWidget from "../../components/WeatherWidget";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import { useTranslation } from "react-i18next";
 export default function EmployeeDashboard() {
+   const { t } = useTranslation();
   const [userData, setUserData] = useState(null);
   const router = useRouter();
 
@@ -17,11 +18,11 @@ export default function EmployeeDashboard() {
     }
 
     const userData = {
-      name: localStorage.getItem("userName") || "User",
+      name: localStorage.getItem("userName") || t("User"),
     };
 
     setUserData(userData);
-  }, [router]);
+  }, [router,t]);
 
   return (
     <div style={{
@@ -48,7 +49,7 @@ export default function EmployeeDashboard() {
     display: "inline-block",
   }}
 >
-  Check weather
+   {t("Check weather")}
 </Link>
 <p></p>
         <Link

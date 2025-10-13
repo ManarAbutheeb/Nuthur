@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { useTranslation } from "react-i18next";
+import i18n from "../../../i18n"; 
 
 // Import map dynamically without SSR
 const ReportMap = dynamic(() => import("../../../components/MapComponent"), {
@@ -8,6 +10,8 @@ const ReportMap = dynamic(() => import("../../../components/MapComponent"), {
 });
 
 export default function ReportPage() {
+  const { t } = useTranslation();
+
   const [description, setDescription] = useState("");
   const [position, setPosition] = useState(null);
   const [imageFile, setImageFile] = useState(null);
@@ -26,13 +30,13 @@ export default function ReportPage() {
   const locateUser = (isInitial = false) => {
     if (navigator.geolocation) {
       setIsLocating(true);
-      setMessage("📍 Detecting your location with high accuracy...");
+      setMessage(t(" Detecting your location with high accuracy..."));
       setLocationMethod("auto");
       
       const options = {
-        enableHighAccuracy: true, // Use GPS for better accuracy
-        timeout: 20000, // Increase timeout to 20 seconds
-        maximumAge: 0 // Don't use cached positions
+        enableHighAccuracy: true, 
+        timeout: 20000, 
+        maximumAge: 0 
       };
 
       const watchId = navigator.geolocation.watchPosition(
@@ -44,32 +48,20 @@ export default function ReportPage() {
           setPosition(newPos);
           setLocationAccuracy(accuracy);
           
-          // Stop watching once we get accurate enough position
-          if (accuracy < 50) { // Wait for accuracy better than 50 meters
-            navigator.geolocation.clearWatch(watchId);
-            setIsLocating(false);
-            
-            if (accuracy > 30) {
-              setMessage(` Location detected (Accuracy: ${Math.round(accuracy)}m)`);
-            } else {
-              setMessage(" Location detected with high accuracy");
-            }
-          } else {
-            setMessage(` Improving accuracy... Current: ${Math.round(accuracy)}m`);
-          }
         },
         (err) => {
           navigator.geolocation.clearWatch(watchId);
           console.error("Error getting location: ", err);
-          let errorMessage = " Could not get your current location";
-          
+            let errorMessage = t("❌ Could not get your current location");
+
           if (err.code === err.PERMISSION_DENIED) {
-            errorMessage = " Location access denied. Please allow location access in your browser settings.";
+            errorMessage = t("❌ Location access denied. Please allow location access in your browser settings.");
           } else if (err.code === err.TIMEOUT) {
-            errorMessage = " Location request timed out. Please try again.";
+            errorMessage = t("❌ Location request timed out. Please try again.");
           } else if (err.code === err.POSITION_UNAVAILABLE) {
-            errorMessage = " Location information unavailable. Please enable GPS and check your internet connection.";
+            errorMessage = t("❌ Location information unavailable. Please enable GPS and check your internet connection.");
           }
+
           
           setMessage(errorMessage);
           setIsLocating(false);
@@ -81,16 +73,16 @@ export default function ReportPage() {
         options
       );
 
-      // Fallback timeout
-      setTimeout(() => {
+    
+       setTimeout(() => {
         navigator.geolocation.clearWatch(watchId);
         if (isLocating) {
           setIsLocating(false);
-          setMessage("⚠️ Location detection taking longer than expected. You can manually select your location on the map.");
+          setMessage(t(" Location detection taking longer than expected. You can manually select your location on the map."));
         }
       }, 25000);
     } else {
-      setMessage("❌ Browser does not support geolocation");
+      setMessage(t(" Browser does not support geolocation"));
       setIsLocating(false);
     }
   };
@@ -99,18 +91,18 @@ export default function ReportPage() {
     setPosition(newPosition);
     setLocationMethod("manual");
     setLocationAccuracy(5); // Manual selection has high accuracy
-    setMessage("📍 Location selected manually on map");
+    setMessage(t("📍 Location selected manually on map"));
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
+   if (file) {
       if (!file.type.startsWith("image/")) {
-        setMessage("❌ Only images are allowed!");
+        setMessage(t(" Only images are allowed!"));
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
-        setMessage("❌ Image size must be less than 5MB!");
+        setMessage(t(" Image size must be less than 5MB!"));
         return;
       }
 
@@ -128,15 +120,16 @@ const handleSetAlsoudah = () => {
     setPosition([18.2677778, 42.3702778]);
     setMessage(" Default location (Alsoudah) selected");
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!position) {
-      setMessage(" Please select a location on the map");
+      setMessage(t("❌ Please select a location on the map"));
       return;
     }
     
-    // Show accuracy warning if location is not accurate
-    if (locationAccuracy > 100 && locationMethod === "auto") {
+
+     if (locationAccuracy > 100 && locationMethod === "auto") {
       if (!confirm(`Your location accuracy is ${Math.round(locationAccuracy)} meters. This might not be precise. Do you want to continue?`)) {
         return;
       }
@@ -147,12 +140,12 @@ const handleSetAlsoudah = () => {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) {
-        setMessage("⚠️ Please log in first");
+        setMessage(t(" Please log in first"));
         setIsSubmitting(false);
         return;
       }
 
-      // Create FormData
+     
       const formData = new FormData();
       formData.append("description", description);
       formData.append("location[lat]", position[0].toString());
@@ -173,7 +166,7 @@ const handleSetAlsoudah = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setMessage("✅ Report submitted successfully!");
+        setMessage(t(" Report submitted successfully!"));
         setDescription("");
         setPosition(null);
         setImageFile(null);
@@ -182,11 +175,11 @@ const handleSetAlsoudah = () => {
           window.location.href = "/";
         }, 2000);
       } else {
-        setMessage(data.error || data.message || "❌ Failed to submit report");
+        setMessage(data.error || data.message || t(" Failed to submit report"));
       }
     } catch (error) {
       console.error("Submission error:", error);
-      setMessage("🚨 Server error, please try again later");
+      setMessage(t(" Server error, please try again later"));
     } finally {
       setIsSubmitting(false);
     }
@@ -194,15 +187,15 @@ const handleSetAlsoudah = () => {
 
   return (
     <div className="container py-5">
-      <h1 className="mb-4 text-danger">Submit a New Report</h1>
+      <h1 className="mb-4 text-danger">{t("Submit a New Report")}</h1>
 
       <form className="w-75 mx-auto" onSubmit={handleSubmit} encType="multipart/form-data">
-        {/* Description */}
+       
         <div className="mb-3">
-          <label className="form-label">Description</label>
+          <label className="form-label">{t("Description")}</label>
           <textarea
             className="form-control"
-            placeholder="Write your report details here..."
+            placeholder={t("Write your report details here...")}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
@@ -210,10 +203,10 @@ const handleSetAlsoudah = () => {
           />
         </div>
 
-        {/* Map */}
+       
         <div className="mb-3">
           <div className="d-flex justify-content-between align-items-center mb-2">
-            <label className="form-label mb-0">Select Location on Map</label>
+            <label className="form-label mb-0">{t("Select Location on Map")}</label>
             <div>
                <button
               type="button"
@@ -227,21 +220,18 @@ const handleSetAlsoudah = () => {
                 className="btn btn-outline-secondary"
                 onClick={() => {
                   setPosition(null);
-                  setMessage("Location selection cleared");
-                }}
+                setMessage(t("Location selection cleared")); }}
                 disabled={!position}
               >
-                ❌ Clear Selection
+                 {t("Clear Selection")}
               </button>
             </div>
           </div>
           
           <div className="alert alert-info mb-2">
-            <small>
-              💡 <strong>Tip:</strong> For best accuracy, enable GPS and use Wi-Fi. 
-              If automatic detection is not precise, click directly on the map to select your exact location.
-            </small>
+            <small>{t("For best accuracy, enable GPS and use Wi-Fi. If automatic detection is not precise, click directly on the map to select your exact location.")}</small>
           </div>
+
           
           <ReportMap
             userLocation={userLocation}
@@ -252,10 +242,10 @@ const handleSetAlsoudah = () => {
           
           {position && (
             <div className="form-text mt-2">
-              <strong>Selected Location:</strong> {position[0].toFixed(6)}, {position[1].toFixed(6)}
+             <strong>{t("Selected Location:")}</strong> {position[0].toFixed(6)}, {position[1].toFixed(6)}
               {locationAccuracy && (
                 <span className="ms-2 text-muted">
-                  (Accuracy: {Math.round(locationAccuracy)}m - {locationMethod === "auto" ? "Auto-detected" : "Manual selection"})
+                  ({t(locationMethod === "auto" ? "Auto-detected" : "Manual selection")}, {Math.round(locationAccuracy)}m)
                 </span>
               )}
             </div>
@@ -264,7 +254,7 @@ const handleSetAlsoudah = () => {
 
         {/* Image upload */}
         <div className="mb-3">
-          <label className="form-label">Report Image</label>
+          <label className="form-label">{t("Report Image")}</label>
           <input
             type="file"
             className="form-control"
@@ -272,13 +262,13 @@ const handleSetAlsoudah = () => {
             onChange={handleImageChange}
             name="image"
           />
-          <div className="form-text">Only images are allowed (Max size: 5MB)</div>
+          <div className="form-text">{t("Only images are allowed (Max size: 5MB)")}</div>
         </div>
 
-        {/* Image preview */}
+        
         {imagePreview && (
           <div className="mb-3">
-            <label className="form-label">Image Preview:</label>
+            <label className="form-label">{t("Image Preview:")}</label>
             <div>
               <img
                 src={imagePreview}
@@ -290,13 +280,13 @@ const handleSetAlsoudah = () => {
           </div>
         )}
 
-        {/* Submit */}
+        
         <button
           type="submit"
           className="btn btn-danger w-100"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Submitting..." : "Submit Report"}
+           {isSubmitting ? t("Submitting...") : t("Submit Report")}
         </button>
 
      

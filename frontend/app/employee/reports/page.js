@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
+import { useTranslation } from "react-i18next";
 export default function EmployeeReports() {
+   const { t } = useTranslation();
   const [allReports, setAllReports] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
@@ -57,17 +58,17 @@ export default function EmployeeReports() {
     (statusFilter === "All" || r.status === statusFilter)
   );
 
-  if (loading) return <p>Loading...</p>;
+   if (loading) return <p>{t("1")}</p>;
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f4f4f9", padding: "20px", minHeight: "100vh" }}>
-      <h1 style={{ textAlign: "center", color: "#333" }}>Employee - Volunteer Reports Dashboard</h1>
+        <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f4f4f9", padding: "20px", minHeight: "100vh" }}>
+      <h1 style={{ textAlign: "center", color: "#333" }}>{t("2")}</h1>
 
 
       <div style={{ textAlign: "center", marginBottom: "20px" }}>
         <input
           type="text"
-          placeholder="Search by volunteer name..."
+          placeholder={t("3")}
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
           style={{ padding: "5px 10px", margin: "0 5px", fontSize: "14px" }}
@@ -77,17 +78,17 @@ export default function EmployeeReports() {
           onChange={(e) => setStatusFilter(e.target.value)}
           style={{ padding: "5px 10px", margin: "0 5px", fontSize: "14px" }}
         >
-          <option value="All">All Statuses</option>
-          <option value="resolved">resolved</option>
-          <option value="rejected">Rejected</option>
-          <option value="pending">Pending</option>
+         <option value="All">{t("4")}</option>
+          <option value="resolved">{t("5")}</option>
+          <option value="rejected">{t("6")}</option>
+          <option value="pending">{t("7")}</option>
         </select>
       </div>
 
 
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {filteredReports.length === 0 ? (
-          <p>No reports found</p>
+          <p>{t("8")}</p>
         ) : (
           filteredReports.map(report => (
             <div
@@ -123,31 +124,31 @@ export default function EmployeeReports() {
                 }}
               ></div>
               <h6 className="card-title text-truncate mb-0">
-                Report #{report._id.slice(-6)}
+                 {t("9")}{report._id.slice(-6)}
               </h6>
 
-              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444"}}><strong>Volunteer Name:</strong> {report.user?.name}</p>
-              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>Email:</strong> {report.user?.email}</p>
-              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>Description:</strong> {report.description}</p>
-              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>Location: </strong>{report.location?.lat?.toFixed(4)}, {report.location?.lng?.toFixed(4)}</p>
-              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>Created At: </strong> {new Date(report.createdAt).toLocaleDateString()}</p>
+           <p style={{ margin: "5px 0", fontSize: "14px", color: "#444"}}><strong>{t("10")}:</strong> {report.user?.name}</p>
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("11")}:</strong> {report.user?.email}</p>
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("12")}:</strong> {report.description}</p>
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("13")}: </strong>{report.location?.lat?.toFixed(4)}, {report.location?.lng?.toFixed(4)}</p>
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("14")}: </strong> {new Date(report.createdAt).toLocaleDateString()}</p>
               <p style={{ margin: "5px 0", fontSize: "14px", color:"#444" }}>
-                <span style={{ fontWeight: "bold" }}> Status: {report.status}</span>
+                <span style={{ fontWeight: "bold" }}> {t("15")}: {report.status}</span>
               </p>
 
               {report.modelPrediction && (
-                <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}>
-                  <strong>Model Prediction:</strong> {report.modelPrediction}
+               <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}>
+                  <strong>{t("16")}:</strong> {report.modelPrediction}
                 </p>
               )}
               {report.modelConfidence !== null && (
                 <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}>
-                  <strong>Model Confidence:</strong> {(report.modelConfidence * 100).toFixed(1)}%
+                  <strong>{t("17")}:</strong> {(report.modelConfidence * 100).toFixed(1)}%
                 </p>
               )}
               {report.modelCheckedAt && (
                 <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}>
-                  <strong>Checked At:</strong> {new Date(report.modelCheckedAt).toLocaleString()}
+                   <strong>{t("18")}:</strong> {new Date(report.modelCheckedAt).toLocaleString()}
                 </p>
               )}
 
@@ -166,19 +167,19 @@ export default function EmployeeReports() {
                   onClick={() => updateStatus(report._id, "resolved")}
                   style={{ margin: "5px 5px 0 0", padding: "5px 10px", borderRadius: "4px", cursor: "pointer", backgroundColor: "#055e1ae0", color: "white", border: "none", fontSize: "13px" }}
                 >
-                  Approve
+                   {t("19")}
                 </button>
                 <button
                   onClick={() => updateStatus(report._id, "rejected")}
                   style={{ margin: "5px 5px 0 0", padding: "5px 10px", borderRadius: "4px", cursor: "pointer", backgroundColor: "#990816ff", color: "white", border: "none", fontSize: "13px" }}
                 >
-                  Reject
+                  {t("20")}
                 </button>
                 <button
                   onClick={() => updateStatus(report._id, "pending")}
                   style={{ margin: "5px 5px 0 0", padding: "5px 10px", borderRadius: "4px", cursor: "pointer", backgroundColor: "#fafc97ff", color: "black", border: "none", fontSize: "13px" }}
                 >
-                  Pending
+                   {t("21")}
                 </button>
               </div>
               <button

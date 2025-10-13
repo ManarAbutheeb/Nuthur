@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 export default function VolunteerReports() {
+    const { t } = useTranslation();
   const [myReports, setMyReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -15,7 +17,7 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) {
-        setError("⚠️ Please log in first");
+        setError(t("⚠️ Please log in first"));
         return;
       }
 
@@ -26,14 +28,14 @@ useEffect(() => {
       });
 
       if (!res.ok) {
-        throw new Error("Failed to fetch reports");
+        throw new Error(t("Failed to fetch reports"));
       }
 
       const data = await res.json();
       setMyReports(data);
     } catch (err) {
       console.error("Error fetching reports:", err);
-      setError("Failed to load your reports");
+      setError(t("Failed to load your reports"));
     } finally {
       setLoading(false);
     }
@@ -42,12 +44,12 @@ useEffect(() => {
   fetchMyReports();
 }, [router]);
 
-  // تصفية التقارير حسب الحالة
+ 
   const filteredReports = myReports.filter(report =>
     statusFilter === "All" || report.status === statusFilter
   );
 
-  // إحصائيات سريعة
+
   const stats = {
     total: myReports.length,
     pending: myReports.filter(r => r.status === "pending").length,
@@ -60,9 +62,9 @@ useEffect(() => {
       <div className="container py-5">
         <div className="text-center">
           <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span className="visually-hidden">{t("Loading...")}</span>
           </div>
-          <p className="mt-2">Loading your reports...</p>
+          <p className="mt-2">{t("Loading your reports...")}</p>
         </div>
       </div>
     );
@@ -72,7 +74,7 @@ useEffect(() => {
     return (
       <div className="container py-5">
         <div className="alert alert-danger text-center">
-          <h4>Error</h4>
+          <h4>{t("Error")}</h4>
           <p>{error}</p>
         </div>
       </div>
@@ -81,16 +83,16 @@ useEffect(() => {
 
   return (
     <div className="container py-5">
-      {/* رأس الصفحة */}
+   
       <div className="row mb-4">
         <div className="col-12">
-          <h1 className="text-center " style={{ color: "#062b11ff"}}>My Reports</h1>
-          <p className="text-center text-muted">View and track all reports you've submitted</p>
+          <h1 className="text-center " style={{ color: "#062b11ff"}}>{t("My Reports")}</h1>
+          <p className="text-center text-muted">{t("View and track all reports you've submitted")}</p>
         </div>
       </div>
 
-      {/* الإحصائيات */}
-      <div className="row mb-4">
+     
+      {/* <div className="row mb-4">
         <div className="col-md-3 col-6 mb-3">
           <div className="card bg-primary text-white text-center">
             <div className="card-body">
@@ -123,46 +125,52 @@ useEffect(() => {
             </div>
           </div>
         </div>
+      </div> */}
+
+<div className="row mb-4">
+        <StatsCard color="bg-primary text-white" count={stats.total} label={t("Total Reports")} />
+        <StatsCard color="bg-warning text-dark" count={stats.pending} label={t("Pending")} />
+        <StatsCard color="bg-success text-white" count={stats.resolved} label={t("Resolved")} />
+        <StatsCard color="bg-danger text-white" count={stats.rejected} label={t("Rejected")} />
       </div>
 
-      {/* الفلتر */}
+    
       <div className="row mb-3">
         <div className="col-12">
           <div className="d-flex justify-content-between align-items-center">
-            <h5>Filter by Status:</h5>
+             <h5>{t("Filter by Status:")}</h5>
             <select 
               className="form-select w-auto"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
-              <option value="All">All Statuses</option>
-              <option value="pending">Pending</option>
-              <option value="resolved">Resolved</option>
-              <option value="rejected">Rejected</option>
+              <option value="All">{t("All Statuses")}</option>
+            <option value="pending">{t("Pending")}</option>
+            <option value="resolved">{t("Resolved")}</option>
+            <option value="rejected">{t("Rejected")}</option>
             </select>
           </div>
         </div>
       </div>
 
-      {/* قائمة التقارير */}
       <div className="row">
         {filteredReports.length === 0 ? (
           <div className="col-12">
             <div className="text-center py-5">
               <div className="text-muted">
                 <i className="fas fa-inbox fa-3x mb-3"></i>
-                <h4>No reports found</h4>
+                 <h4>{t("No reports found")}</h4>
                 <p>
-                  {statusFilter === "All" 
-                    ? "You haven't submitted any reports yet."
-                    : `No ${statusFilter} reports found.`
-                  }
+                   {statusFilter === "All"
+                ? t("You haven't submitted any reports yet.")
+                : t(`No ${statusFilter} reports found.`)
+              }
                 </p>
                 <button 
                   className="btn btn-primary"
                   onClick={() => router.push("/Volunteer/reportForm")}
                 >
-                  Submit Your First Report
+                    {t("Submit Your First Report")}
                 </button>
               </div>
             </div>
@@ -170,7 +178,7 @@ useEffect(() => {
         ) : (
           filteredReports.map((report) => (
             <div key={report._id} className="col-lg-6 col-xl-4 mb-4">
-              <ReportCard report={report} />
+              <ReportCard report={report} t={t} />
             </div>
           ))
         )}
@@ -178,18 +186,26 @@ useEffect(() => {
     </div>
   );
 }
-
-// مكون بطاقة التقرير
-const ReportCard = ({ report }) => {
+const StatsCard = ({ color, count, label }) => (
+  <div className="col-md-3 col-6 mb-3">
+    <div className={`card ${color} text-center`}>
+      <div className="card-body">
+        <h4 className="mb-0">{count}</h4>
+        <small>{label}</small>
+      </div>
+    </div>
+  </div>
+);
+const ReportCard = ({ report, t }) => {
   const getStatusBadge = (status) => {
     const statusConfig = {
-      pending: { class: "bg-warning text-dark", label: "⏳ Pending" },
-      resolved: { class: "bg-success text-white", label: "✅ Resolved" },
-      rejected: { class: "bg-danger text-white", label: "❌ Rejected" }
+      pending: { class: "bg-warning text-dark", label: t(" Pending") },
+      resolved: { class: "bg-success text-white", label: t(" Resolved") },
+      rejected: { class: "bg-danger text-white", label: t(" Rejected") }
     };
-    
-    const config = statusConfig[status] || statusConfig.pending;
-    return <span className={`badge ${config.class}`}>{config.label}</span>;
+    return <span className={`badge ${statusConfig[status]?.class || "bg-warning text-dark"}`}>
+      {statusConfig[status]?.label || t(" Pending")}
+    </span>;
   };
 
   const getImageUrl = (image) => {
@@ -201,7 +217,7 @@ const ReportCard = ({ report }) => {
   return (
     <div className="card h-100 shadow-sm">
       <div className="card-body">
-        {/* رأس البطاقة */}
+      
         <div className="d-flex justify-content-between align-items-start mb-2">
           <h6 className="card-title text-truncate mb-0">
             Report #{report._id.slice(-6)}
@@ -209,7 +225,6 @@ const ReportCard = ({ report }) => {
           {getStatusBadge(report.status)}
         </div>
 
-        {/* وصف التقرير */}
         <p className="card-text small text-muted">
           {report.description.length > 100 
             ? `${report.description.substring(0, 100)}...` 
@@ -217,12 +232,12 @@ const ReportCard = ({ report }) => {
           }
         </p>
 
-        {/* الصورة */}
+        
         {report.image && (
           <div className="mb-2">
             <img
               src={getImageUrl(report.image)}
-              alt="Report evidence"
+              alt={t("Report evidence")}
               className="img-fluid rounded"
               style={{ 
                 maxHeight: "120px", 
@@ -234,39 +249,30 @@ const ReportCard = ({ report }) => {
           </div>
         )}
 
-        {/* التفاصيل */}
         <div className="small text-muted">
           <div className="mb-1">
-            <strong>Location:</strong> {report.location?.lat?.toFixed(4)}, {report.location?.lng?.toFixed(4)}
+              <strong>{t("Location")}:</strong> {report.location?.lat?.toFixed(4)}, {report.location?.lng?.toFixed(4)}
           </div>
           <div className="mb-1">
-            <strong>Submitted:</strong> {new Date(report.createdAt).toLocaleDateString()}
+             <strong>{t("Submitted")}:</strong> {new Date(report.createdAt).toLocaleDateString()}
           </div>
           {report.updatedAt && report.updatedAt !== report.createdAt && (
             <div>
-              <strong>Last Updated:</strong> {new Date(report.updatedAt).toLocaleDateString()}
+                  <strong>{t("Last Updated")}:</strong> {new Date(report.updatedAt).toLocaleDateString()}
             </div>
           )}
         </div>
       </div>
 
-      {/* تذييل البطاقة */}
+
       <div className="card-footer bg-transparent">
         <div className="d-flex justify-content-between align-items-center">
           <small className="text-muted">
-            {report.status === "pending" && "Under review"}
-            {report.status === "resolved" && "Issue resolved"}
-            {report.status === "rejected" && "Report rejected"}
+          {report.status === "pending" && t("Under review")}
+            {report.status === "resolved" && t("Issue resolved")}
+            {report.status === "rejected" && t("Report rejected")}
           </small>
-          {/* <button 
-            className="btn btn-outline-primary btn-sm"
-            onClick={() => {
-              // يمكن إضافة modal لعرض التفاصيل الكاملة
-              alert(`Report Details:\n\nDescription: ${report.description}\nStatus: ${report.status}\nSubmitted: ${new Date(report.createdAt).toLocaleString()}`);
-            }}
-          > */}
-            {/* View Details
-          </button> */}
+      
         </div>
       </div>
     </div>

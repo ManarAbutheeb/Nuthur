@@ -1,18 +1,21 @@
 "use client";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ForgotPasswordPage() {
-  // State للبيانات
+  const { t } = useTranslation();
+
+
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
-  // State لإدارة الخطوة الحالية (1, 2, 3)
+
   const [currentStep, setCurrentStep] = useState(1); // 1: إدخال الإيميل, 2: إدخال الرمز, 3: إدخال الباسوورد الجديد
 
-  // 1. دالة إرسال الرمز
+
   const handleSendCode = async (e) => {
     e.preventDefault();
     try {
@@ -25,18 +28,18 @@ export default function ForgotPasswordPage() {
       if (res.ok) {
         setMessage("✅ " + data.message);
         setIsError(false);
-        setCurrentStep(2); // انتقل للخطوة 2 (إدخال الرمز)
+        setCurrentStep(2); 
       } else {
         setMessage("❌ " + data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage("❌ خطأ في الشبكة");
+      setMessage("❌ " + t("Network Error"));
       setIsError(true);
     }
   };
 
-  // 2. دالة التحقق من الرمز
+
   const handleVerifyCode = async (e) => {
     e.preventDefault();
     try {
@@ -49,18 +52,18 @@ export default function ForgotPasswordPage() {
       if (res.ok) {
         setMessage("✅ " + data.message);
         setIsError(false);
-        setCurrentStep(3); // انتقل للخطوة 3 (إدخال كلمة السر الجديدة)
+        setCurrentStep(3); 
       } else {
         setMessage("❌ " + data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage("❌ خطأ في الشبكة");
+      setMessage("❌ " + t("Network Error"));
       setIsError(true);
     }
   };
 
-  // 3. دالة تعيين كلمة المرور الجديدة
+
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
@@ -73,46 +76,45 @@ export default function ForgotPasswordPage() {
       if (res.ok) {
         setMessage("✅ " + data.message);
         setIsError(false);
-        // يمكن توجيه المستخدم إلى صفحة الدخول هنا
-        // window.location.href = "/login";
+     
       } else {
         setMessage("❌ " + data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage("❌ خطأ في الشبكة");
+      setMessage("❌ " + t("Network Error"));
       setIsError(true);
     }
   };
 
   return (
     <div className="container py-5">
-      <h1 className="mb-4">Reset password</h1>
+      <h1 className="mb-4">{t("Reset password")}</h1>
 
-      {/* الخطوة 1: إدخال الإيميل */}
+
       {currentStep === 1 && (
         <form onSubmit={handleSendCode} className="w-50 mx-auto">
-          <p>Enter you email address</p>
+          <p>{t("Enter your email address")}</p>
           <div className="mb-3">
             <input
               type="email"
               className="form-control"
-              placeholder="your.email@gmail.com"
+              placeholder={t("your.email@gmail.com")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <button type="submit" className="btn btn-danger w-100">
-            submit
+            {t("Submit")}
           </button>
         </form>
       )}
 
-      {/* الخطوة 2: إدخال الرمز */}
+   
       {currentStep === 2 && (
         <form onSubmit={handleVerifyCode} className="w-50 mx-auto">
-          <p>Enter the code you recevied</p>
+          <p>{t("Enter the code you received")}</p>
           <div className="mb-3">
             <input
               type="text"
@@ -124,27 +126,27 @@ export default function ForgotPasswordPage() {
             />
           </div>
           <button type="submit" className="btn btn-danger w-100">
-           Verify
+            {t("Verify")}
           </button>
         </form>
       )}
 
-      {/* الخطوة 3: إدخال كلمة المرور الجديدة */}
+     
       {currentStep === 3 && (
         <form onSubmit={handleResetPassword} className="w-50 mx-auto">
-          <p>Enter your new password</p>
+          <p>{t("Enter your new password")}</p>
           <div className="mb-3">
             <input
               type="password"
               className="form-control"
-              placeholder="your new password"
+              placeholder={t("your new password")}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               required
             />
           </div>
           <button type="submit" className="btn btn-danger w-100">
-          Submit
+            {t("Submit")}
           </button>
         </form>
       )}

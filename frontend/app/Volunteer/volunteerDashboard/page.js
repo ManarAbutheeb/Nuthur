@@ -1,6 +1,9 @@
 "use client";
+import { useTranslation } from "react-i18next";
 
 export default function VolunteerDashboard() {
+  const { t } = useTranslation();
+
   return (
     <div style={{
       display: "flex",
@@ -9,10 +12,10 @@ export default function VolunteerDashboard() {
       justifyContent: "space-between"
     }}>
       
-      {/* الجزء العلوي - المحتوى الرئيسي */}
+    
       <div style={{ textAlign: "center", paddingTop: "100px" }}>
-        <h1>Welcome, Volunteer!</h1>
-        <p>Here you can submit your reports to the employee dashboard.</p>
+        <h1>{t("Welcome, Volunteer!")}</h1>
+        <p>{t("Here you can submit your reports to the employee dashboard.")}</p>
 
         <button
           onClick={() => window.location.href = "/"}
@@ -26,13 +29,13 @@ export default function VolunteerDashboard() {
             marginTop: "20px",
           }}
         >
-          Submit Report
+          {t("Submit Report")}
         </button>
       </div>
 
       {/* Footer في أسفل الصفحة */}
-      <footer >
-       
+      <footer style={{ textAlign: "center", padding: "20px", backgroundColor: "#f8f9fa" }}>
+        <p>{t("© 2025 Volunteer Dashboard. All rights reserved.")}</p>
       </footer>
     </div>
   );

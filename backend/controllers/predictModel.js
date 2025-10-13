@@ -8,7 +8,7 @@ async function runModelPrediction(inputData) {
     const scriptPath = path.join(__dirname, "../ml/predict.py");
     const tempPath = path.join(__dirname, "../ml/temp_input.json");
 
-    // نكتب البيانات في ملف مؤقت
+
     fs.writeFileSync(tempPath, JSON.stringify(inputData));
 
     const python = spawn(pythonPath, [scriptPath, tempPath], {
@@ -23,7 +23,7 @@ async function runModelPrediction(inputData) {
     });
 
     python.stderr.on("data", (data) => {
-      console.error("🐍 Python Error:", data.toString());
+      console.error(" Python Error:", data.toString());
       errorOutput += data.toString();
     });
 
@@ -34,13 +34,13 @@ async function runModelPrediction(inputData) {
         return reject(new Error(`Python script exited with code ${code}`));
       }
 
-      console.log("🐍 RAW PYTHON OUTPUT:", output);
+      console.log(" RAW PYTHON OUTPUT:", output);
 
       try {
         const parsed = JSON.parse(output.trim());
         resolve(parsed);
       } catch (err) {
-        console.error("❌ Failed to parse model output:", output);
+        console.error(" Failed to parse model output:", output);
         reject(new Error("Failed to parse model output: " + output));
       }
     });

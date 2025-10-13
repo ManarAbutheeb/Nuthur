@@ -50,7 +50,21 @@ export default function EmployeeDashboard() {
 >
   Check weather
 </Link>
-
+<p></p>
+        <Link
+  href="/employee/auto-checks"
+  className="btn btn-lg"
+  style={{
+    backgroundColor: "#628665ff",
+    color: "white",
+    borderRadius: "5px",
+    marginTop: "0px",
+    padding: "10px 20px",
+    display: "inline-block",
+  }}
+>
+  Scheduled Check 
+</Link>
     
      
       </div>

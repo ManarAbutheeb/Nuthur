@@ -7,7 +7,7 @@ const PDFDocument = require("pdfkit");
 const path = require("path");
 const fs = require("fs");
 
-// 🧾 PDF للموظف
+//  PDF للموظف
 router.get("/:id/pdf", async (req, res) => {
   try {
     const { id } = req.params;
@@ -107,9 +107,9 @@ router.get("/report/:id/pdf", async (req, res) => {
       valign: "center",
     });
   } catch (err) {
-    console.error("⚠️ Failed to fetch image for PDF:", err.message);
+    console.error(" Failed to fetch image for PDF:", err.message);
     doc.moveDown();
-    doc.text("⚠️ Image could not be loaded.", { align: "center", color: "red" });
+    doc.text(" Image could not be loaded.", { align: "center", color: "red" });
   }
 }
 

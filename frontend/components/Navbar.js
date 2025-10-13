@@ -7,14 +7,14 @@ import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(null); // ⬅️ تغيير من user إلى userRole
+  const [userRole, setUserRole] = useState(null); 
   const router = useRouter();
 
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    const role = localStorage.getItem('userRole'); // ⬅️ تصحيح اسم المفتاح
+    const role = localStorage.getItem('userRole'); 
     
     setIsLoggedIn(!!token);
     setUserRole(role); // ⬅️ تعيين role مباشرة
@@ -22,7 +22,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    localStorage.removeItem('userRole'); // ⬅️ إزالة role أيضاً
+    localStorage.removeItem('userRole'); 
     setIsLoggedIn(false);
     setUserRole(null);
     router.push('/log-in');

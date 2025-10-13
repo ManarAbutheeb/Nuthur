@@ -11,10 +11,10 @@ router.post("/", authMiddleware, async (req, res) => {
     const { location } = req.body;
     const employeeId = req.user.id;
 
-    // 1️⃣ إنشاء بيانات الطقس وتخزينها في WeatherData
+  
     const weatherRecord = await generateWeatherData(location.lat, location.lng, null);
 
-    // 2️⃣ تشغيل المودل
+  
     const now = new Date();
 const prediction = await runModelPrediction({
   day: now.getDate(),
@@ -32,11 +32,11 @@ const prediction = await runModelPrediction({
   FWI: weatherRecord.indices.fwi,
 });
 
-    // 3️⃣ إنشاء سجل في ManualCheck مرتبط ببيانات الطقس
+ 
     const check = new ManualCheck({
       employee: employeeId,
       weatherData: weatherRecord._id,
-      modelPrediction: prediction.prediction === 1 ? "High Risk" : "Low Risk",
+      modelPrediction: prediction.prediction === 1 ? "High Risk" : "No Risk",
       modelCheckedAt: new Date()
     });
 
@@ -52,7 +52,7 @@ const prediction = await runModelPrediction({
   }
 });
 
-// 🧾 استعراض كل طلبات التشييك السابقة
+
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const checks = await ManualCheck.find()

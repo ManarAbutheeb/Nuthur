@@ -71,7 +71,7 @@ const predictionInput = {
 const prediction = await runModelPrediction(predictionInput);
 
 
-    report.modelPrediction = prediction.prediction === 1 ? "High Risk" : "Low Risk";
+    report.modelPrediction = prediction.prediction === 1 ? "High Risk" : "No Risk";
     report.modelCheckedAt = new Date();
 
 

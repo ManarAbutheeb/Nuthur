@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-
+import { useTranslation } from "react-i18next";
 const WeatherWidget = () => {
+    const { t } = useTranslation();
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -35,8 +36,8 @@ const WeatherWidget = () => {
           justifyContent: "center",
           alignItems: "center"
         }}
-      >
-        <h5 className="mt-3">Loading weather data...</h5>
+      > 
+        <h5 className="mt-3">{t("Loading weather data...")}</h5>
         <div className="spinner-border text-light mt-2" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
@@ -57,7 +58,7 @@ const WeatherWidget = () => {
           alignItems: "center"
         }}
       >
-        <div className="error-icon mb-3" style={{ fontSize: "3rem" }}>⚠️</div>
+        <div className="error-icon mb-3" style={{ fontSize: "3rem" }}></div>
         <h5>Unable to load weather data</h5>
         <p className="mb-0">Please try again later</p>
       </div>
@@ -93,7 +94,7 @@ const WeatherWidget = () => {
             <p className="fs-5 mb-2">{weatherData.condition}</p>
             <div className="location-badge d-inline-block px-3 py-1 rounded-pill" 
                  style={{ backgroundColor: "rgba(255,255,255,0.2)" }}>
-            <h6>Al Soudah - Abha</h6>
+            <h6>{t("Al Soudah - Abha")}</h6>
             </div>
           </div>
 
@@ -104,7 +105,7 @@ const WeatherWidget = () => {
                 <div className="weather-detail-card p-3 rounded-3 h-100" 
                      style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
                   <div className="detail-icon mb-2" style={{ fontSize: "1.8rem" }}>💧</div>
-                  <h6>Humidity</h6>
+                  <h6>{t("Humidity")}</h6>
                   <p className="fs-5 fw-bold mb-0">{weatherData.humidity}%</p>
                 </div>
               </div>
@@ -113,7 +114,7 @@ const WeatherWidget = () => {
                 <div className="weather-detail-card p-3 rounded-3 h-100" 
                      style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
                   <div className="detail-icon mb-2" style={{ fontSize: "1.8rem" }}>🌫️</div>
-                  <h6>Wind Speed</h6>
+                  <h6>{t("Wind Speed")}</h6>
                   <p className="fs-5 fw-bold mb-0">{weatherData.windSpeed} km/h</p>
                 </div>
               </div>
@@ -122,7 +123,7 @@ const WeatherWidget = () => {
                 <div className="weather-detail-card p-3 rounded-3 h-100" 
                      style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
                   <div className="detail-icon mb-2" style={{ fontSize: "1.8rem" }}>☁️</div>
-                  <h6>Condition</h6>
+                  <h6>{t("Condition")}</h6>
                   <p className="fs-5 fw-bold mb-0">{weatherData.description}</p>
                 </div>
               </div>
@@ -135,35 +136,9 @@ const WeatherWidget = () => {
       {/* Widget footer */}
       <div className="weather-footer text-center py-4" 
            style={{ backgroundColor: "rgba(0,0,0,0.3)", borderBottomLeftRadius: "20px", borderBottomRightRadius: "20px" }}>
-        <small> {new Date(weatherData.timestamp).toLocaleTimeString()} Updated </small>
+        <small> {new Date(weatherData.timestamp).toLocaleTimeString()} {t("Updated")}  </small>
       </div>
 
-      {/* CSS for visual enhancements */}
-      <style jsx>{`
-        @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-          100% { transform: translateY(0px); }
-        }
-        
-        // .weather-widget:hover {
-        //   transform: translateY(-5px);
-        //   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
-        // }
-        
-        .weather-icon {
-          animation: float 3s ease-in-out infinite;
-        }
-        
-        .weather-detail-card {
-          transition: all 0.3s ease;
-        }
-        
-        .weather-detail-card:hover {
-          transform: scale(1.05);
-          background-color: rgba(255,255,255,0.2) !important;
-        }
-      `}</style>
     </div>
   );
 };

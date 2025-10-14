@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import { useTranslation } from "react-i18next";
 export default function ProfilePage() {
+  const { t } = useTranslation();
   const [userData, setUserData] = useState(null);
   const router = useRouter();
 
@@ -15,7 +16,7 @@ export default function ProfilePage() {
       return;
     }
 
-    // جلب البيانات من localStorage
+    // جلب البيانات من localStorage 
     const userData = {
       name: localStorage.getItem("userName") || "User",
       email: localStorage.getItem("userEmail") || "No email",
@@ -26,7 +27,7 @@ export default function ProfilePage() {
   }, [router]);
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return <div>{t("Loading...")}</div>;
   }
 
   return (
@@ -35,7 +36,7 @@ export default function ProfilePage() {
         <div className="col-md-6">
           <div className="card shadow">
             <div className="card-header text-white text-center" style={{ backgroundColor: "#001a08de" }}>
-              <h3>My Profile</h3>
+              <h3>{t("My Profile")}</h3>
             </div>
             <div className="card-body">
               <div className="text-center mb-4">
@@ -55,7 +56,7 @@ export default function ProfilePage() {
 
               <div className="d-grid gap-2">
                 <Link href="/forgot-password" className="btn" style={{ color: "#001a08de" }}>
-                  Change Password?
+                  {t("Change Password?")}
                 </Link>
 
               </div>

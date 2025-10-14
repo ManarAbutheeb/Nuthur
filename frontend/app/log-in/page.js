@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-
+import { useTranslation } from "react-i18next";
 export default function LogInPage() {
+   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -49,10 +50,10 @@ window.location.href = "/";
 
   return (
     <div className="container py-5">
-      <h1 className="mb-4">Log In</h1>
+      <h1 className="mb-4">{t("Log In")}</h1>
       <form className="w-50 mx-auto" onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label">Email</label>
+          <label className="form-label">{t("Email")}</label>
           <input
             type="email" 
             className="form-control"
@@ -63,7 +64,7 @@ window.location.href = "/";
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Password</label>
+          <label className="form-label">{t("Password")}</label>
           <input
             type="password"
             className="form-control"
@@ -74,12 +75,12 @@ window.location.href = "/";
           />
         </div>
         <button type="submit" className="btn btn-danger w-100 mb-3" >
-          Log In
+          {t("Log In")}
         </button>
         {error && <p className="text-danger text-center">{error}</p>}
         <div className="text-center">
           <Link href="/forgot-password" className="text-danger">
-            Forgot Password?
+              {t("Forgot Password?")}
           </Link>
           
           

@@ -27,12 +27,13 @@
   "loadingWeather": "جارٍ تحميل بيانات الطقس...",
   "unableLoad": "تعذر تحميل بيانات الطقس",
   "tryLater": "يرجى المحاولة لاحقًا",
-  "humidity": "الرطوبة",
-  "windSpeed": "سرعة الرياح",
-  "condition": "حالة الطقس",
+  "Humidity": "الرطوبة",
+  "Wind Speed": "سرعة الرياح",
+  "Condition": "حالة الطقس",
   "location": "السودة - أبها",
-  "updated": "تم التحديث",
-
+  "Updated": "تم التحديث",
+   "Al Soudah - Abha":"السودة - ابها",
+   
     "1": "جارٍ التحميل...",
     "2": "لوحة تقارير الموظفين - المتطوعين",
     "3": "ابحث باسم المتطوع...",
@@ -59,7 +60,8 @@
     "Welcome Back": "مرحبا بعودتك",
     "Check weather": "تحقق من الطقس",
     "Check Reports": "عرض التقارير",
-
+    "Scheduled Check" : "الفحص المجدول",
+    
     "Reset password": "إعادة تعيين كلمة المرور",
     "Enter your email address": "أدخل بريدك الإلكتروني",
     "your.email@gmail.com": "بريدك.الايميل@gmail.com",
@@ -88,9 +90,9 @@
     "Change Password?": "تغيير كلمة المرور؟",
 
 
-    "Registered successfully!": "✅ تم التسجيل بنجاح!",
-    "Error:": "❌ خطأ:",
-    "Server error:": "❌ خطأ في الخادم:",
+    "Registered successfully!": " تم التسجيل بنجاح!",
+    "Error:": " خطأ:",
+    "Server error:": " خطأ في الخادم:",
     "Register": "تسجيل",
     "Volunteer": "متطوع",
     "Employee": "موظف",
@@ -99,7 +101,7 @@
     "Enter name": "أدخل الاسم",
     "Enter email": "أدخل البريد الإلكتروني",
 
-    "⚠️ Please log in first": "⚠️ الرجاء تسجيل الدخول أولاً",
+    " Please log in first": " الرجاء تسجيل الدخول أولاً",
     "Failed to fetch reports": "فشل في جلب التقارير",
     "Failed to load your reports": "فشل في تحميل تقاريرك",
     "Loading your reports...": "جاري تحميل تقاريرك...",
@@ -118,9 +120,9 @@
     "No resolved reports found.": "لا توجد تقارير تم حلها.",
     "No rejected reports found.": "لا توجد تقارير مرفوضة.",
     "Submit Your First Report": "قدم تقريرك الأول",
-    "⏳ Pending": "⏳ قيد الانتظار",
-    "✅ Resolved": "✅ تم الحل",
-    "❌ Rejected": "❌ مرفوضة",
+    " Pending": " قيد الانتظار",
+    " Resolved": " تم الحل",
+    " Rejected": " مرفوضة",
     "Report evidence": "دليل التقرير",
     "Location": "الموقع",
     "Submitted": "تاريخ التقديم",
@@ -146,24 +148,24 @@
   "Image Preview:": "معاينة الصورة:",
   "Submitting...": "جاري الإرسال...",
   "Submit Report": "إرسال التقرير",
-  "📍 Detecting your location with high accuracy...": "📍 جاري تحديد موقعك بدقة عالية...",
-  "📍 Location detected (Accuracy: {accuracy}m)": "📍 تم تحديد الموقع (الدقة: {accuracy}م)",
-  "📍 Location detected with high accuracy": "📍 تم تحديد الموقع بدقة عالية",
-  "❌ Could not get your current location": "❌ تعذر الحصول على موقعك الحالي",
-  "❌ Location access denied. Please allow location access in your browser settings.": "❌ تم رفض الوصول إلى الموقع. يرجى السماح بالوصول في إعدادات المتصفح.",
-  "❌ Location request timed out. Please try again.": "❌ انتهت مهلة طلب الموقع. يرجى المحاولة مرة أخرى.",
-  "❌ Location information unavailable. Please enable GPS and check your internet connection.": "❌ معلومات الموقع غير متوفرة. يرجى تمكين GPS والتحقق من الاتصال بالإنترنت.",
-  "⚠️ Location detection taking longer than expected. You can manually select your location on the map.": "⚠️ يستغرق اكتشاف الموقع وقتًا أطول من المتوقع. يمكنك اختيار موقعك يدويًا على الخريطة.",
-  "❌ Only images are allowed!": "❌ مسموح بالصور فقط!",
-  "❌ Image size must be less than 5MB!": "❌ يجب أن تكون الصورة أقل من 5 ميجابايت!",
-  "❌ Please select a location on the map": "❌ يرجى اختيار الموقع على الخريطة",
+  " Detecting your location with high accuracy...": "📍 جاري تحديد موقعك بدقة عالية...",
+  " Location detected (Accuracy: {accuracy}m)": "📍 تم تحديد الموقع (الدقة: {accuracy}م)",
+  " Location detected with high accuracy": "📍 تم تحديد الموقع بدقة عالية",
+  " Could not get your current location": "❌ تعذر الحصول على موقعك الحالي",
+  " Location access denied. Please allow location access in your browser settings.": "❌ تم رفض الوصول إلى الموقع. يرجى السماح بالوصول في إعدادات المتصفح.",
+  " Location request timed out. Please try again.": "❌ انتهت مهلة طلب الموقع. يرجى المحاولة مرة أخرى.",
+  " Location information unavailable. Please enable GPS and check your internet connection.": "❌ معلومات الموقع غير متوفرة. يرجى تمكين GPS والتحقق من الاتصال بالإنترنت.",
+  " Location detection taking longer than expected. You can manually select your location on the map.": "⚠️ يستغرق اكتشاف الموقع وقتًا أطول من المتوقع. يمكنك اختيار موقعك يدويًا على الخريطة.",
+  " Only images are allowed!": "❌ مسموح بالصور فقط!",
+  " Image size must be less than 5MB!": "❌ يجب أن تكون الصورة أقل من 5 ميجابايت!",
+  " Please select a location on the map": "❌ يرجى اختيار الموقع على الخريطة",
   "Your location accuracy is {accuracy} meters. This might not be precise. Do you want to continue?": "دقة موقعك {accuracy} متر. قد لا تكون دقيقة. هل ترغب بالمتابعة؟",
-  "✅ Report submitted successfully!": "✅ تم إرسال التقرير بنجاح!",
-  "🚨 Server error, please try again later": "🚨 خطأ في الخادم، يرجى المحاولة لاحقًا",
+  " Report submitted successfully!": "✅ تم إرسال التقرير بنجاح!",
+  " Server error, please try again later": "🚨 خطأ في الخادم، يرجى المحاولة لاحقًا",
   "Location selection cleared": "تم مسح الموقع",
 
   "Welcome, Volunteer!": "مرحباً بك أيها المتطوع!",
   "Here you can submit your reports to the employee dashboard.": "هنا يمكنك تقديم تقاريرك إلى لوحة تحكم الموظف.",
   "© 2025 Volunteer Dashboard. All rights reserved.": "© 2025 لوحة المتطوعين. جميع الحقوق محفوظة."
-
+  
 }

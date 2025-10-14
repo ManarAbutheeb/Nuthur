@@ -35,7 +35,7 @@ export default function EmployeeDashboard() {
  <WeatherWidget />
   
       <div style={{ textAlign: "center" }}>
-        <h1>Welcome Back, {userData?.name || "Admin"}</h1>
+        <h1>{t("Welcome Back")}, {userData?.name || "Admin"}</h1>
 
           <Link
   href="/employee/manual-checks"
@@ -64,7 +64,7 @@ export default function EmployeeDashboard() {
     display: "inline-block",
   }}
 >
-  Scheduled Check 
+ {t("Scheduled Check")} 
 </Link>
     
      

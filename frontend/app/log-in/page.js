@@ -8,43 +8,92 @@ export default function LogInPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+//   const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   setError("");
+
+//   try {
+//     const res = await fetch("http://localhost:5000/api/auth/login", {
+//   method: "POST",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({ email, password }),
+// });
+
+//     const data = await res.json();
+// if (res.ok) {
+//   const role = data.user?.role || data.role;
+
+//   localStorage.setItem("authToken", data.token);
+//   localStorage.setItem("userRole", role);
+//  localStorage.setItem("userName", data.name || data.user?.name || "User");
+//   localStorage.setItem("userEmail", data.email || data.user?.email || "");
+  
+//   console.log("Login success:", data, "Role:", role);
+
+
+//  if (role === "employee") {
+//   window.location.href = "/employeeDashboard";
+// } else {
+// // window.location.href = "/Volunteer/volunteerDashboard"; // إذا هذه صفحة Next
+// window.location.href = "/";  
+// }
+
+// } else {
+//   setError(data.error || "Invalid credentials");
+// }
+
+//   } catch (err) {
+//     console.error("Full error details:", err);
+//     setError("Server error, try again later.");
+//   }
+// };
+
+
+const handleSubmit = async (e) => {
   e.preventDefault();
   setError("");
 
   try {
     const res = await fetch("http://localhost:5000/api/auth/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, password }),
-});
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
     const data = await res.json();
-if (res.ok) {
-  const role = data.user?.role || data.role;
 
-  localStorage.setItem("authToken", data.token);
-  localStorage.setItem("userRole", role);
- localStorage.setItem("userName", data.name || data.user?.name || "User");
-  localStorage.setItem("userEmail", data.email || data.user?.email || "");
-  
-  console.log("Login success:", data, "Role:", role);
+    if (res.ok) {
+      const role = data.user?.role || data.role;
 
+      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", data.name || data.user?.name || "User");
+      localStorage.setItem("userEmail", data.email || data.user?.email || "");
 
- if (role === "employee") {
-  window.location.href = "/employeeDashboard";
-} else {
-// window.location.href = "/Volunteer/volunteerDashboard"; // إذا هذه صفحة Next
-window.location.href = "/";  
-}
+      console.log("Login success:", data, "Role:", role);
 
-} else {
-  setError(data.error || "Invalid credentials");
-}
+      if (role === "employee") {
+        window.location.href = "/employeeDashboard";
+      } else {
+        window.location.href = "/";
+      }
+
+    } else {
+      // 🔹 هنا نتحقق من نوع الخطأ القادم من السيرفر
+      if (data.error === "Please verify your email before logging in.") {
+        setError("من فضلك فعّل بريدك الإلكتروني قبل تسجيل الدخول.");
+      } else if (data.error === "Invalid credentials") {
+        setError("بيانات الدخول غير صحيحة.");
+      } else if (data.error === "User not found") {
+        setError("البريد الإلكتروني غير مسجل.");
+      } else {
+        setError(data.error || "حدث خطأ غير متوقع.");
+      }
+    }
 
   } catch (err) {
     console.error("Full error details:", err);
-    setError("Server error, try again later.");
+    setError("حدث خطأ في الخادم، حاول لاحقًا.");
   }
 };
 
@@ -83,8 +132,6 @@ window.location.href = "/";
               {t("Forgot Password?")}
           </Link>
           
-          
-        
         </div>
         
       </form>

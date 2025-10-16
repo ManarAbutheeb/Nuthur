@@ -1,7 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function AutoChecksPage() {
+  const { t } = useTranslation();
   const [checks, setChecks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,14 +20,14 @@ export default function AutoChecksPage() {
       });
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+ if (loading) return <p>{t("loading")}</p>;
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
-      <h2>Automatic Weather Checks (Every 8 Hours)</h2>
-
+       <h2>{t("title")}</h2>
       {checks.length === 0 ? (
-        <p>No scheduled checks yet.</p>
+     <p>{t("noChecks")}</p>
+
       ) : (
         <div
           style={{
@@ -49,15 +51,15 @@ export default function AutoChecksPage() {
               }}
             >
               <p>
-                <strong>📍 Location:</strong>{" "}
+               <strong>📍 {t("location")}:</strong>{" "}
                 {c.location?.lat.toFixed(4)}, {c.location?.lng.toFixed(4)}
               </p>
               <p>
-                <strong>🕓 Checked At:</strong>{" "}
+                <strong>🕓 {t("checkedAt")}:</strong>{" "}
                 {new Date(c.executedAt).toLocaleString()}
               </p>
               <p>
-                <strong>🔥 Prediction:</strong> {c.modelPrediction}
+                <strong>🔥 {t("prediction")}:</strong> {c.modelPrediction}
               </p>
               <button
                 onClick={() =>
@@ -74,7 +76,7 @@ export default function AutoChecksPage() {
                   fontSize: "14px",
                 }}
               >
-                Download PDF
+               {t("downloadPdf")}
               </button>
             </div>
           ))}

@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ReportMap from "../../../components/MapComponent";
 
 export default function CheckWeatherPage() {
+  const { t } = useTranslation();
   const [userLocation] = useState([18.2677778, 42.3702778]); // Alsoudah default
   const [position, setPosition] = useState(null);
   const [checks, setChecks] = useState([]);
@@ -33,13 +35,14 @@ export default function CheckWeatherPage() {
   // 🔹 زر الموقع الافتراضي
   const setAlsoudah = () => {
     setPosition([18.2677778, 42.3702778]);
-    setMessage(" Using Alsoudah default location");
+        setMessage(t("usingDefault"));
+
   };
 
   // 🔹 تشغيل المودل
   const handleCheckWeather = async () => {
     if (!position) {
-      alert("Please select a location on the map first!");
+       alert(t("alertSelectLocation"));
       return;
     }
 
@@ -61,15 +64,15 @@ export default function CheckWeatherPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setMessage(` Model result: ${data.check.modelPrediction}`);
+       setMessage(`${t("modelResult")}: ${data.check.modelPrediction}`);
         // بدل الإضافة اليدوية، نعيد تحميل الكل عشان الموقع يطلع مباشرة
         await fetchChecks();
       } else {
-        setMessage(" Failed to check weather");
+       setMessage(t("failed"));
       }
     } catch (err) {
       console.error(" Manual check error:", err);
-      setMessage(" Error connecting to the server");
+     setMessage(t("serverError"));
     } finally {
       setLoading(false);
     }

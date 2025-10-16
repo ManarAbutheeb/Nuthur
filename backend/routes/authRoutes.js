@@ -8,14 +8,64 @@ const nodemailer = require('nodemailer');
 
 const router = express.Router();
 // تسجيل مستخدم جديد
+// تسجيل مستخدم جديد مع إرسال كود التحقق
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
+
+    // هل الإيميل موجود أصلاً؟
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    // تشفير كلمة المرور
     const hashed = await bcrypt.hash(password, 10);
-    const user = new User({ name, email, password: hashed, role });
+
+    // إنشاء المستخدم
+    const user = new User({ name, email, password: hashed, role, isVerified: false });
     await user.save();
-    res.json({ message: "User registered successfully" });
+
+    // حذف أي رموز تحقق سابقة
+    await VerificationCode.deleteMany({ email });
+
+    // توليد كود تحقق من 6 أرقام
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // حفظ الكود في قاعدة البيانات
+    await VerificationCode.create({
+      email,
+      code,
+      expiresAt: Date.now() + 10 * 60 * 1000, // ينتهي بعد 10 دقائق
+    });
+
+    // إعداد إرسال الإيميل
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    // إرسال الإيميل
+    await transporter.sendMail({
+      from: `"Nuthur Support" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "Verify your email - Nuthur",
+      html: `
+        <div style="font-family: Arial, sans-serif; text-align: center;">
+          <h2>Welcome ${name}!</h2>
+          <p>Your verification code is:</p>
+          <h1 style="color:#dc3545;">${code}</h1>
+          <p>This code will expire in 10 minutes.</p>
+        </div>
+      `,
+    });
+
+    res.json({ message: "User registered successfully. Verification code sent to your email." });
   } catch (err) {
+    console.error(err);
     res.status(400).json({ error: err.message });
   }
 });
@@ -141,3 +191,32 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 module.exports = router;
+// التحقق من البريد الإلكتروني
+router.post('/verify-email', async (req, res) => {
+  const { email, code } = req.body;
+
+  try {
+    const record = await VerificationCode.findOne({ email, code });
+
+    if (!record) {
+      return res.status(400).json({ error: "Invalid or expired verification code." });
+    }
+
+    // تحديث حالة المستخدم إلى verified
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    // حذف الكود من قاعدة البيانات بعد التحقق
+    await VerificationCode.deleteMany({ email });
+
+    res.json({ message: "✅ Email verified successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error while verifying email." });
+  }
+});

@@ -165,7 +165,27 @@
 
    "Welcome, Volunteer!": "Welcome, Volunteer!",
   "Here you can submit your reports to the employee dashboard.": "Here you can submit your reports to the employee dashboard.",
-  "© 2025 Volunteer Dashboard. All rights reserved.": "© 2025 Volunteer Dashboard. All rights reserved."
+  "© 2025 Volunteer Dashboard. All rights reserved.": "© 2025 Volunteer Dashboard. All rights reserved.",
+
+   "loading": "Loading...",
+    "title": "Automatic Weather Checks (Every 8 Hours)",
+    "noChecks": "No scheduled checks yet.",
+    "checkedAt": "Checked At",
+    "prediction": "Prediction",
+    "downloadPdf": "Download PDF",
+     "title2": "Manual Weather Check",
+    "usingDefault": "Using Alsoudah default location",
+    "alertSelectLocation": "Please select a location on the map first!",
+    "modelResult": "Model result",
+    "failed": "Failed to check weather",
+    "serverError": "Error connecting to the server",
+    "useDefault": "Use Alsoudah Default Location",
+    "checking": "Checking...",
+    "runModel": "🔍 Run Model Check",
+    "previousChecks": "Previous Checks",
+    "noPrevious": "No previous checks yet.",
+    "date": "Date"
+   
 
 
 }

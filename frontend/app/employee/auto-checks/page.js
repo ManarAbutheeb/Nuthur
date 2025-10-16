@@ -63,7 +63,7 @@ export default function AutoChecksPage() {
               </p>
               <button
                 onClick={() =>
-                  window.open(`http://localhost:5000/api/Pdf/${c._id}/pdf`, "_blank")
+                  window.open(`http://localhost:5000/api/Pdf/scheduled/${c._id}/pdf`, "_blank")
                 }
                 style={{
                   marginTop: "10px",

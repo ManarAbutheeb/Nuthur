@@ -1,17 +1,9 @@
+
 const mongoose = require("mongoose");
+const reportBaseSchema = require("./ReportBase");
 
-const ScheduledCheckSchema = new mongoose.Schema({
-  location: {
-    lat: Number,
-    lng: Number,
-  },
-  weatherData: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "WeatherData",
-  },
-  modelPrediction: String,
-  modelCheckedAt: Date,
-  executedAt: { type: Date, default: Date.now },
-});
+const scheduledCheckSchema = new mongoose.Schema({
+    ...reportBaseSchema.obj,
+}, { timestamps: true });
 
-module.exports = mongoose.model("ScheduledCheck", ScheduledCheckSchema);
+module.exports = mongoose.models.ScheduledCheck || mongoose.model("ScheduledCheck", scheduledCheckSchema);

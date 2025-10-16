@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 
-
+//0 */8 * * *"
 cron.schedule("0 */8 * * *", async () => {
   console.log(" Running automatic weather check...");
   try {
@@ -58,8 +58,7 @@ cron.schedule("0 */8 * * *", async () => {
       location: { lat, lng },
       weatherData: weatherRecord._id,
       modelPrediction: prediction.prediction === 1 ? "High Risk" : "No Risk",
-      modelCheckedAt: new Date(),
-      executedAt: new Date(),
+      modelCheckedAt: new Date()
     });
 
     await check.save();

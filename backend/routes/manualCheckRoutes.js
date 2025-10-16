@@ -35,6 +35,7 @@ const prediction = await runModelPrediction({
  
     const check = new ManualCheck({
       employee: employeeId,
+      location: { lat: location.lat, lng: location.lng },
       weatherData: weatherRecord._id,
       modelPrediction: prediction.prediction === 1 ? "High Risk" : "No Risk",
       modelCheckedAt: new Date()

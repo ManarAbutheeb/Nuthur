@@ -1,5 +1,5 @@
 const express = require("express");
-const Report = require("../models/report");
+const Report = require("../models/VolunterReport");
 const { generateWeatherData } = require("../services/weatherService");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");

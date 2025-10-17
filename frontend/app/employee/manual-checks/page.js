@@ -80,7 +80,7 @@ export default function CheckWeatherPage() {
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
-      <h2>Manual Weather Check</h2>
+ <h2>{t("titlee")}</h2>
 
       <ReportMap
         userLocation={userLocation}
@@ -100,7 +100,7 @@ export default function CheckWeatherPage() {
           cursor: "pointer",
         }}
       >
-         Use Alsoudah Default Location
+        {t("useDefault")}
       </button>
 
       <br />
@@ -119,7 +119,7 @@ export default function CheckWeatherPage() {
           fontSize: "16px",
         }}
       >
-        {loading ? "Checking..." : "🔍 Run Model Check"}
+       {loading ? t("checking") : t("runModel")}
       </button>
 
       {message && (
@@ -128,10 +128,11 @@ export default function CheckWeatherPage() {
 
       <hr style={{ margin: "30px 0" }} />
 
-      <h3>Previous Checks</h3>
+      <h3>{t("previousChecks")}</h3>
+
 
       {checks.length === 0 ? (
-        <p>No previous checks yet.</p>
+         <p>{t("noPrevious")}</p>
       ) : (
         <div
           style={{
@@ -155,17 +156,18 @@ export default function CheckWeatherPage() {
               }}
             >
               <p>
-                <strong> Location:</strong>{" "}
+                 <strong>{t("location")}:</strong>{" "}
                 {c.weatherData?.location?.lat
                   ? `${c.weatherData.location.lat.toFixed(4)}, ${c.weatherData.location.lng.toFixed(4)}`
-                  : "Loading..."}
+                  : t("loading")}
               </p>
               <p>
-                <strong> Date:</strong>{" "}
+                <strong>{t("date")}:</strong>{" "}
                 {new Date(c.createdAt).toLocaleString()}
               </p>
               <p>
-                <strong> Prediction:</strong> {c.modelPrediction}
+               <strong>{t("prediction")}:</strong>{" "}
+                {c.modelPrediction}
               </p>
               <button
   onClick={() =>
@@ -182,7 +184,7 @@ export default function CheckWeatherPage() {
     fontSize: "14px",
   }}
 >
-   Download PDF
+   {t("downloadPdf")}
 </button>
 
             </div>

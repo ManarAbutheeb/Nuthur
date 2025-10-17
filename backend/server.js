@@ -13,6 +13,8 @@ const weatherRoutes = require("./routes/weatherRoutes");
 const manualCheckRoutes=require("./routes/manualCheckRoutes");
 const pdfRoutes = require("./routes/PdfRoutes");
 const scheduledCheckRoutes = require("./routes/scheduledCheckRoutes"); 
+const contactRoutes = require("./routes/contactRoutes");
+
 
 
 
@@ -76,6 +78,7 @@ app.use("/weatherData", weatherRoutes);
 app.use("/api/manual-checks",manualCheckRoutes );
 app.use("/api/pdf", pdfRoutes);
 app.use("/api/scheduled-checks", scheduledCheckRoutes);
+app.use("/api/contact", contactRoutes);
 
 
 const PORT = process.env.PORT || 5000;

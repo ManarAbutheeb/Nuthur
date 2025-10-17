@@ -73,7 +73,8 @@ export default function Navbar() {
 
                 {/* ⬅️ أزرار مشتركة لجميع المستخدمين المسجلين */}
                 <li className="nav-item">
-                  <Link className="nav-link" href="#contact" style={{ color: "#ffffffff" }}>{t('contact')}</Link>
+                 <Link className="nav-link" href="/contact" style={{ color: "#ffffffff" }}>{t('contact')}</Link>
+
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/profile" style={{ color: "#ffffffff" }}>{t('profile')}</Link>

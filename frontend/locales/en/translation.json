@@ -173,7 +173,7 @@
     "checkedAt": "Checked At",
     "prediction": "Prediction",
     "downloadPdf": "Download PDF",
-     "title2": "Manual Weather Check",
+     "titlee": "Manual Weather Check",
     "usingDefault": "Using Alsoudah default location",
     "alertSelectLocation": "Please select a location on the map first!",
     "modelResult": "Model result",
@@ -184,8 +184,17 @@
     "runModel": "🔍 Run Model Check",
     "previousChecks": "Previous Checks",
     "noPrevious": "No previous checks yet.",
-    "date": "Date"
-   
+    "date": "Date",
+
+     "contactUs": "Contact Us",
+  "contactDescription": "We whould love to hear from you! Send us your feedback or questions.",
+  "yourName": "Your Name",
+  "yourEmail": "Your Email",
+  "yourMessage": "Your Message",
+  "sendMessage": "Send Message",
+  "sending": "Sending...",
+  "messageSent": "✅ Message sent successfully!",
+  "messageFailed": "❌ Failed to send message. Try again."
 
 
 }

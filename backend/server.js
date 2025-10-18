@@ -34,8 +34,8 @@ mongoose.connect(process.env.MONGO_URI)
 cron.schedule("0 */8 * * *", async () => {
   console.log(" Running automatic weather check...");
   try {
-    const lat = 18.2464; // السودة
-    const lng = 42.4866;
+    const lat = 18.2717320; // السودة
+    const lng = 42.3840017;
 
 
     const weatherRecord = await generateWeatherData(lat, lng, null);
@@ -64,9 +64,9 @@ cron.schedule("0 */8 * * *", async () => {
     });
 
     await check.save();
-    console.log("✅ Scheduled check saved:", check.modelPrediction);
+    console.log(" Scheduled check saved:", check.modelPrediction);
   } catch (err) {
-    console.error("❌ Scheduled check failed:", err.message);
+    console.error(" Scheduled check failed:", err.message);
   }
 });
 

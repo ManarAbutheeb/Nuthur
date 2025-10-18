@@ -13,7 +13,7 @@ const verificationCodeSchema = new mongoose.Schema({
   expiresAt: {
     type: Date,
     default: Date.now,
-    expires: 600, //  الرمز ينحذف تلقائياً من قاعدة البيانات بعد 10 دقائق (600 ثانية)
+    expires: 60, //  الرمز ينحذف تلقائياً من قاعدة البيانات بعد 10 دقائق (600 ثانية)
   },
 });
 

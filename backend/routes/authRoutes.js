@@ -237,8 +237,10 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const User = require("../models/user");
 const nodemailer = require('nodemailer'); 
-
+const VerificationCode = require('../models/VerificationCode');
 const router = express.Router();
+const cors = require("cors");
+
 
 // تسجيل مستخدم جديد وإرسال زر التفعيل
 router.post("/register", async (req, res) => {
@@ -310,7 +312,7 @@ router.get('/verify-email', async (req, res) => {
 
   try {
     const user = await User.findOne({ email, verificationToken: token });
-    if (!user) return res.status(400).send("Invalid link or token ❌");
+    if (!user) return res.status(400).send("Invalid link or token ");
 
     user.isVerified = true;
     user.verificationToken = undefined;
@@ -342,6 +344,73 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+// 2. Endpoint to verify code
+router.post('/verify-code', async (req, res) => {
+  try {
+    const { email, code } = req.body;
 
+    // Find the code in database
+    const validCode = await VerificationCode.findOne({ email, code });
+
+    if (!validCode) {
+      return res.status(400).json({ error: 'Invalid or expired verification code.' });
+    }
+
+    // If code is found, it's valid
+    res.json({ message: 'Verification code is correct.' });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+// Forgot password
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.json({ message: "If an account with that email exists, a reset code will be sent." });
+
+  const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+  await VerificationCode.deleteMany({ email });
+  await VerificationCode.create({ email, code: resetCode, expiresAt: Date.now() + 10 * 60 * 1000 });
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+  });
+
+  await transporter.sendMail({
+    from: `"Nuthur Support" <${process.env.EMAIL_USER}>`,
+    to: email,
+    subject: "Password Reset Code - Nuthur",
+    html: `<p>Your password reset code is: <b>${resetCode}</b></p>`
+  });
+
+  res.json({ message: "Password reset code sent to your email." });
+});
+// 3. Endpoint to set new password (after code verification)
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    // Find user and update password
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    // (Optional) Delete the used code to prevent reuse
+    await VerificationCode.deleteMany({ email });
+
+    res.json({ message: 'Password has been reset successfully.' });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 module.exports = router;
 

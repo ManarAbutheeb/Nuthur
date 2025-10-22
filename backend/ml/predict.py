@@ -22,3 +22,4 @@ X = np.array([[data[k] for k in [
 
 pred = clf.predict(X)[0]
 print(json.dumps({"prediction": int(pred)}))
+# print(json.dumps({"prediction": 1}))  # إجبار النتيجة على وجود خطر لتجربة التنبيه

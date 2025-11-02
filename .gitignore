@@ -3,34 +3,34 @@
 dist/
 build/
 
-# Python virtual environment
+
 backend/ml/venv/
 __pycache__/
 *.pyc
-# Python virtual environment
+
 venv/
 */venv/
 **/venv/
 
-# Node modules
+
 node_modules/
 
-# Builds and cache
+
 .next/
 __pycache__/
 
-# Next.js build files
+
 frontend/.next/
 frontend/node_modules/
-# Python virtual environment
+
 venv/
 */venv/
 **/venv/
 
-# Node modules
+
 node_modules/
 
-# Build and cache
+
 .next/
 __pycache__/
 

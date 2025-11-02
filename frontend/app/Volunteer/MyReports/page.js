@@ -11,13 +11,13 @@ export default function VolunteerReports() {
   const [statusFilter, setStatusFilter] = useState("All");
   const router = useRouter();
 
-  // جلب تقارير الفولنتيير الخاصة فقط
+  
 useEffect(() => {
   const fetchMyReports = async () => {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) {
-        setError(t("⚠️ Please log in first"));
+        setError(t(" Please log in first"));
         return;
       }
 
@@ -92,40 +92,7 @@ useEffect(() => {
       </div>
 
      
-      {/* <div className="row mb-4">
-        <div className="col-md-3 col-6 mb-3">
-          <div className="card bg-primary text-white text-center">
-            <div className="card-body">
-              <h4 className="mb-0">{stats.total}</h4>
-              <small>Total Reports</small>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 col-6 mb-3">
-          <div className="card bg-warning text-dark text-center">
-            <div className="card-body">
-              <h4 className="mb-0">{stats.pending}</h4>
-              <small>Pending</small>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 col-6 mb-3">
-          <div className="card bg-success text-white text-center">
-            <div className="card-body">
-              <h4 className="mb-0">{stats.resolved}</h4>
-              <small>Resolved</small>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 col-6 mb-3">
-          <div className="card bg-danger text-white text-center">
-            <div className="card-body">
-              <h4 className="mb-0">{stats.rejected}</h4>
-              <small>Rejected</small>
-            </div>
-          </div>
-        </div>
-      </div> */}
+
 
 <div className="row mb-4">
         <StatsCard color="bg-primary text-white" count={stats.total} label={t("Total Reports")} />

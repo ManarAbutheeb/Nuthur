@@ -52,14 +52,14 @@ export default function ReportPage() {
         (err) => {
           navigator.geolocation.clearWatch(watchId);
           console.error("Error getting location: ", err);
-            let errorMessage = t("❌ Could not get your current location");
+            let errorMessage = t(" Could not get your current location");
 
           if (err.code === err.PERMISSION_DENIED) {
-            errorMessage = t("❌ Location access denied. Please allow location access in your browser settings.");
+            errorMessage = t(" Location access denied. Please allow location access in your browser settings.");
           } else if (err.code === err.TIMEOUT) {
-            errorMessage = t("❌ Location request timed out. Please try again.");
+            errorMessage = t(" Location request timed out. Please try again.");
           } else if (err.code === err.POSITION_UNAVAILABLE) {
-            errorMessage = t("❌ Location information unavailable. Please enable GPS and check your internet connection.");
+            errorMessage = t(" Location information unavailable. Please enable GPS and check your internet connection.");
           }
 
           
@@ -91,7 +91,7 @@ export default function ReportPage() {
     setPosition(newPosition);
     setLocationMethod("manual");
     setLocationAccuracy(5); // Manual selection has high accuracy
-    setMessage(t("📍 Location selected manually on map"));
+    setMessage(t(" Location selected manually on map"));
   };
 
   const handleImageChange = (e) => {
@@ -124,7 +124,7 @@ const handleSetAlsoudah = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!position) {
-      setMessage(t("❌ Please select a location on the map"));
+      setMessage(t(" Please select a location on the map"));
       return;
     }
     
@@ -252,7 +252,7 @@ const handleSetAlsoudah = () => {
           )}
         </div>
 
-        {/* Image upload */}
+      
         <div className="mb-3">
           <label className="form-label">{t("Report Image")}</label>
           <input

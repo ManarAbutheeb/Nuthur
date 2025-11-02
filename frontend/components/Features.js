@@ -17,7 +17,7 @@ export default function Features() {
       style={{
         // backgroundColor: "#f8f9fa", // لون فاتح
         // أو
-        background: "linear-gradient(135deg, #e1e4e1ff 0%, #adccb4ff 100%)", // تدرج أخضر
+        background: "linear-gradient(135deg, #e1e4e1ff 0%, #adccb4ff 100%)", 
       }}
     >
       <div className="container">

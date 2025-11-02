@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, default: "volunteer" },
   isVerified: { type: Boolean, default: false },
   verificationToken: String,
-  region: { type: String, default: "Soudah" } // مهمة لإشعارات الحرائق
+  region: { type: String, default: "Soudah" } 
 });
 
 module.exports = mongoose.model("User", userSchema);

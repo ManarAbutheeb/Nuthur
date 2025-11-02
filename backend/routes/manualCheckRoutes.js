@@ -5,7 +5,7 @@ const { generateWeatherData } = require("../services/weatherService");
 const { runModelPrediction } = require("../controllers/predictModel");
 const authMiddleware = require("../middleware/authMiddleware");
 
-// POST /api/manual-checks → الموظف يطلب تشييك للمناخ
+
 router.post("/", authMiddleware, async (req, res) => {
   try {
     const { location } = req.body;
@@ -48,7 +48,7 @@ const prediction = await runModelPrediction({
       check
     });
   } catch (err) {
-    console.error("❌ Manual check error:", err);
+    console.error(" Manual check error:", err);
     res.status(500).json({ error: "Failed to check weather" });
   }
 });

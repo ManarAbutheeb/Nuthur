@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose");
 
-// هذا هو السكيم الأساسي اللي بيحتوي على الخصائص المشتركة
+
 const reportBaseSchema = new mongoose.Schema({
   location: {
     lat: { type: Number, required: true },

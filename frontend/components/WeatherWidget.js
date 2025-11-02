@@ -78,14 +78,14 @@ const WeatherWidget = () => {
       }}
       >
       <div className="p-4 position-relative" style={{ zIndex: 2 }}>
-        {/* Title and update time */}
+       
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h4 className="mb-0"></h4>
           <small>{new Date(weatherData.timestamp).toLocaleDateString()}</small>
         </div>
 
         <div className="row align-items-center">
-          {/* Left section (main info) */}
+        
           <div className="col-md-4 text-center mb-4 mb-md-0">
             <div className="weather-icon mb-2" style={{ fontSize: "4rem", filter: "drop-shadow(0 0 10px rgba(255,255,255,0.5))" }}>
               {weatherData.icon}
@@ -98,7 +98,7 @@ const WeatherWidget = () => {
             </div>
           </div>
 
-          {/* Right section (details) */}
+         
           <div className="col-md-8">
             <div className="row text-center">
               <div className="col-6 col-md-3 mb-3">
@@ -133,7 +133,7 @@ const WeatherWidget = () => {
         </div>
       </div>
 </div>
-      {/* Widget footer */}
+     
       <div className="weather-footer text-center py-4" 
            style={{ backgroundColor: "rgba(0,0,0,0.3)", borderBottomLeftRadius: "20px", borderBottomRightRadius: "20px" }}>
         <small> {new Date(weatherData.timestamp).toLocaleTimeString()} {t("Updated")}  </small>

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ManualCheck = require("../models/ManualCheck");
 const ScheduledCheck = require("../models/scheduledCheck");
-const WeatherData = require("../models/WeatherData");
+const WeatherData = require("../models/weatherData");
 const Report = require("../models/VolunterReport");
 const PDFDocument = require("pdfkit");
 const path = require("path");
@@ -105,7 +105,6 @@ router.get("/report/:id/pdf", async (req, res) => {
     if (report.modelCheckedAt)
       doc.text(` Checked At: ${new Date(report.modelCheckedAt).toLocaleString()}`);
 
-    //  إدراج الصورة (إن وجدت)
    if (report.image) {
   const filename = report.image.split("\\").pop().split("/").pop();
   const imageUrl = `http://localhost:5000/api/reports/image/${filename}`;
@@ -136,7 +135,7 @@ router.get("/report/:id/pdf", async (req, res) => {
     res.status(500).json({ error: "Failed to generate PDF" });
   }
 });
-// تحميل PDF لتقرير الـ Scheduled Check
+
 router.get("/scheduled/:id/pdf", async (req, res) => {
   try {
     const { id } = req.params;
@@ -151,7 +150,7 @@ router.get("/scheduled/:id/pdf", async (req, res) => {
 
     const weather = check.weatherData;
 
-    // إعدادات PDF
+
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
@@ -173,11 +172,11 @@ router.get("/scheduled/:id/pdf", async (req, res) => {
     doc.text(` Model Prediction: ${check.modelPrediction || "N/A"}`);
     doc.moveDown();
 
-    // الموقع
-    doc.text(`📍 Location: ${check.location.lat.toFixed(4)}, ${check.location.lng.toFixed(4)}`);
+
+    doc.text(` Location: ${check.location.lat.toFixed(4)}, ${check.location.lng.toFixed(4)}`);
     doc.moveDown();
 
-    // بيانات الطقس
+
     if (weather) {
       doc.fontSize(14).text(" Weather Data", { underline: true });
       doc.fontSize(12);
@@ -202,7 +201,7 @@ router.get("/scheduled/:id/pdf", async (req, res) => {
 
     doc.end();
   } catch (err) {
-    console.error("❌ PDF generation error (Scheduled):", err);
+    console.error(" PDF generation error (Scheduled):", err);
     res.status(500).json({ error: "Failed to generate scheduled check PDF" });
   }
 });

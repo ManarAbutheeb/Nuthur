@@ -13,7 +13,7 @@ export default function ForgotPasswordPage() {
   const [isError, setIsError] = useState(false);
 
 
-  const [currentStep, setCurrentStep] = useState(1); // 1: إدخال الإيميل, 2: إدخال الرمز, 3: إدخال الباسوورد الجديد
+  const [currentStep, setCurrentStep] = useState(1); 
 
 
   const handleSendCode = async (e) => {
@@ -26,15 +26,15 @@ export default function ForgotPasswordPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage("✅ " + data.message);
+        setMessage( data.message);
         setIsError(false);
         setCurrentStep(2); 
       } else {
-        setMessage("❌ " + data.error);
+        setMessage( data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage("❌ " + t("Network Error"));
+      setMessage( t("Network Error"));
       setIsError(true);
     }
   };
@@ -50,15 +50,15 @@ export default function ForgotPasswordPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage("✅ " + data.message);
+        setMessage( data.message);
         setIsError(false);
         setCurrentStep(3); 
       } else {
-        setMessage("❌ " + data.error);
+        setMessage( data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage("❌ " + t("Network Error"));
+      setMessage( t("Network Error"));
       setIsError(true);
     }
   };
@@ -74,15 +74,15 @@ export default function ForgotPasswordPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage("✅ " + data.message);
+        setMessage( data.message);
         setIsError(false);
      
       } else {
-        setMessage("❌ " + data.error);
+        setMessage(data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage("❌ " + t("Network Error"));
+      setMessage( t("Network Error"));
       setIsError(true);
     }
   };
@@ -151,7 +151,7 @@ export default function ForgotPasswordPage() {
         </form>
       )}
 
-      {/* عرض الرسائل */}
+  
       {message && (
         <div className={`mt-3 text-center ${isError ? 'text-danger' : 'text-success'}`}>
           {message}

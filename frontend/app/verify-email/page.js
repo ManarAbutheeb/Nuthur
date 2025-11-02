@@ -8,12 +8,12 @@ export default function ApproveEmailPage() {
   const email = searchParams.get("email");
   const token = searchParams.get("token");
 
-  const [message, setMessage] = useState("جاري تفعيل الحساب... ⏳");
+  const [message, setMessage] = useState("activiting account....");
 
   useEffect(() => {
     const approveAccount = async () => {
       if (!email || !token) {
-        setMessage("رابط التفعيل غير صحيح ❌");
+        setMessage("رابط التفعيل غير صحيح ");
         return;
       }
 
@@ -27,14 +27,14 @@ export default function ApproveEmailPage() {
         const data = await res.json();
 
         if (res.ok) {
-          setMessage("✅ تم تفعيل الحساب بنجاح! التحويل إلى تسجيل الدخول...");
+          setMessage("account avtivated successfly");
           setTimeout(() => router.push("/log-in"), 2000);
         } else {
-          setMessage("❌ " + (data.error || "فشل التفعيل"));
+          setMessage((data.error || "failed to activated the account"));
         }
       } catch (err) {
         console.error(err);
-        setMessage("❌ حدث خطأ في الخادم، حاول لاحقًا.");
+        setMessage("something wronge");
       }
     };
 

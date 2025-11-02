@@ -7,42 +7,41 @@
 // const nodemailer = require('nodemailer'); 
 
 // const router = express.Router();
-// // تسجيل مستخدم جديد
-// // تسجيل مستخدم جديد مع إرسال كود التحقق
+
 // router.post("/register", async (req, res) => {
 //   try {
 //     const { name, email, password, role } = req.body;
 
-//     // هل الإيميل موجود أصلاً؟
+
 //    const existingUser = await User.findOne({ email });
 // if (existingUser && existingUser.isVerified) {
 //   return res.status(400).json({ error: "Email already exists" });
 // } else if (existingUser && !existingUser.isVerified) {
-//   // حذف المستخدم القديم غير المفعل لكي يتم إنشاء جديد
+
 //   await User.deleteOne({ email });
 //   await VerificationCode.deleteMany({ email });
 // }
-//     // تشفير كلمة المرور
+
 //     const hashed = await bcrypt.hash(password, 10);
 
-//     // إنشاء المستخدم
+
 //     const user = new User({ name, email, password: hashed, role, isVerified: false });
 //     await user.save();
 
-//     // حذف أي رموز تحقق سابقة
+
 //     await VerificationCode.deleteMany({ email });
 
-//     // توليد كود تحقق من 6 أرقام
+
 //     const code = Math.floor(100000 + Math.random() * 900000).toString();
 
-//     // حفظ الكود في قاعدة البيانات
+
 //     await VerificationCode.create({
 //       email,
 //       code,
 //       expiresAt: Date.now() + 10 * 60 * 1000, // ينتهي بعد 10 دقائق
 //     });
 
-//     // إعداد إرسال الإيميل
+
 //     const transporter = nodemailer.createTransport({
 //       service: 'gmail',
 //       auth: {
@@ -51,7 +50,7 @@
 //       },
 //     });
 
-//     // إرسال الإيميل
+
 //     await transporter.sendMail({
 //       from: `"Nuthur Support" <${process.env.EMAIL_USER}>`,
 //       to: email,
@@ -73,7 +72,7 @@
 //   }
 // });
 
-// // تسجيل الدخول
+
 // router.post("/login", async (req, res) => {
 //   try {
 //     const { email, password } = req.body;
@@ -148,7 +147,7 @@
 //   }
 // });
 
-// // 2. Endpoint to verify code
+
 // router.post('/verify-code', async (req, res) => {
 //   try {
 //     const { email, code } = req.body;
@@ -168,7 +167,7 @@
 //   }
 // });
 
-// // 3. Endpoint to set new password (after code verification)
+
 // router.post('/reset-password', async (req, res) => {
 //   try {
 //     const { email, newPassword } = req.body;
@@ -194,7 +193,7 @@
 //   }
 // });
 // module.exports = router;
-// // التحقق من البريد الإلكتروني
+
 // router.post('/verify-email', async (req, res) => {
 //   const { email, code } = req.body;
 
@@ -205,14 +204,14 @@
 //       return res.status(400).json({ error: "Invalid or expired verification code." });
 //     }
 
-//     // تحديث حالة المستخدم إلى verified
+
 //    const user = await User.findOne({ email });
 // if (!user) {
 //   // البريد غير موجود، يمنع تسجيل الدخول
 //   return res.status(404).json({ error: "User not found" });
 // }
 
-// // ✨ التحقق من البريد
+
 // if (!user.isVerified) {
 //   return res.status(400).json({ error: "Please verify your email before logging in" });
 // }
@@ -221,7 +220,7 @@
 //     user.isVerified = true;
 //     await user.save();
 
-//     // حذف الكود من قاعدة البيانات بعد التحقق
+
 //     await VerificationCode.deleteMany({ email });
 
 //     res.json({ message: "✅ Email verified successfully!" });

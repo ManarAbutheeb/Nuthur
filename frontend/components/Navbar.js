@@ -17,7 +17,7 @@ export default function Navbar() {
     const role = localStorage.getItem('userRole'); 
     
     setIsLoggedIn(!!token);
-    setUserRole(role); // ⬅️ تعيين role مباشرة
+    setUserRole(role); 
   }, []);
 
   const handleLogout = () => {
@@ -28,7 +28,7 @@ export default function Navbar() {
     router.push('/log-in');
   };
 
-  // ✅ دالة لتبديل اللغة
+
   const toggleLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'ar' : 'en');
   };
@@ -71,7 +71,7 @@ export default function Navbar() {
                   </>
                 )}
 
-                {/* ⬅️ أزرار مشتركة لجميع المستخدمين المسجلين */}
+              
                 <li className="nav-item">
                  <Link className="nav-link" href="/contact" style={{ color: "#ffffffff" }}>{t('contact')}</Link>
 
@@ -97,7 +97,7 @@ export default function Navbar() {
               </>
             )}
 
-            {/* 🌍 زر لتبديل اللغة */}
+          
             <li className="nav-item">
               <button
                 onClick={toggleLanguage}

@@ -6,12 +6,12 @@ const multer = require("multer");
 const path = require("path");
 const { execFile } = require("child_process");
 const fs = require("fs");
-const authMiddleware = require("../middleware/authMiddleware"); // 👈 استدعاء 
+const authMiddleware = require("../middleware/authMiddleware"); 
 const { runModelPrediction } = require("../controllers/predictModel");
 
 const router = express.Router();
 
-// إعداد التخزين للصور
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadDir = "uploads/";
@@ -32,11 +32,11 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  limits: { fileSize: 5 * 1024 * 1024 }, 
 });
 
 
-// 1. إنشاء تقرير
+
 router.post("/create", authMiddleware, upload.single("image"), async (req, res) => {
   try {
     const { description, location } = req.body;
@@ -86,7 +86,7 @@ const prediction = await runModelPrediction(predictionInput);
   }
 });
 
-// 2. جلب كل التقارير
+
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const reports = await Report.find().populate("user", "name email");
@@ -96,7 +96,7 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
-// 3. تحديث حالة التقرير
+
 router.put("/:id/status", authMiddleware, async (req, res) => {
   try {
     const { status } = req.body;
@@ -118,7 +118,7 @@ router.put("/:id/status", authMiddleware, async (req, res) => {
   }
 });
 
-// 4. جلب صورة التقرير
+
 router.get("/image/:filename", (req, res) => {
   const filename = req.params.filename;
   const imagePath = path.join(__dirname, "../uploads", filename);
@@ -128,8 +128,7 @@ router.get("/image/:filename", (req, res) => {
   res.sendFile(imagePath);
 });
 
-// 5. جلب تقارير الفولنتيير الخاصة فقط
-// Get reports for logged-in volunteer
+
 router.get("/my-reports", authMiddleware, async (req, res) => {
   try {
     const reports = await Report.find({ user: req.user.id }).sort({ createdAt: -1 });

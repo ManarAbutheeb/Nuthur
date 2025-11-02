@@ -1,4 +1,5 @@
 pytorch-tabnet
+xgboost
 torch
 pandas
 scikit-learn

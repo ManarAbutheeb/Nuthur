@@ -28,7 +28,7 @@ async function runModelPrediction(inputData) {
     });
 
     python.on("close", (code) => {
-      fs.unlinkSync(tempPath); // نحذف الملف المؤقت
+      fs.unlinkSync(tempPath); 
       if (code !== 0) {
         console.error("Python error:", errorOutput);
         return reject(new Error(`Python script exited with code ${code}`));

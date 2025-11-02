@@ -1,6 +1,6 @@
 
 const mongoose = require("mongoose");
-const reportBaseSchema = require("./ReportBase"); // 👈 استيراد السكيم الأساسي
+const reportBaseSchema = require("./ReportBase"); 
 
 const fireReportSchema = new mongoose.Schema({
     ...reportBaseSchema.obj,

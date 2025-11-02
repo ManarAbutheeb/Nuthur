@@ -1,11 +1,11 @@
-// backend/routes/weatherRoutes.js
+
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 
 
 const cache = {};
-const CACHE_TTL_SECONDS = 60 * 60; // 1 hour
+const CACHE_TTL_SECONDS = 60 * 60; 
 
 
 const DEFAULT_LAT = 18.2717;
@@ -24,7 +24,7 @@ router.get('/weather/current', async (req, res) => {
       return res.json({ ...cached.data, cached: true, cachedAt: cached.ts });
     }
 
-    // Build OpenWeather API URL
+
     const apiKey = process.env.WEATHER_API_KEY;
     if (!apiKey) {
       console.error("Missing WEATHER_API_KEY in .env");
@@ -47,13 +47,13 @@ router.get('/weather/current', async (req, res) => {
       timestamp: now
     };
 
-    // cache it
+
     cache[key] = { ts: now, data: result };
 
     res.json({ ...result, cached: false });
   } catch (error) {
     console.error('Error fetching weather data:', error?.message || error);
-    // fallback static data
+   
     const fallback = {
       temperature: 18,
       condition: "Partly Cloudy",
@@ -70,7 +70,7 @@ router.get('/weather/current', async (req, res) => {
   }
 });
 
-// convert OpenWeather icon code to emoji (simple map)
+
 function getWeatherIcon(iconCode) {
   const iconMap = {
     '01d': '☀️', '01n': '🌙',

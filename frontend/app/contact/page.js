@@ -93,7 +93,7 @@ export default function ContactPage() {
           type="submit"
           style={{
             padding: "10px",
-            backgroundColor: "#4a6fa5",
+            backgroundColor: "#041f08ff",
             color: "white",
             border: "none",
             borderRadius: "8px",

@@ -16,7 +16,7 @@ export default function ProfilePage() {
       return;
     }
 
-    // جلب البيانات من localStorage 
+    
     const userData = {
       name: localStorage.getItem("userName") || "User",
       email: localStorage.getItem("userEmail") || "No email",

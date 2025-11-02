@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const fireIndexStateSchema = new mongoose.Schema({
   location: {
     type: String,
-    default: "alsoudah", // لأن النظام مخصص لهذه المنطقة فقط
+    default: "alsoudah", 
     unique: true
   },
-  lastFFMC: { type: Number, default: 85 }, // القيم الابتدائية لأول مرة فقط
+  lastFFMC: { type: Number, default: 85 }, 
   lastDMC: { type: Number, default: 6 },
   lastDC: { type: Number, default: 15 },
   lastUpdate: { type: Date, default: null }

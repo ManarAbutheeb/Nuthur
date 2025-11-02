@@ -6,18 +6,18 @@ exports.register = async (req, res) => {
   const { name, email, password, role } = req.body;
 
   try {
-    // التحقق إذا الإيميل مسجل من قبل
+
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ error: "Email already exists" });
 
-    // إنشاء توكن عشوائي
+  
     const verificationToken = crypto.randomBytes(32).toString("hex");
 
-    // إنشاء مستخدم جديد
+  
     const user = new User({ name, email, password, role, verificationToken });
     await user.save();
 
-    // إعداد الإرسال عبر Gmail
+
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
       },
     });
 
-    // رابط التفعيل (اللي فيه الزر)
+ 
     const verificationUrl = `http://localhost:3000/approve-email?email=${email}&token=${verificationToken}`;
 
     // إرسال الإيميل
@@ -52,7 +52,7 @@ exports.register = async (req, res) => {
   }
 };
 
-// ✅ لما تضغط الزر بالإيميل
+
 exports.approveEmail = async (req, res) => {
   const { email, token } = req.body;
 
@@ -71,7 +71,7 @@ exports.approveEmail = async (req, res) => {
   }
 };
 
-// ✅ تسجيل الدخول
+
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 

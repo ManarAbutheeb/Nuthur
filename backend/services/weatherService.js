@@ -1,5 +1,5 @@
 const axios = require("axios");
-const WeatherData = require("../models/WeatherData");
+const WeatherData = require("../models/weatherData");
 const FireIndexState = require("../models/FireIndexState");
 const CanadianFWI  = require("../utils/fwiCalculator");
 

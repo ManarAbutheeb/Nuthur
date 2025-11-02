@@ -135,10 +135,10 @@
   "Description": "الوصف",
   "Write your report details here...": "اكتب تفاصيل تقريرك هنا...",
   "Select Location on Map": "اختر الموقع على الخريطة",
-  "Use My Current Location": "📍 استخدم موقعي الحالي",
-  "Detecting...": "🔄 جاري الاكتشاف...",
-  "Clear Selection": "❌ مسح الاختيار",
-  "Tip": "💡 نصيحة",
+  "Use My Current Location": " استخدم موقعي الحالي",
+  "Detecting...": " جاري الاكتشاف...",
+  "Clear Selection": " مسح الاختيار",
+  "Tip": " نصيحة",
   "For best accuracy, enable GPS and use Wi-Fi. If automatic detection is not precise, click directly on the map to select your exact location.": "لأفضل دقة، قم بتمكين GPS واستخدام Wi-Fi. إذا لم يكن الاكتشاف التلقائي دقيقًا، انقر مباشرة على الخريطة لاختيار موقعك بدقة.",
   "Selected Location:": "الموقع المختار:",
   "Auto-detected": "تم الاكتشاف تلقائيًا",
@@ -148,20 +148,20 @@
   "Image Preview:": "معاينة الصورة:",
   "Submitting...": "جاري الإرسال...",
   "Submit Report": "إرسال التقرير",
-  " Detecting your location with high accuracy...": "📍 جاري تحديد موقعك بدقة عالية...",
-  " Location detected (Accuracy: {accuracy}m)": "📍 تم تحديد الموقع (الدقة: {accuracy}م)",
-  " Location detected with high accuracy": "📍 تم تحديد الموقع بدقة عالية",
-  " Could not get your current location": "❌ تعذر الحصول على موقعك الحالي",
-  " Location access denied. Please allow location access in your browser settings.": "❌ تم رفض الوصول إلى الموقع. يرجى السماح بالوصول في إعدادات المتصفح.",
-  " Location request timed out. Please try again.": "❌ انتهت مهلة طلب الموقع. يرجى المحاولة مرة أخرى.",
-  " Location information unavailable. Please enable GPS and check your internet connection.": "❌ معلومات الموقع غير متوفرة. يرجى تمكين GPS والتحقق من الاتصال بالإنترنت.",
-  " Location detection taking longer than expected. You can manually select your location on the map.": "⚠️ يستغرق اكتشاف الموقع وقتًا أطول من المتوقع. يمكنك اختيار موقعك يدويًا على الخريطة.",
-  " Only images are allowed!": "❌ مسموح بالصور فقط!",
-  " Image size must be less than 5MB!": "❌ يجب أن تكون الصورة أقل من 5 ميجابايت!",
-  " Please select a location on the map": "❌ يرجى اختيار الموقع على الخريطة",
+  " Detecting your location with high accuracy...": " جاري تحديد موقعك بدقة عالية...",
+  " Location detected (Accuracy: {accuracy}m)": " تم تحديد الموقع (الدقة: {accuracy}م)",
+  " Location detected with high accuracy": " تم تحديد الموقع بدقة عالية",
+  " Could not get your current location": " تعذر الحصول على موقعك الحالي",
+  " Location access denied. Please allow location access in your browser settings.": " تم رفض الوصول إلى الموقع. يرجى السماح بالوصول في إعدادات المتصفح.",
+  " Location request timed out. Please try again.": " انتهت مهلة طلب الموقع. يرجى المحاولة مرة أخرى.",
+  " Location information unavailable. Please enable GPS and check your internet connection.": " معلومات الموقع غير متوفرة. يرجى تمكين GPS والتحقق من الاتصال بالإنترنت.",
+  " Location detection taking longer than expected. You can manually select your location on the map.": " يستغرق اكتشاف الموقع وقتًا أطول من المتوقع. يمكنك اختيار موقعك يدويًا على الخريطة.",
+  " Only images are allowed!": " مسموح بالصور فقط!",
+  " Image size must be less than 5MB!": " يجب أن تكون الصورة أقل من 5 ميجابايت!",
+  " Please select a location on the map": " يرجى اختيار الموقع على الخريطة",
   "Your location accuracy is {accuracy} meters. This might not be precise. Do you want to continue?": "دقة موقعك {accuracy} متر. قد لا تكون دقيقة. هل ترغب بالمتابعة؟",
-  " Report submitted successfully!": "✅ تم إرسال التقرير بنجاح!",
-  " Server error, please try again later": "🚨 خطأ في الخادم، يرجى المحاولة لاحقًا",
+  " Report submitted successfully!": " تم إرسال التقرير بنجاح!",
+  " Server error, please try again later": " خطأ في الخادم، يرجى المحاولة لاحقًا",
   "Location selection cleared": "تم مسح الموقع",
 
   "Welcome, Volunteer!": "مرحباً بك أيها المتطوع!",
@@ -183,7 +183,7 @@
     "serverError": "حدث خطأ في الاتصال بالخادم",
     "useDefault": "استخدام موقع السودة الافتراضي",
     "checking": "جارٍ الفحص...",
-    "runModel": "🔍 تشغيل فحص النموذج",
+    "runModel": " تشغيل فحص النموذج",
     "previousChecks": "الفحوصات السابقة",
     "noPrevious": "لا توجد فحوصات سابقة.",
     
@@ -195,8 +195,8 @@
   "yourMessage": "رسالتك",
   "sendMessage": "أرسل الرسالة",
   "sending": "جاري الإرسال...",
-  "messageSent": "✅ تم إرسال الرسالة بنجاح!",
-  "messageFailed": "❌ فشل إرسال الرسالة. حاول مرة أخرى."
+  "messageSent": " تم إرسال الرسالة بنجاح!",
+  "messageFailed": " فشل إرسال الرسالة. حاول مرة أخرى."
    
   
 }

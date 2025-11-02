@@ -51,15 +51,15 @@ export default function AutoChecksPage() {
               }}
             >
               <p>
-               <strong>📍 {t("location")}:</strong>{" "}
+               <strong> {t("location")}:</strong>{" "}
                 {c.location?.lat.toFixed(4)}, {c.location?.lng.toFixed(4)}
               </p>
               <p>
-                <strong>🕓 {t("checkedAt")}:</strong>{" "}
+                <strong> {t("checkedAt")}:</strong>{" "}
                 {new Date(c.executedAt).toLocaleString()}
               </p>
               <p>
-                <strong>🔥 {t("prediction")}:</strong> {c.modelPrediction}
+                <strong> {t("prediction")}:</strong> {c.modelPrediction}
               </p>
               <button
                 onClick={() =>

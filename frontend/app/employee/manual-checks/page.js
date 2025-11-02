@@ -14,7 +14,7 @@ export default function CheckWeatherPage() {
   const token =
     typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
-  // 🔹 جلب الطلبات السابقة
+
   const fetchChecks = async () => {
     if (!token) return;
     try {
@@ -24,7 +24,7 @@ export default function CheckWeatherPage() {
       const data = await res.json();
       setChecks(data);
     } catch (err) {
-      console.error("❌ Fetch checks error:", err);
+      console.error(" Fetch checks error:", err);
     }
   };
 
@@ -32,14 +32,14 @@ export default function CheckWeatherPage() {
     fetchChecks();
   }, [token]);
 
-  // 🔹 زر الموقع الافتراضي
+
   const setAlsoudah = () => {
-    setPosition([18.2677778, 42.3702778]);
+    setPosition([18.2353699, 42.3895230]);
         setMessage(t("usingDefault"));
 
   };
 
-  // 🔹 تشغيل المودل
+
   const handleCheckWeather = async () => {
     if (!position) {
        alert(t("alertSelectLocation"));
@@ -65,7 +65,7 @@ export default function CheckWeatherPage() {
 
       if (res.ok) {
        setMessage(`${t("modelResult")}: ${data.check.modelPrediction}`);
-        // بدل الإضافة اليدوية، نعيد تحميل الكل عشان الموقع يطلع مباشرة
+       
         await fetchChecks();
       } else {
        setMessage(t("failed"));

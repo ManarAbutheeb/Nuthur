@@ -1,7 +1,7 @@
 const VolunteerReport = require("../models/volunteerreport");
 const { sendEmail } = require("../services/emailService");
 
-// تحديث حالة التقرير وإرسال إشعار للمتطوع
+
 exports.updateReportStatus = async (req, res) => {
   const { reportId, status } = req.body;
   try {
@@ -12,7 +12,7 @@ exports.updateReportStatus = async (req, res) => {
     await report.save();
 
     let subject = "تحديث على تقريرك";
-    let message = status === "resolved" ? "تم حل مشكلتك ✅" : "تم رفض مشكلتك ❌";
+    let message = status === "resolved" ? "تم حل مشكلتك " : "تم رفض مشكلتك ";
     await sendEmail(report.user.email, subject, `<p>${message}</p>`);
 
     res.status(200).json({ message: "Status updated and email sent" });

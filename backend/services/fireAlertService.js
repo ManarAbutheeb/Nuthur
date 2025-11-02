@@ -14,7 +14,7 @@ async function sendFireAlert() {
 
       const volunteers = await User.find({ region: "Soudah" });
       for (let v of volunteers) {
-        await sendEmail(v.email, "تنبيه حريق 🔥", "<p>تم رصد حريق في منطقة السودة. الرجاء أخذ الحيطة والحذر.</p>");
+        await sendEmail(v.email, "تنبيه حريق ", "<p>تم رصد حريق في منطقة السودة. الرجاء أخذ الحيطة والحذر.</p>");
       }
       console.log("Fire alerts sent!");
     }
@@ -23,7 +23,7 @@ async function sendFireAlert() {
   }
 }
 
-// تشغيل تلقائي كل ساعة
+
 cron.schedule("0 * * * *", sendFireAlert);
 
 module.exports = { sendFireAlert };

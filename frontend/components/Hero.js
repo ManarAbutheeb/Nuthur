@@ -25,14 +25,8 @@ export default function Hero() {
         >
           {t("createReport")}
         </a>
+        
         <p></p>
-        <a
-          href="#features"
-          className="btn btn-danger btn-lg"
-          style={{ backgroundColor: "#680707ff" }}
-        >
-          {t("discoverFeatures")}
-        </a>
       </div>
     </section>
   );

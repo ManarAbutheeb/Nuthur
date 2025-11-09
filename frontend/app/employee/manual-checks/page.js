@@ -5,7 +5,7 @@ import ReportMap from "../../../components/MapComponent";
 
 export default function CheckWeatherPage() {
   const { t } = useTranslation();
-  const [userLocation] = useState([18.2677778, 42.3702778]); // Alsoudah default
+  const [userLocation] = useState([18.2353699, 42.3895230]); // Alsoudah default
   const [position, setPosition] = useState(null);
   const [checks, setChecks] = useState([]);
   const [loading, setLoading] = useState(false);

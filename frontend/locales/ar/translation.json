@@ -196,7 +196,33 @@
   "sendMessage": "أرسل الرسالة",
   "sending": "جاري الإرسال...",
   "messageSent": " تم إرسال الرسالة بنجاح!",
-  "messageFailed": " فشل إرسال الرسالة. حاول مرة أخرى."
+  "messageFailed": " فشل إرسال الرسالة. حاول مرة أخرى.",
    
-  
+
+"High temperature: Avoid any open fire activities outdoors.":"درجة حرارة مرتفعة: تجنّب إشعال أي نار في الأماكن المفتوحة.",
+
+"Keep a fire extinguisher nearby when camping.": "احتفظ بمطفأة حريق قريبة عند التخييم.",
+
+"Extinguish charcoal with water not soil.":"أطفئ الفحم بالماء وليس بالتراب.",
+
+"Keep fires short and monitored at all times.":"حافظ على أن تكون النار صغيرة وتحت المراقبة دائماً.",
+
+"Follow standard safety when lighting a fire.": "اتبع إجراءات السلامة المعتادة عند إشعال النار.",
+
+
+"Strong winds: sparks can travel far. Avoid lighting any fire.":"رياح قوية: الشرر قد ينتقل لمسافات بعيدة، تجنّب إشعال النار.",
+
+"Stay away from dry grass and exposed areas.":"ابتعد عن الأعشاب الجافة والأماكن المكشوفة.",
+
+"Secure grills and check wind direction before lighting.":"ثبّت أدوات الشواء وتحقق من اتجاه الرياح قبل الإشعال.",
+
+"Choose a sheltered spot and never leave fire unattended.":"اختر مكانًا محميًا من الهواء ولا تترك النار دون مراقبة.",
+
+
+"Low humidity increases ignitability Exercise extra caution.":"الرطوبة المنخفضة تزيد قابلية الاشتعال، كن حذرًا بشكل أكبر.",
+
+
+"Report any unusual smoke or burning smell immediately.":"أبلغ فورًا عند ملاحظة دخان أو رائحة احتراق غير طبيعية.",
+"Safety Tips" :"نصائح السلامه "
+
 }

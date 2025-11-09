@@ -6,7 +6,7 @@ const multer = require("multer");
 const path = require("path");
 const { execFile } = require("child_process");
 const fs = require("fs");
-const authMiddleware = require("../middleware/authMiddleware"); 
+const authMiddleware = require("../middleware/authMiddleware");
 const { runModelPrediction } = require("../controllers/predictModel");
 
 const router = express.Router();
@@ -32,7 +32,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }, 
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
 
@@ -49,26 +49,26 @@ router.post("/create", authMiddleware, upload.single("image"), async (req, res) 
       image: imagePath,
       status: "pending",
     });
-
-    const weatherData = await generateWeatherData(location.lat, location.lng, report._id);
+    await report.save();
+    const weatherRecord = await generateWeatherData(location.lat, location.lng, report._id);
     const now = new Date();
-const predictionInput = {
-  day: now.getDate(),
-  month: now.getMonth() + 1,
-  year: now.getFullYear(),
-  Temperature: weatherData.temperature,
-  RH: weatherData.humidity,
-  Ws: weatherData.windSpeed,
-  Rain: weatherData.rainfall,
-  FFMC: weatherData.indices.ffmc,
-  DMC: weatherData.indices.dmc,
-  DC: weatherData.indices.dc,
-  ISI: weatherData.indices.isi,
-  BUI: weatherData.indices.bui,
-  FWI: weatherData.indices.fwi
-};
-
-const prediction = await runModelPrediction(predictionInput);
+    const predictionInput = {
+      day: now.getDate(),
+      month: now.getMonth() + 1,
+      year: now.getFullYear(),
+      Temperature: weatherRecord.temperature,
+      RH: weatherRecord.humidity,
+      Ws: weatherRecord.windSpeed,
+      Rain: weatherRecord.rainfall,
+      FFMC: weatherRecord.indices.ffmc,
+      DMC: weatherRecord.indices.dmc,
+      DC: weatherRecord.indices.dc,
+      ISI: weatherRecord.indices.isi,
+      BUI: weatherRecord.indices.bui,
+      FWI: weatherRecord.indices.fwi
+    };
+    report.weatherData = weatherRecord._id;
+    const prediction = await runModelPrediction(predictionInput);
 
 
     report.modelPrediction = prediction.prediction === 1 ? "High Risk" : "No Risk";
@@ -78,7 +78,7 @@ const prediction = await runModelPrediction(predictionInput);
     await report.save();
     res.json({ message: "Report created", report });
 
-  
+
 
 
   } catch (err) {

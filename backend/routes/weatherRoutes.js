@@ -74,9 +74,9 @@ router.get('/weather/current', async (req, res) => {
 
     const response = await axios.get(url);
     const data = response.data;
-    const cur = data?.current || {};
-
-    const isDaytime = cur >= 6 && cur < 18;
+    const cur = data?.current;
+    const hour = new Date().getHours();
+    const isDaytime = hour >= 6 && hour < 18;
 
     const cond = mapWeatherCode(cur.weather_code, isDaytime);
 

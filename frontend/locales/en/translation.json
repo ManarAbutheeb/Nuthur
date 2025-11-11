@@ -192,7 +192,7 @@
   "sendMessage": "Send Message",
   "sending": "Sending...",
   "messageSent": "Message sent successfully!",
-  "messageFailed": "Failed to send message. Try again."
-
+  "messageFailed": "Failed to send message. Try again.",
+"AboutUs": "About Us"
 
 }

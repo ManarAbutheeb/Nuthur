@@ -57,6 +57,10 @@ export default function Navbar() {
                     <li className="nav-item">
                       <Link className="nav-link" href="#features" style={{ color: "#ffffffff" }}>{t('features')}</Link>
                     </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" href="/AboutUs" style={{ color: "#ffffffff" }}>{t('AboutUs')}</Link>
+                    </li>
+                    
                   </>
                 )}
 

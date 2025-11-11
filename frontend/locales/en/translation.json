@@ -193,6 +193,23 @@
   "sending": "Sending...",
   "messageSent": "Message sent successfully!",
   "messageFailed": "Failed to send message. Try again.",
-"AboutUs": "About Us"
+"AboutUs": "About Us",
+
+
+  
+    "aboutUstitle": "About Us",
+    "intro": "We are students from Imam Mohammad Ibn Saud Islamic University.",
+  
+      "renad": "Renad Abdullah Salem Altoum",
+      "manar": "Manar Mohammed Abdullah Abutheeb",
+      "aryaf": "Aryaf Fayez Monef Alotaibi",
+      "sarah": "Sarah Mohammed Alowjan",
+  
+    "project": "This project was developed to support and protect the environment. It represents our graduation project created with dedication and care.",
+    "supervisedBy": "Supervised by:",
+    "supervisorName": "Dr. Huda Abdulrahman Al-Muzaini"
+  
+
+
 
 }

@@ -21,9 +21,7 @@ export default function CheckWeatherPage() {
   }, []);
   // const token =
   //   typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
- if (!isClient) {//
-    return <div style={{ padding: "20px", textAlign: "center" }}>Loading...</div>;
-  }
+ 
   const fetchChecks = async () => {
     if (!token) return;
     try {
@@ -186,12 +184,13 @@ export default function CheckWeatherPage() {
                 {c.modelPrediction}
               </p>
               <button
-                onClick={() => //{
+                onClick={() =>  openPdf(c._id)} 
+                //{
                   //   if (typeof window !== "undefined") {
                   //     window.open(`http://localhost:5000/api/pdf/${c._id}/pdf`, "_blank");
                   //   }
                   // }}
-                  openPdf(c._id)}
+                 
                 style={{
                   marginTop: "10px",
                   padding: "6px 12px",

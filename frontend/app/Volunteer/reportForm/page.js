@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import i18n from "../../../i18n";
 
@@ -11,6 +12,7 @@ const ReportMap = dynamic(() => import("../../../components/MapComponent"), {
 
 export default function ReportPage() {
   const { t } = useTranslation();
+  const router = useRouter();
 
   const [description, setDescription] = useState("");
   const [position, setPosition] = useState(null);
@@ -21,7 +23,7 @@ export default function ReportPage() {
   const [userLocation, setUserLocation] = useState([24.7136, 46.6753]);
   const [isLocating, setIsLocating] = useState(false);
   const [locationAccuracy, setLocationAccuracy] = useState(null);
-  const [locationMethod, setLocationMethod] = useState("auto"); 
+  const [locationMethod, setLocationMethod] = useState("auto");
   const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   useEffect(() => {
     locateUser(true);
@@ -140,7 +142,11 @@ export default function ReportPage() {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) {
-        setMessage(t(" Please log in first"));
+        if (confirm(t("Please log in to submit a report. Do you want to go to the login page now?"))) {
+          router.push("/log-in");
+        } else {
+          setMessage(t(" Please log in first"));
+        }
         setIsSubmitting(false);
         return;
       }

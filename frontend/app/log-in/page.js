@@ -7,7 +7,7 @@ export default function LogInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 
 
 const handleSubmit = async (e) => {
@@ -15,7 +15,7 @@ const handleSubmit = async (e) => {
   setError("");
 
   try {
-    const res = await fetch("http://localhost:5000/api/auth/login", {
+    const res = await fetch(`${BACKEND_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -40,7 +40,7 @@ const handleSubmit = async (e) => {
       }
 
     } else {
-      // 🔹 هنا نتحقق من نوع الخطأ القادم من السيرفر
+
       if (data.error === "Please verify your email before logging in.") {
         setError("من فضلك فعّل بريدك الإلكتروني قبل تسجيل الدخول.");
       } else if (data.error === "Invalid credentials") {

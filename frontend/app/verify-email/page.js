@@ -8,6 +8,8 @@ export default function ApproveEmailPage() {
   const email = searchParams.get("email");
   const token = searchParams.get("token");
 
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+
   const [message, setMessage] = useState("activiting account....");
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function ApproveEmailPage() {
       }
 
       try {
-        const res = await fetch("http://localhost:5000/api/auth/approve-email", {
+        const res = await fetch(`${BACKEND_URL}/api/auth/approve-email`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, token }),

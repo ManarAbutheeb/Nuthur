@@ -9,7 +9,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const res = await fetch("http://localhost:5000/weatherData/weather/current");
+        const res = await fetch(`${BACKEND_URL}/weatherData/weather/current`);
         const data = await res.json();
         setWeatherData(data);
       } catch (err) {

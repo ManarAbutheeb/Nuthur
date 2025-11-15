@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import "../i18n"; // تأكدي أن هذا المسار صحيح حسب مشروعك
+import "../i18n"; 
 
 export default function AboutUs() {
   const { t } = useTranslation();

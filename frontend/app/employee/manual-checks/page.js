@@ -21,7 +21,9 @@ export default function CheckWeatherPage() {
   }, []);
   // const token =
   //   typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
-
+ if (!isClient) {//
+    return <div style={{ padding: "20px", textAlign: "center" }}>Loading...</div>;
+  }
   const fetchChecks = async () => {
     if (!token) return;
     try {

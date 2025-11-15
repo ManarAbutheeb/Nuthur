@@ -10,17 +10,17 @@ export default function CheckWeatherPage() {
   const [checks, setChecks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [token, setToken] = useState(null);
 
- useEffect(() => {
-  if (typeof window !== "undefined") {
-    const storedToken = localStorage.getItem("authToken");
-    setToken(storedToken);
-  }
-}, []);
+  const [token, setToken] = useState(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+      const storedToken = localStorage.getItem("authToken");
+      setToken(storedToken);
+  }, []);
   // const token =
   //   typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
-
 
   const fetchChecks = async () => {
     if (!token) return;
@@ -84,7 +84,14 @@ export default function CheckWeatherPage() {
       setLoading(false);
     }
   };
-
+  const openPdf = (checkId) => { //
+    if (isClient) {
+      window.open(`http://localhost:5000/api/pdf/${checkId}/pdf`, "_blank");
+    }
+  };
+  if (!isClient) { //
+    return <div style={{ padding: "20px", textAlign: "center" }}>Loading...</div>;
+  }
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
       <h2>{t("titlee")}</h2>
@@ -177,11 +184,12 @@ export default function CheckWeatherPage() {
                 {c.modelPrediction}
               </p>
               <button
-                onClick={() => {
-                  if (typeof window !== "undefined") {
-                    window.open(`http://localhost:5000/api/pdf/${c._id}/pdf`, "_blank");
-                  }
-                }}
+                onClick={() => //{
+                  //   if (typeof window !== "undefined") {
+                  //     window.open(`http://localhost:5000/api/pdf/${c._id}/pdf`, "_blank");
+                  //   }
+                  // }}
+                  openPdf(c._id)}
                 style={{
                   marginTop: "10px",
                   padding: "6px 12px",

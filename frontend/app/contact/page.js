@@ -9,13 +9,13 @@ export default function ContactPage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("Sending...");
 
     try {
-      const res = await fetch("http://localhost:5000/api/contact", {
+      const res = await fetch(`${BACKEND_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

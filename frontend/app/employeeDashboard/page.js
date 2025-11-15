@@ -8,7 +8,7 @@ export default function EmployeeDashboard() {
    const { t } = useTranslation();
   const [userData, setUserData] = useState(null);
   const router = useRouter();
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   useEffect(() => {
     const token = localStorage.getItem("authToken");
 

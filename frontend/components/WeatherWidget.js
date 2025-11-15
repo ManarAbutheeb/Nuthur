@@ -5,7 +5,7 @@ const WeatherWidget = () => {
   const { t } = useTranslation();
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   useEffect(() => {
     const fetchWeather = async () => {
       try {

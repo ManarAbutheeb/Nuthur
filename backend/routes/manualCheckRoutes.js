@@ -62,7 +62,7 @@ router.get("/", authMiddleware, async (req, res) => {
       .sort({ createdAt: -1 });
     res.json(checks);
   } catch (err) {
-    console.error("❌ Fetch manual checks error:", err);
+    console.error(" Fetch manual checks error:", err);
     res.status(500).json({ error: "Failed to fetch manual checks" });
   }
 });

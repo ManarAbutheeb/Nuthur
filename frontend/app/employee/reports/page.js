@@ -8,12 +8,12 @@ export default function EmployeeReports() {
   const [searchName, setSearchName] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(true);
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
 
-    fetch("http://localhost:5000/api/reports", {
+    fetch(`${BACKEND_URL}/api/reports`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -33,7 +33,7 @@ export default function EmployeeReports() {
   const updateStatus = (id, status) => {
     const token = localStorage.getItem("authToken");
 
-    fetch(`http://localhost:5000/api/reports/${id}/status`, {
+    fetch(`${BACKEND_URL}/api/reports/${id}/status`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -154,7 +154,7 @@ export default function EmployeeReports() {
 
 
               <img
-                src={`http://localhost:5000/api/reports/image/${report.image.split("\\").pop().split("/").pop()}`}
+                src={`${BACKEND_URL}/api/reports/image/${report.image.split("\\").pop().split("/").pop()}`}
                 alt="report"
                 width="100%"
                 style={{ borderRadius: "5px", marginTop: "10px" }}
@@ -184,7 +184,7 @@ export default function EmployeeReports() {
               </div>
               <button
   onClick={() =>
-    window.open(`http://localhost:5000/api/pdf/report/${report._id}/pdf`, "_blank")
+    window.open(`${BACKEND_URL}/api/pdf/report/${report._id}/pdf`, "_blank")
   }
   style={{
     margin: "8px 5px 0 0",

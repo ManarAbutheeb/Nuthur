@@ -6,9 +6,9 @@ export default function AutoChecksPage() {
   const { t } = useTranslation();
   const [checks, setChecks] = useState([]);
   const [loading, setLoading] = useState(true);
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   useEffect(() => {
-    fetch("http://localhost:5000/api/scheduled-checks")
+    fetch(`${BACKEND_URL}/api/scheduled-checks`)
       .then((res) => res.json())
       .then((data) => {
         setChecks(data);
@@ -63,7 +63,7 @@ export default function AutoChecksPage() {
               </p>
               <button
                 onClick={() =>
-                  window.open(`http://localhost:5000/api/Pdf/scheduled/${c._id}/pdf`, "_blank")
+                  window.open(`${BACKEND_URL}/api/Pdf/scheduled/${c._id}/pdf`, "_blank")
                 }
                 style={{
                   marginTop: "10px",

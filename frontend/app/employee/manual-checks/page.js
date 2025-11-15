@@ -19,7 +19,7 @@ export default function CheckWeatherPage() {
 
   const [token, setToken] = useState(null);
   const [isClient, setIsClient] = useState(false);
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   useEffect(() => {
     setIsClient(true);
       const storedToken = localStorage.getItem("authToken");
@@ -31,7 +31,7 @@ export default function CheckWeatherPage() {
   const fetchChecks = async () => {
     if (!token) return;
     try {
-      const res = await fetch("http://localhost:5000/api/manual-checks", {
+      const res = await fetch(`${BACKEND_URL}/api/manual-checks`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -63,7 +63,7 @@ export default function CheckWeatherPage() {
     setMessage("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/manual-checks", {
+      const res = await fetch(`${BACKEND_URL}/api/manual-checks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +92,7 @@ export default function CheckWeatherPage() {
   };
   const openPdf = (checkId) => { //
     if (isClient) {
-      window.open(`http://localhost:5000/api/pdf/${checkId}/pdf`, "_blank");
+      window.open(`${BACKEND_URL}/api/pdf/${checkId}/pdf`, "_blank");
     }
   };
   if (!isClient) { //

@@ -10,7 +10,7 @@ export default function SignInPage() {
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "volunteer" });
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -21,7 +21,7 @@ export default function SignInPage() {
     setIsError(false);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch(`${BACKEND_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

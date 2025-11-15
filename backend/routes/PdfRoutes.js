@@ -7,6 +7,7 @@ const Report = require("../models/VolunterReport");
 const PDFDocument = require("pdfkit");
 const path = require("path");
 const fs = require("fs");
+const BASE_URL = process.env.BACKEND_URL || "http://localhost:5000";
 
 //  PDF للموظف
 router.get("/:id/pdf", async (req, res) => {
@@ -107,7 +108,7 @@ router.get("/report/:id/pdf", async (req, res) => {
 
    if (report.image) {
   const filename = report.image.split("\\").pop().split("/").pop();
-  const imageUrl = `http://localhost:5000/api/reports/image/${filename}`;
+  const imageUrl = `${BASE_URL}/api/reports/image/${filename}`;
 
   try {
     const axios = require("axios");

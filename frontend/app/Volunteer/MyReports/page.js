@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 
 export default function VolunteerReports() {
     const { t } = useTranslation();
@@ -11,8 +12,7 @@ export default function VolunteerReports() {
   const [statusFilter, setStatusFilter] = useState("All");
   const router = useRouter();
 
-  
-useEffect(() => {
+  useEffect(() => {
   const fetchMyReports = async () => {
     try {
       const token = localStorage.getItem("authToken");
@@ -21,7 +21,7 @@ useEffect(() => {
         return;
       }
 
-      const res = await fetch("http://localhost:5000/api/reports/my-reports", {
+      const res = await fetch(`${BACKEND_URL}/api/reports/my-reports`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,8 +41,9 @@ useEffect(() => {
     }
   };
 
-  fetchMyReports();
-}, [router]);
+     fetchMyReports();
+
+  }, []); 
 
  
   const filteredReports = myReports.filter(report =>
@@ -178,7 +179,7 @@ const ReportCard = ({ report, t }) => {
   const getImageUrl = (image) => {
     if (!image) return null;
     if (image.startsWith('data:image')) return image;
-    return `http://localhost:5000/api/reports/image/${image}`;
+    return `${BACKEND_URL}/api/reports/image/${image}`;
   };
 
   return (

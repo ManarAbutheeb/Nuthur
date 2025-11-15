@@ -9,6 +9,7 @@ const VerificationCode = require('../models/VerificationCode');
 const router = express.Router();
 const cors = require("cors");
 
+const BASE_URL = process.env.BACKEND_URL || "http://localhost:3000" || "http://localhost:5000";
 
 // تسجيل مستخدم جديد وإرسال زر التفعيل
 router.post("/register", async (req, res) => {
@@ -40,7 +41,7 @@ router.post("/register", async (req, res) => {
     });
 
     // رابط التفعيل المباشر
-    const verificationUrl = `http://localhost:5000/api/auth/verify-email?email=${email}&token=${verificationToken}`;
+    const verificationUrl = `${BASE_URL}/api/auth/verify-email?email=${email}&token=${verificationToken}`;
 
     // إرسال الإيميل مع زر التفعيل
     await transporter.sendMail({
@@ -87,14 +88,14 @@ router.get('/verify-email', async (req, res) => {
     await user.save();
 
     // إعادة التوجيه تلقائيًا لصفحة تسجيل الدخول على الفرونت
-    res.redirect("http://localhost:3000/log-in");
+    res.redirect(`${BASE_URL}log-in`);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error while approving email.");
   }
 });
 
-// تسجيل الدخول
+
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -112,26 +113,25 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-// 2. Endpoint to verify code
+
 router.post('/verify-code', async (req, res) => {
   try {
     const { email, code } = req.body;
 
-    // Find the code in database
+   
     const validCode = await VerificationCode.findOne({ email, code });
 
     if (!validCode) {
       return res.status(400).json({ error: 'Invalid or expired verification code.' });
     }
 
-    // If code is found, it's valid
     res.json({ message: 'Verification code is correct.' });
 
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
-// Forgot password
+
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
@@ -155,23 +155,23 @@ router.post('/forgot-password', async (req, res) => {
 
   res.json({ message: "Password reset code sent to your email." });
 });
-// 3. Endpoint to set new password (after code verification)
+
 router.post('/reset-password', async (req, res) => {
   try {
     const { email, newPassword } = req.body;
 
-    // Find user and update password
+  
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: 'User not found.' });
     }
 
-    // Hash new password
+  
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
     await user.save();
 
-    // (Optional) Delete the used code to prevent reuse
+   
     await VerificationCode.deleteMany({ email });
 
     res.json({ message: 'Password has been reset successfully.' });

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
-import i18n from "../../../i18n"; 
+import i18n from "../../../i18n";
 
 // Import map dynamically without SSR
 const ReportMap = dynamic(() => import("../../../components/MapComponent"), {
@@ -21,8 +21,8 @@ export default function ReportPage() {
   const [userLocation, setUserLocation] = useState([24.7136, 46.6753]);
   const [isLocating, setIsLocating] = useState(false);
   const [locationAccuracy, setLocationAccuracy] = useState(null);
-  const [locationMethod, setLocationMethod] = useState("auto"); // auto or manual
-
+  const [locationMethod, setLocationMethod] = useState("auto"); 
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   useEffect(() => {
     locateUser(true);
   }, []);
@@ -32,27 +32,27 @@ export default function ReportPage() {
       setIsLocating(true);
       setMessage(t(" Detecting your location with high accuracy..."));
       setLocationMethod("auto");
-      
+
       const options = {
-        enableHighAccuracy: true, 
-        timeout: 20000, 
-        maximumAge: 0 
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 0
       };
 
       const watchId = navigator.geolocation.watchPosition(
         (pos) => {
           const newPos = [pos.coords.latitude, pos.coords.longitude];
           const accuracy = pos.coords.accuracy;
-          
+
           setUserLocation(newPos);
           setPosition(newPos);
           setLocationAccuracy(accuracy);
-          
+
         },
         (err) => {
           navigator.geolocation.clearWatch(watchId);
           console.error("Error getting location: ", err);
-            let errorMessage = t(" Could not get your current location");
+          let errorMessage = t(" Could not get your current location");
 
           if (err.code === err.PERMISSION_DENIED) {
             errorMessage = t(" Location access denied. Please allow location access in your browser settings.");
@@ -62,10 +62,10 @@ export default function ReportPage() {
             errorMessage = t(" Location information unavailable. Please enable GPS and check your internet connection.");
           }
 
-          
+
           setMessage(errorMessage);
           setIsLocating(false);
-          
+
           if (!position && !isInitial) {
             setPosition([24.7136, 46.6753]);
           }
@@ -73,8 +73,8 @@ export default function ReportPage() {
         options
       );
 
-    
-       setTimeout(() => {
+
+      setTimeout(() => {
         navigator.geolocation.clearWatch(watchId);
         if (isLocating) {
           setIsLocating(false);
@@ -90,13 +90,13 @@ export default function ReportPage() {
   const handleMapPositionChange = (newPosition) => {
     setPosition(newPosition);
     setLocationMethod("manual");
-    setLocationAccuracy(5); // Manual selection has high accuracy
+    setLocationAccuracy(5);
     setMessage(t(" Location selected manually on map"));
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-   if (file) {
+    if (file) {
       if (!file.type.startsWith("image/")) {
         setMessage(t(" Only images are allowed!"));
         return;
@@ -116,7 +116,7 @@ export default function ReportPage() {
       setMessage("");
     }
   };
-const handleSetAlsoudah = () => {
+  const handleSetAlsoudah = () => {
     setPosition([18.2677778, 42.3702778]);
     setMessage(" Default location (Alsoudah) selected");
   };
@@ -127,9 +127,9 @@ const handleSetAlsoudah = () => {
       setMessage(t(" Please select a location on the map"));
       return;
     }
-    
 
-     if (locationAccuracy > 100 && locationMethod === "auto") {
+
+    if (locationAccuracy > 100 && locationMethod === "auto") {
       if (!confirm(`Your location accuracy is ${Math.round(locationAccuracy)} meters. This might not be precise. Do you want to continue?`)) {
         return;
       }
@@ -145,17 +145,17 @@ const handleSetAlsoudah = () => {
         return;
       }
 
-     
+
       const formData = new FormData();
       formData.append("description", description);
       formData.append("location[lat]", position[0].toString());
       formData.append("location[lng]", position[1].toString());
-      
+
       if (imageFile) {
         formData.append("image", imageFile);
       }
 
-      const res = await fetch("http://localhost:5000/api/reports/create", {
+      const res = await fetch(`${BACKEND_URL}/api/reports/create`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -190,7 +190,7 @@ const handleSetAlsoudah = () => {
       <h1 className="mb-4 text-danger">{t("Submit a New Report")}</h1>
 
       <form className="w-75 mx-auto" onSubmit={handleSubmit} encType="multipart/form-data">
-       
+
         <div className="mb-3">
           <label className="form-label">{t("Description")}</label>
           <textarea
@@ -203,46 +203,47 @@ const handleSetAlsoudah = () => {
           />
         </div>
 
-       
+
         <div className="mb-3">
           <div className="d-flex justify-content-between align-items-center mb-2">
             <label className="form-label mb-0">{t("Select Location on Map")}</label>
             <div>
-               <button
-              type="button"
-              className="btn btn-outline-primary"
-              onClick={handleSetAlsoudah}
-            >
-               Use Alsoudah Default Location
-            </button>
-              <button 
-                type="button" 
+              <button
+                type="button"
+                className="btn btn-outline-primary"
+                onClick={handleSetAlsoudah}
+              >
+                Use Alsoudah Default Location
+              </button>
+              <button
+                type="button"
                 className="btn btn-outline-secondary"
                 onClick={() => {
                   setPosition(null);
-                setMessage(t("Location selection cleared")); }}
+                  setMessage(t("Location selection cleared"));
+                }}
                 disabled={!position}
               >
-                 {t("Clear Selection")}
+                {t("Clear Selection")}
               </button>
             </div>
           </div>
-          
+
           <div className="alert alert-info mb-2">
             <small>{t("For best accuracy, enable GPS and use Wi-Fi. If automatic detection is not precise, click directly on the map to select your exact location.")}</small>
           </div>
 
-          
+
           <ReportMap
             userLocation={userLocation}
             position={position}
             setPosition={handleMapPositionChange}
             setMessage={setMessage}
           />
-          
+
           {position && (
             <div className="form-text mt-2">
-             <strong>{t("Selected Location:")}</strong> {position[0].toFixed(6)}, {position[1].toFixed(6)}
+              <strong>{t("Selected Location:")}</strong> {position[0].toFixed(6)}, {position[1].toFixed(6)}
               {locationAccuracy && (
                 <span className="ms-2 text-muted">
                   ({t(locationMethod === "auto" ? "Auto-detected" : "Manual selection")}, {Math.round(locationAccuracy)}m)
@@ -252,7 +253,7 @@ const handleSetAlsoudah = () => {
           )}
         </div>
 
-      
+
         <div className="mb-3">
           <label className="form-label">{t("Report Image")}</label>
           <input
@@ -265,7 +266,7 @@ const handleSetAlsoudah = () => {
           <div className="form-text">{t("Only images are allowed (Max size: 5MB)")}</div>
         </div>
 
-        
+
         {imagePreview && (
           <div className="mb-3">
             <label className="form-label">{t("Image Preview:")}</label>
@@ -280,17 +281,17 @@ const handleSetAlsoudah = () => {
           </div>
         )}
 
-        
+
         <button
           type="submit"
           className="btn btn-danger w-100"
           disabled={isSubmitting}
         >
-           {isSubmitting ? t("Submitting...") : t("Submit Report")}
+          {isSubmitting ? t("Submitting...") : t("Submit Report")}
         </button>
 
-     
-      
+
+
       </form>
     </div>
   );

@@ -12,11 +12,12 @@ export default function CheckWeatherPage() {
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(null);
 
-  useEffect(() => {
-    const storedToken =
-      typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+ useEffect(() => {
+  if (typeof window !== "undefined") {
+    const storedToken = localStorage.getItem("authToken");
     setToken(storedToken);
-  }, []);
+  }
+}, []);
   // const token =
   //   typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 

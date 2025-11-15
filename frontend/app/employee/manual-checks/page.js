@@ -10,9 +10,15 @@ export default function CheckWeatherPage() {
   const [checks, setChecks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [token, setToken] = useState(null);
 
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+  useEffect(() => {
+    const storedToken =
+      typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+    setToken(storedToken);
+  }, []);
+  // const token =
+  //   typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
 
   const fetchChecks = async () => {
@@ -35,14 +41,14 @@ export default function CheckWeatherPage() {
 
   const setAlsoudah = () => {
     setPosition([18.2353699, 42.3895230]);
-        setMessage(t("usingDefault"));
+    setMessage(t("usingDefault"));
 
   };
 
 
   const handleCheckWeather = async () => {
     if (!position) {
-       alert(t("alertSelectLocation"));
+      alert(t("alertSelectLocation"));
       return;
     }
 
@@ -64,15 +70,15 @@ export default function CheckWeatherPage() {
       const data = await res.json();
 
       if (res.ok) {
-       setMessage(`${t("modelResult")}: ${data.check.modelPrediction}`);
-       
+        setMessage(`${t("modelResult")}: ${data.check.modelPrediction}`);
+
         await fetchChecks();
       } else {
-       setMessage(t("failed"));
+        setMessage(t("failed"));
       }
     } catch (err) {
       console.error(" Manual check error:", err);
-     setMessage(t("serverError"));
+      setMessage(t("serverError"));
     } finally {
       setLoading(false);
     }
@@ -80,7 +86,7 @@ export default function CheckWeatherPage() {
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
- <h2>{t("titlee")}</h2>
+      <h2>{t("titlee")}</h2>
 
       <ReportMap
         userLocation={userLocation}
@@ -119,7 +125,7 @@ export default function CheckWeatherPage() {
           fontSize: "16px",
         }}
       >
-       {loading ? t("checking") : t("runModel")}
+        {loading ? t("checking") : t("runModel")}
       </button>
 
       {message && (
@@ -132,7 +138,7 @@ export default function CheckWeatherPage() {
 
 
       {checks.length === 0 ? (
-         <p>{t("noPrevious")}</p>
+        <p>{t("noPrevious")}</p>
       ) : (
         <div
           style={{
@@ -156,7 +162,7 @@ export default function CheckWeatherPage() {
               }}
             >
               <p>
-                 <strong>{t("location")}:</strong>{" "}
+                <strong>{t("location")}:</strong>{" "}
                 {c.weatherData?.location?.lat
                   ? `${c.weatherData.location.lat.toFixed(4)}, ${c.weatherData.location.lng.toFixed(4)}`
                   : t("loading")}
@@ -166,26 +172,28 @@ export default function CheckWeatherPage() {
                 {new Date(c.createdAt).toLocaleString()}
               </p>
               <p>
-               <strong>{t("prediction")}:</strong>{" "}
+                <strong>{t("prediction")}:</strong>{" "}
                 {c.modelPrediction}
               </p>
               <button
-  onClick={() =>
-  window.open(`http://localhost:5000/api/pdf/${c._id}/pdf`, "_blank")
-}
-  style={{
-    marginTop: "10px",
-    padding: "6px 12px",
-    backgroundColor: "#020303ff",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontSize: "14px",
-  }}
->
-   {t("downloadPdf")}
-</button>
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.open(`http://localhost:5000/api/pdf/${c._id}/pdf`, "_blank");
+                  }
+                }}
+                style={{
+                  marginTop: "10px",
+                  padding: "6px 12px",
+                  backgroundColor: "#020303ff",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                {t("downloadPdf")}
+              </button>
 
             </div>
           ))}

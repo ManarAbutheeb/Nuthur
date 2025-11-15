@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react"; 
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ApproveEmailPage() {
@@ -43,9 +43,17 @@ export default function ApproveEmailPage() {
     approveAccount();
   }, [email, token, router]);
 
+
   return (
     <div className="container py-5 text-center">
       <h2>{message}</h2>
     </div>
+  );
+}
+export default function ApproveEmailPage() { //
+  return (
+    <Suspense fallback={<div className="container py-5 text-center"><h2>Loading...</h2></div>}>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }

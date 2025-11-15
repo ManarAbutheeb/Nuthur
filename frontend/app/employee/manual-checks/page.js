@@ -1,7 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import ReportMap from "../../../components/MapComponent";
+import dynamic from 'next/dynamic';
+
+// 
+const ReportMap = dynamic(() => import("../../../components/MapComponent"), {
+  ssr: false,
+  loading: () => <div style={{ height: "400px", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>Loading map...</div>
+});
 
 export default function CheckWeatherPage() {
   const { t } = useTranslation();

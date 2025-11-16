@@ -41,32 +41,32 @@ const transporter = nodemailer.createTransport({
 });
 
 
-cron.schedule("0 */8 * * *", async () => {
-// cron.schedule("* * * * *", async () => {
+// cron.schedule("0 */8 * * *", async () => {
+// // cron.schedule("* * * * *", async () => {
 
-  console.log(" Running automatic weather check...");
-  try {
-    const lat = 18.2353699; // السودة
-    const lng = 42.3895230;
+//   console.log(" Running automatic weather check...");
+//   try {
+//     const lat = 18.2353699; // السودة
+//     const lng = 42.3895230;
 
-    const weatherRecord = await generateWeatherData(lat, lng, null);
-    const now = new Date();
-    const prediction = await runModelPrediction({
-      day: now.getDate(),
-      month: now.getMonth() + 1,
-      year: now.getFullYear(),
-      Temperature: weatherRecord.temperature,
-      RH: weatherRecord.humidity,
-      Ws: weatherRecord.windSpeed,
-      Rain: weatherRecord.rainfall,
-      FFMC: weatherRecord.indices.ffmc,
-      DMC: weatherRecord.indices.dmc,
-      DC: weatherRecord.indices.dc,
-      ISI: weatherRecord.indices.isi,
-      BUI: weatherRecord.indices.bui,
-      FWI: weatherRecord.indices.fwi,
-    });
-
+//     const weatherRecord = await generateWeatherData(lat, lng, null);
+//     const now = new Date();
+//     const prediction = await runModelPrediction({
+//       day: now.getDate(),
+//       month: now.getMonth() + 1,
+//       year: now.getFullYear(),
+//       Temperature: weatherRecord.temperature,
+//       RH: weatherRecord.humidity,
+//       Ws: weatherRecord.windSpeed,
+//       Rain: weatherRecord.rainfall,
+//       FFMC: weatherRecord.indices.ffmc,
+//       DMC: weatherRecord.indices.dmc,
+//       DC: weatherRecord.indices.dc,
+//       ISI: weatherRecord.indices.isi,
+//       BUI: weatherRecord.indices.bui,
+//       FWI: weatherRecord.indices.fwi,
+//     });
+  const prediction = { prediction: 0 };
     const check = new ScheduledCheck({
       location: { lat, lng },
       weatherData: weatherRecord._id,

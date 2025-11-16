@@ -7,7 +7,7 @@ const User = require("../models/user");
 const nodemailer = require('nodemailer'); 
 const VerificationCode = require('../models/VerificationCode');
 const router = express.Router();
-const cors = require("cors");
+
 
 const BASE_URL = process.env.BACKEND_URL ||"http://localhost:5000";
 const FBASE_URL = process.env.FRONTEND_URL ||"http://localhost:3000";

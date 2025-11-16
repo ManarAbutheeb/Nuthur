@@ -19,11 +19,6 @@ const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
-
-// app.use(cors({
-//   origin: ["http://localhost:3000", "https://nuthur.up.railway.app"],  
-//   credentials: true
-// }));
 app.use(cors());
 
 

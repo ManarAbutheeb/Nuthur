@@ -88,7 +88,7 @@ router.get('/verify-email', async (req, res) => {
     await user.save();
 
 
-    res.redirect(`${FBASE_URL}log-in`);
+    res.redirect(`${FBASE_URL}/log-in`);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error while approving email.");

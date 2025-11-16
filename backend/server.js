@@ -18,13 +18,13 @@ const scheduledCheckRoutes = require("./routes/scheduledCheckRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://nuthur.up.railway.app"],
-  credentials: true,
-  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-app.use(cors(corsOptions));
+
+
+// app.use(cors({
+//   origin: ["http://localhost:3000", "https://nuthur.up.railway.app"],  
+//   credentials: true
+// }));
+app.use(cors());
 
 
 app.use(express.json());

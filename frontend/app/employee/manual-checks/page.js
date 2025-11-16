@@ -8,7 +8,7 @@ const ReportMap = dynamic(() => import("../../../components/MapComponent"), {
   ssr: false,
   loading: () => <div style={{ height: "400px", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>Loading map...</div>
 });
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 export default function CheckWeatherPage() {
   const { t } = useTranslation();
   const [userLocation] = useState([18.2353699, 42.3895230]); // Alsoudah default
@@ -19,7 +19,7 @@ export default function CheckWeatherPage() {
 
   const [token, setToken] = useState(null);
   const [isClient, setIsClient] = useState(false);
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+
   useEffect(() => {
     setIsClient(true);
       const storedToken = localStorage.getItem("authToken");

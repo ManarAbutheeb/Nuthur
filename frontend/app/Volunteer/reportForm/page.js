@@ -9,7 +9,7 @@ import i18n from "../../../i18n";
 const ReportMap = dynamic(() => import("../../../components/MapComponent"), {
   ssr: false,
 });
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 export default function ReportPage() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function ReportPage() {
   const [isLocating, setIsLocating] = useState(false);
   const [locationAccuracy, setLocationAccuracy] = useState(null);
   const [locationMethod, setLocationMethod] = useState("auto");
-  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+  
   useEffect(() => {
     locateUser(true);
   }, []);

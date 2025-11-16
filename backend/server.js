@@ -25,18 +25,14 @@ const app = express();
 //   allowedHeaders: ["Content-Type", "Authorization"],
 // };
 // app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  console.log(`[REQ] ${new Date().toISOString()} ${req.method} ${req.originalUrl}`);
-  next();
-});
 const allowedOrigins = [
   process.env.FRONTEND_URL || "http://localhost:3000",
   "https://nuthur.up.railway.app"
 ];
+
 const corsOptions = {
   origin: function(origin, callback) {
-    // allow requests with no origin like curl/postman (origin===undefined)
-    if (!origin) return callback(null, true);
+    if (!origin) return callback(null, true); // allow curl/postman
     if (allowedOrigins.indexOf(origin) !== -1) return callback(null, true);
     return callback(new Error("Not allowed by CORS"));
   },
@@ -44,9 +40,12 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // enable preflight for all routes
 
+// Use CORS for all routes
+app.use(cors(corsOptions));
+
+// Enable preflight for all routes using '/*' instead of '*'
+app.options("/*", cors(corsOptions));
 
 app.use(express.json());
 

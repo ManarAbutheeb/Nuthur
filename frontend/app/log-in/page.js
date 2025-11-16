@@ -15,6 +15,7 @@ const handleSubmit = async (e) => {
   setError("");
 
   try {
+    console.log("Backend URL:", BACKEND_URL);
     const res = await fetch(`${BACKEND_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

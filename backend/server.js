@@ -25,14 +25,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 }));
 
-// أضف هذا السطر لمعالجة طلبات OPTIONS
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.status(200).send();
-});
+
 app.use(express.json());
 
 
@@ -50,62 +43,62 @@ const transporter = nodemailer.createTransport({
 });
 
 
-// cron.schedule("0 */8 * * *", async () => {
-// // cron.schedule("* * * * *", async () => {
+cron.schedule("0 */8 * * *", async () => {
+// cron.schedule("* * * * *", async () => {
 
-//   console.log(" Running automatic weather check...");
-//   try {
-//     const lat = 18.2353699; // السودة
-//     const lng = 42.3895230;
+  console.log(" Running automatic weather check...");
+  try {
+    const lat = 18.2353699; // السودة
+    const lng = 42.3895230;
 
-//     const weatherRecord = await generateWeatherData(lat, lng, null);
-//     const now = new Date();
-//     const prediction = await runModelPrediction({
-//       day: now.getDate(),
-//       month: now.getMonth() + 1,
-//       year: now.getFullYear(),
-//       Temperature: weatherRecord.temperature,
-//       RH: weatherRecord.humidity,
-//       Ws: weatherRecord.windSpeed,
-//       Rain: weatherRecord.rainfall,
-//       FFMC: weatherRecord.indices.ffmc,
-//       DMC: weatherRecord.indices.dmc,
-//       DC: weatherRecord.indices.dc,
-//       ISI: weatherRecord.indices.isi,
-//       BUI: weatherRecord.indices.bui,
-//       FWI: weatherRecord.indices.fwi,
-//     });
-//   const prediction = { prediction: 0 };
-//     const check = new ScheduledCheck({
-//       location: { lat, lng },
-//       weatherData: weatherRecord._id,
-//       modelPrediction: prediction.prediction === 1 ? "High Risk" : "No Risk",
-//       modelCheckedAt: new Date()
-//     });
+    const weatherRecord = await generateWeatherData(lat, lng, null);
+    const now = new Date();
+    const prediction = await runModelPrediction({
+      day: now.getDate(),
+      month: now.getMonth() + 1,
+      year: now.getFullYear(),
+      Temperature: weatherRecord.temperature,
+      RH: weatherRecord.humidity,
+      Ws: weatherRecord.windSpeed,
+      Rain: weatherRecord.rainfall,
+      FFMC: weatherRecord.indices.ffmc,
+      DMC: weatherRecord.indices.dmc,
+      DC: weatherRecord.indices.dc,
+      ISI: weatherRecord.indices.isi,
+      BUI: weatherRecord.indices.bui,
+      FWI: weatherRecord.indices.fwi,
+    });
 
-//     await check.save();
-//     console.log(" Scheduled check saved:", check.modelPrediction);
+    const check = new ScheduledCheck({
+      location: { lat, lng },
+      weatherData: weatherRecord._id,
+      modelPrediction: prediction.prediction === 1 ? "High Risk" : "No Risk",
+      modelCheckedAt: new Date()
+    });
+
+    await check.save();
+    console.log(" Scheduled check saved:", check.modelPrediction);
 
    
-//     if (check.modelPrediction === "High Risk") {
-//       const volunteers = await User.find({ role: "volunteer", isVerified: true });
+    if (check.modelPrediction === "High Risk") {
+      const volunteers = await User.find({ role: "volunteer", isVerified: true });
 
-//       for (const vol of volunteers) {
-//         await transporter.sendMail({
-//           from: `"Nuthur Support" <${process.env.EMAIL_USER}>`,
-//           to: vol.email,
-//           subject: " تنبيه: خطر حريق في منطقة السودة",
-//           html: `<p>مرحباً ${vol.name},</p>
-//                  <p>تنبيه! نموذج النظام توقع وجود خطر حريق عالي في منطقة السودة حالياً.</p>
-//                  <p>يرجى أخذ الحيطة والحذر.</p>`,
-//         });
-//       }
-//     }
+      for (const vol of volunteers) {
+        await transporter.sendMail({
+          from: `"Nuthur Support" <${process.env.EMAIL_USER}>`,
+          to: vol.email,
+          subject: " تنبيه: خطر حريق في منطقة السودة",
+          html: `<p>مرحباً ${vol.name},</p>
+                 <p>تنبيه! نموذج النظام توقع وجود خطر حريق عالي في منطقة السودة حالياً.</p>
+                 <p>يرجى أخذ الحيطة والحذر.</p>`,
+        });
+      }
+    }
 
-//   } catch (err) {
-//     console.error(" Scheduled check failed:", err.message);
-//   }
-// });
+  } catch (err) {
+    console.error(" Scheduled check failed:", err.message);
+  }
+});
 
 
 app.use("/api/auth", authRoutes);

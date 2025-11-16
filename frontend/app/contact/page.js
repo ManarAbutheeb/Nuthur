@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 
 
 export default function ContactPage() {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("Sending...");
@@ -24,7 +24,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
       });
 
       if (res.ok) {
-       setStatus(t("messageSent"));
+        setStatus(t("messageSent"));
         setName("");
         setEmail("");
         setMessage("");
@@ -33,7 +33,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
       }
     } catch (err) {
       console.error("Error sending message:", err);
-       setStatus(t("serverError"));
+      setStatus(t("serverError"));
     }
   };
 
@@ -54,7 +54,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
       >
         <input
           type="text"
-         placeholder={t("yourName")}
+          placeholder={t("yourName")}
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
@@ -66,7 +66,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
         />
         <input
           type="email"
-           placeholder={t("yourEmail")}
+          placeholder={t("yourEmail")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -77,7 +77,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
           }}
         />
         <textarea
-            placeholder={t("yourMessage")}
+          placeholder={t("yourMessage")}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
@@ -100,7 +100,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
             cursor: "pointer",
           }}
         >
-           {t("sendMessage")}
+          {t("sendMessage")}
         </button>
       </form>
 

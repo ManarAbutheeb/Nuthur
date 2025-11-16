@@ -1,20 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cron = require("node-cron");
-const cors = require('cors'); 
+const cors = require('cors');
 const ScheduledCheck = require("./models/ScheduledCheck");
 const { generateWeatherData } = require("./services/weatherService");
 const { runModelPrediction } = require("./controllers/predictModel");
 require("dotenv").config();
 const User = require("./models/user");
-const nodemailer = require("nodemailer"); 
-
+const nodemailer = require("nodemailer");
 const authRoutes = require("./routes/authRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const weatherRoutes = require("./routes/weatherRoutes");
-const manualCheckRoutes=require("./routes/manualCheckRoutes");
+const manualCheckRoutes = require("./routes/manualCheckRoutes");
 const pdfRoutes = require("./routes/PdfRoutes");
-const scheduledCheckRoutes = require("./routes/scheduledCheckRoutes"); 
+const scheduledCheckRoutes = require("./routes/scheduledCheckRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
@@ -32,14 +31,13 @@ mongoose.connect(process.env.MONGO_URI)
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS  
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   },
 });
 
-
 cron.schedule("0 */8 * * *", async () => {
-// cron.schedule("* * * * *", async () => {
+//   cron.schedule("* * * * *", async () => {
 
   console.log(" Running automatic weather check...");
   try {
@@ -74,7 +72,7 @@ cron.schedule("0 */8 * * *", async () => {
     await check.save();
     console.log(" Scheduled check saved:", check.modelPrediction);
 
-   
+
     if (check.modelPrediction === "High Risk") {
       const volunteers = await User.find({ role: "volunteer", isVerified: true });
 
@@ -99,7 +97,7 @@ cron.schedule("0 */8 * * *", async () => {
 app.use("/api/auth", authRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/weatherData", weatherRoutes);
-app.use("/api/manual-checks",manualCheckRoutes );
+app.use("/api/manual-checks", manualCheckRoutes);
 app.use("/api/pdf", pdfRoutes);
 app.use("/api/scheduled-checks", scheduledCheckRoutes);
 app.use("/api/contact", contactRoutes);

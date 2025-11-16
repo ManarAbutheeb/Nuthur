@@ -10,7 +10,7 @@ export default function SignInPage() {
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "volunteer" });
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -30,7 +30,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
       const data = await res.json();
 
       if (res.ok) {
-       
+
         setMessage(" The account has been successfully created. Check your email to activate the account.");
       } else {
         setMessage((data.error || "حدث خطأ أثناء التسجيل"));

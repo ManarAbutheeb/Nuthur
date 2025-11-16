@@ -1,7 +1,7 @@
 const axios = require("axios");
 const WeatherData = require("../models/weatherData");
 const FireIndexState = require("../models/FireIndexState");
-const CanadianFWI  = require("../utils/fwiCalculator");
+const CanadianFWI = require("../utils/fwiCalculator");
 
 async function getLastWeatherIndices() {
   let state = await FireIndexState.findOne({ location: "alsoudah" });

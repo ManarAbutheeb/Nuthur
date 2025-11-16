@@ -16,7 +16,7 @@ export default function ProfilePage() {
       return;
     }
 
-    
+
     const userData = {
       name: localStorage.getItem("userName") || "User",
       email: localStorage.getItem("userEmail") || "No email",

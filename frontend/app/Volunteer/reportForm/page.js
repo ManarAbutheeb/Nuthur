@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import i18n from "../../../i18n";
+
 
 // Import map dynamically without SSR
 const ReportMap = dynamic(() => import("../../../components/MapComponent"), {

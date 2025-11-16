@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 export default function EmployeeReports() {
-   const { t } = useTranslation();
+  const { t } = useTranslation();
   const [allReports, setAllReports] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(true);
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -58,10 +58,10 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
     (statusFilter === "All" || r.status === statusFilter)
   );
 
-   if (loading) return <p>{t("1")}</p>;
+  if (loading) return <p>{t("1")}</p>;
 
   return (
-        <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f4f4f9", padding: "20px", minHeight: "100vh" }}>
+    <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f4f4f9", padding: "20px", minHeight: "100vh" }}>
       <h1 style={{ textAlign: "center", color: "#333" }}>{t("2")}</h1>
 
 
@@ -78,7 +78,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
           onChange={(e) => setStatusFilter(e.target.value)}
           style={{ padding: "5px 10px", margin: "0 5px", fontSize: "14px" }}
         >
-         <option value="All">{t("4")}</option>
+          <option value="All">{t("4")}</option>
           <option value="resolved">{t("5")}</option>
           <option value="rejected">{t("6")}</option>
           <option value="pending">{t("7")}</option>
@@ -124,20 +124,20 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
                 }}
               ></div>
               <h6 className="card-title text-truncate mb-0">
-                 {t("9")}{report._id.slice(-6)}
+                {t("9")}{report._id.slice(-6)}
               </h6>
 
-           <p style={{ margin: "5px 0", fontSize: "14px", color: "#444"}}><strong>{t("10")}:</strong> {report.user?.name}</p>
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("10")}:</strong> {report.user?.name}</p>
               <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("11")}:</strong> {report.user?.email}</p>
               <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("12")}:</strong> {report.description}</p>
               <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("13")}: </strong>{report.location?.lat?.toFixed(4)}, {report.location?.lng?.toFixed(4)}</p>
               <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}><strong>{t("14")}: </strong> {new Date(report.createdAt).toLocaleDateString()}</p>
-              <p style={{ margin: "5px 0", fontSize: "14px", color:"#444" }}>
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}>
                 <span style={{ fontWeight: "bold" }}> {t("15")}: {report.status}</span>
               </p>
 
               {report.modelPrediction && (
-               <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}>
+                <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}>
                   <strong>{t("16")}:</strong> {report.modelPrediction}
                 </p>
               )}
@@ -148,7 +148,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
               )}
               {report.modelCheckedAt && (
                 <p style={{ margin: "5px 0", fontSize: "14px", color: "#444" }}>
-                   <strong>{t("18")}:</strong> {new Date(report.modelCheckedAt).toLocaleString()}
+                  <strong>{t("18")}:</strong> {new Date(report.modelCheckedAt).toLocaleString()}
                 </p>
               )}
 
@@ -167,7 +167,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
                   onClick={() => updateStatus(report._id, "resolved")}
                   style={{ margin: "5px 5px 0 0", padding: "5px 10px", borderRadius: "4px", cursor: "pointer", backgroundColor: "#055e1ae0", color: "white", border: "none", fontSize: "13px" }}
                 >
-                   {t("19")}
+                  {t("19")}
                 </button>
                 <button
                   onClick={() => updateStatus(report._id, "rejected")}
@@ -179,26 +179,26 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
                   onClick={() => updateStatus(report._id, "pending")}
                   style={{ margin: "5px 5px 0 0", padding: "5px 10px", borderRadius: "4px", cursor: "pointer", backgroundColor: "#fafc97ff", color: "black", border: "none", fontSize: "13px" }}
                 >
-                   {t("21")}
+                  {t("21")}
                 </button>
               </div>
               <button
-  onClick={() =>
-    window.open(`${BACKEND_URL}/api/pdf/report/${report._id}/pdf`, "_blank")
-  }
-  style={{
-    margin: "8px 5px 0 0",
-    padding: "5px 10px",
-    borderRadius: "4px",
-    cursor: "pointer",
-    backgroundColor: "#333",
-    color: "white",
-    border: "none",
-    fontSize: "13px",
-  }}
->
-   Download PDF
-</button>
+                onClick={() =>
+                  window.open(`${BACKEND_URL}/api/pdf/report/${report._id}/pdf`, "_blank")
+                }
+                style={{
+                  margin: "8px 5px 0 0",
+                  padding: "5px 10px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  backgroundColor: "#333",
+                  color: "white",
+                  border: "none",
+                  fontSize: "13px",
+                }}
+              >
+                Download PDF
+              </button>
             </div>
           ))
         )}

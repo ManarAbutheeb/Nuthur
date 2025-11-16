@@ -4,8 +4,7 @@ const fs = require("fs");
 
 async function runModelPrediction(inputData) {
   return new Promise((resolve, reject) => {
-    // const pythonPath = path.join(__dirname, "../ml/venv/Scripts/python.exe");
-    const pythonPath = path.join(__dirname, "../ml/venv/bin/python");
+    const pythonPath = path.join(__dirname, "../ml/venv/Scripts/python.exe");
     const scriptPath = path.join(__dirname, "../ml/predict.py");
     const tempPath = path.join(__dirname, "../ml/temp_input.json");
 

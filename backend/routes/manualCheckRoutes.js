@@ -11,28 +11,28 @@ router.post("/", authMiddleware, async (req, res) => {
     const { location } = req.body;
     const employeeId = req.user.id;
 
-  
+
     const weatherRecord = await generateWeatherData(location.lat, location.lng, null);
 
-  
-    const now = new Date();
-const prediction = await runModelPrediction({
-  day: now.getDate(),
-  month: now.getMonth() + 1,
-  year: now.getFullYear(),
-  Temperature: weatherRecord.temperature,
-  RH: weatherRecord.humidity,
-  Ws: weatherRecord.windSpeed,
-  Rain: weatherRecord.rainfall,
-  FFMC: weatherRecord.indices.ffmc,
-  DMC: weatherRecord.indices.dmc,
-  DC: weatherRecord.indices.dc,
-  ISI: weatherRecord.indices.isi,
-  BUI: weatherRecord.indices.bui,
-  FWI: weatherRecord.indices.fwi,
-});
 
- 
+    const now = new Date();
+    const prediction = await runModelPrediction({
+      day: now.getDate(),
+      month: now.getMonth() + 1,
+      year: now.getFullYear(),
+      Temperature: weatherRecord.temperature,
+      RH: weatherRecord.humidity,
+      Ws: weatherRecord.windSpeed,
+      Rain: weatherRecord.rainfall,
+      FFMC: weatherRecord.indices.ffmc,
+      DMC: weatherRecord.indices.dmc,
+      DC: weatherRecord.indices.dc,
+      ISI: weatherRecord.indices.isi,
+      BUI: weatherRecord.indices.bui,
+      FWI: weatherRecord.indices.fwi,
+    });
+
+
     const check = new ManualCheck({
       employee: employeeId,
       location: { lat: location.lat, lng: location.lng },

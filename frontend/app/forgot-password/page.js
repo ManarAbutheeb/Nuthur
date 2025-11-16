@@ -13,9 +13,9 @@ export default function ForgotPasswordPage() {
   const [isError, setIsError] = useState(false);
 
 
-  const [currentStep, setCurrentStep] = useState(1); 
+  const [currentStep, setCurrentStep] = useState(1);
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
   const handleSendCode = async (e) => {
     e.preventDefault();
     try {
@@ -26,15 +26,15 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage( data.message);
+        setMessage(data.message);
         setIsError(false);
-        setCurrentStep(2); 
+        setCurrentStep(2);
       } else {
-        setMessage( data.error);
+        setMessage(data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage( t("Network Error"));
+      setMessage(t("Network Error"));
       setIsError(true);
     }
   };
@@ -50,15 +50,15 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage( data.message);
+        setMessage(data.message);
         setIsError(false);
-        setCurrentStep(3); 
+        setCurrentStep(3);
       } else {
-        setMessage( data.error);
+        setMessage(data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage( t("Network Error"));
+      setMessage(t("Network Error"));
       setIsError(true);
     }
   };
@@ -74,15 +74,15 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage( data.message);
+        setMessage(data.message);
         setIsError(false);
-     
+
       } else {
         setMessage(data.error);
         setIsError(true);
       }
     } catch (err) {
-      setMessage( t("Network Error"));
+      setMessage(t("Network Error"));
       setIsError(true);
     }
   };
@@ -111,7 +111,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
         </form>
       )}
 
-   
+
       {currentStep === 2 && (
         <form onSubmit={handleVerifyCode} className="w-50 mx-auto">
           <p>{t("Enter the code you received")}</p>
@@ -131,7 +131,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
         </form>
       )}
 
-     
+
       {currentStep === 3 && (
         <form onSubmit={handleResetPassword} className="w-50 mx-auto">
           <p>{t("Enter your new password")}</p>
@@ -151,7 +151,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
         </form>
       )}
 
-  
+
       {message && (
         <div className={`mt-3 text-center ${isError ? 'text-danger' : 'text-success'}`}>
           {message}

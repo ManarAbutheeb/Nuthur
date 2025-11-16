@@ -22,12 +22,12 @@ export default function CheckWeatherPage() {
 
   useEffect(() => {
     setIsClient(true);
-      const storedToken = localStorage.getItem("authToken");
-      setToken(storedToken);
+    const storedToken = localStorage.getItem("authToken");
+    setToken(storedToken);
   }, []);
   // const token =
   //   typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
- 
+
   const fetchChecks = async () => {
     if (!token) return;
     try {
@@ -190,13 +190,13 @@ export default function CheckWeatherPage() {
                 {c.modelPrediction}
               </p>
               <button
-                onClick={() =>  openPdf(c._id)} 
+                onClick={() => openPdf(c._id)}
                 //{
-                  //   if (typeof window !== "undefined") {
-                  //     window.open(`http://localhost:5000/api/pdf/${c._id}/pdf`, "_blank");
-                  //   }
-                  // }}
-                 
+                //   if (typeof window !== "undefined") {
+                //     window.open(`http://localhost:5000/api/pdf/${c._id}/pdf`, "_blank");
+                //   }
+                // }}
+
                 style={{
                   marginTop: "10px",
                   padding: "6px 12px",

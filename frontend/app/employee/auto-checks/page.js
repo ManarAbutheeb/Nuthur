@@ -56,7 +56,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:500
               </p>
               <p>
                 <strong> {t("checkedAt")}:</strong>{" "}
-                {new Date(c.executedAt).toLocaleString()}
+                {new Date(c.modelCheckedAt).toLocaleString()}
               </p>
               <p>
                 <strong> {t("prediction")}:</strong> {c.modelPrediction}

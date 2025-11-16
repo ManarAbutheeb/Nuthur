@@ -10,10 +10,10 @@ exports.register = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ error: "Email already exists" });
 
-  
+
     const verificationToken = crypto.randomBytes(32).toString("hex");
 
-  
+
     const user = new User({ name, email, password, role, verificationToken });
     await user.save();
 
@@ -26,8 +26,8 @@ exports.register = async (req, res) => {
       },
     });
 
- const BASE_URL = process.env.FRONTEND_URL ||"http://localhost:3000";
- 
+    const BASE_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+
     const verificationUrl = `${BASE_URL}/approve-email?email=${email}&token=${verificationToken}`;
 
     // إرسال الإيميل

@@ -18,25 +18,19 @@ const scheduledCheckRoutes = require("./routes/scheduledCheckRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
-app.use((req, res, next) => {
-  const allowedOrigins = [
-    'https://nuthur.up.railway.app',
-    'http://localhost:3000'
-  ];
+app.use(function(req, res, next) {
+  console.log('🔄 CORS Middleware triggered for:', req.method, req.url);
   
-  const origin = req.headers.origin;
+  // اسمح بكل origins مؤقتاً للتجربة
+  res.header("Access-Control-Allow-Origin", "https://nuthur.up.railway.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+  res.header("Access-Control-Allow-Credentials", "true");
   
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+  console.log('✅ CORS headers set for origin:', req.headers.origin);
   
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  
-  // Handle preflight requests
   if (req.method === 'OPTIONS') {
-    console.log('Handling OPTIONS request for:', req.url);
+    console.log('🛑 OPTIONS request handled');
     return res.status(200).end();
   }
   
@@ -126,6 +120,9 @@ app.use("/api/manual-checks",manualCheckRoutes );
 app.use("/api/pdf", pdfRoutes);
 app.use("/api/scheduled-checks", scheduledCheckRoutes);
 app.use("/api/contact", contactRoutes);
+app.get("/test-cors", (req, res) => {
+  res.json({ message: "CORS is working!", timestamp: new Date() });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

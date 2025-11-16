@@ -66,37 +66,37 @@ const transporter = nodemailer.createTransport({
 //       BUI: weatherRecord.indices.bui,
 //       FWI: weatherRecord.indices.fwi,
 //     });
-  const prediction = { prediction: 0 };
-    const check = new ScheduledCheck({
-      location: { lat, lng },
-      weatherData: weatherRecord._id,
-      modelPrediction: prediction.prediction === 1 ? "High Risk" : "No Risk",
-      modelCheckedAt: new Date()
-    });
+//   const prediction = { prediction: 0 };
+//     const check = new ScheduledCheck({
+//       location: { lat, lng },
+//       weatherData: weatherRecord._id,
+//       modelPrediction: prediction.prediction === 1 ? "High Risk" : "No Risk",
+//       modelCheckedAt: new Date()
+//     });
 
-    await check.save();
-    console.log(" Scheduled check saved:", check.modelPrediction);
+//     await check.save();
+//     console.log(" Scheduled check saved:", check.modelPrediction);
 
    
-    if (check.modelPrediction === "High Risk") {
-      const volunteers = await User.find({ role: "volunteer", isVerified: true });
+//     if (check.modelPrediction === "High Risk") {
+//       const volunteers = await User.find({ role: "volunteer", isVerified: true });
 
-      for (const vol of volunteers) {
-        await transporter.sendMail({
-          from: `"Nuthur Support" <${process.env.EMAIL_USER}>`,
-          to: vol.email,
-          subject: " تنبيه: خطر حريق في منطقة السودة",
-          html: `<p>مرحباً ${vol.name},</p>
-                 <p>تنبيه! نموذج النظام توقع وجود خطر حريق عالي في منطقة السودة حالياً.</p>
-                 <p>يرجى أخذ الحيطة والحذر.</p>`,
-        });
-      }
-    }
+//       for (const vol of volunteers) {
+//         await transporter.sendMail({
+//           from: `"Nuthur Support" <${process.env.EMAIL_USER}>`,
+//           to: vol.email,
+//           subject: " تنبيه: خطر حريق في منطقة السودة",
+//           html: `<p>مرحباً ${vol.name},</p>
+//                  <p>تنبيه! نموذج النظام توقع وجود خطر حريق عالي في منطقة السودة حالياً.</p>
+//                  <p>يرجى أخذ الحيطة والحذر.</p>`,
+//         });
+//       }
+//     }
 
-  } catch (err) {
-    console.error(" Scheduled check failed:", err.message);
-  }
-});
+//   } catch (err) {
+//     console.error(" Scheduled check failed:", err.message);
+//   }
+// });
 
 
 app.use("/api/auth", authRoutes);

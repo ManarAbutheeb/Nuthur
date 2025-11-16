@@ -9,9 +9,10 @@ const VerificationCode = require('../models/VerificationCode');
 const router = express.Router();
 const cors = require("cors");
 
-const BASE_URL = process.env.BACKEND_URL || "http://localhost:3000" || "http://localhost:5000";
+const BASE_URL = process.env.BACKEND_URL ||"http://localhost:5000";
+const FBASE_URL = process.env.FRONTEND_URL ||"http://localhost:3000";
 
-// تسجيل مستخدم جديد وإرسال زر التفعيل
+
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -31,7 +32,7 @@ router.post("/register", async (req, res) => {
     });
     await user.save();
 
-    // إعداد nodemailer
+
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -40,10 +41,9 @@ router.post("/register", async (req, res) => {
       },
     });
 
-    // رابط التفعيل المباشر
     const verificationUrl = `${BASE_URL}/api/auth/verify-email?email=${email}&token=${verificationToken}`;
 
-    // إرسال الإيميل مع زر التفعيل
+
     await transporter.sendMail({
       from: `"Nuthur Support" <${process.env.EMAIL_USER}>`,
       to: email,
@@ -75,7 +75,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// endpoint التفعيل المباشر بالزر
+
 router.get('/verify-email', async (req, res) => {
   const { email, token } = req.query;
 
@@ -87,8 +87,8 @@ router.get('/verify-email', async (req, res) => {
     user.verificationToken = undefined;
     await user.save();
 
-    // إعادة التوجيه تلقائيًا لصفحة تسجيل الدخول على الفرونت
-    res.redirect(`${BASE_URL}log-in`);
+
+    res.redirect(`${FBASE_URL}log-in`);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error while approving email.");

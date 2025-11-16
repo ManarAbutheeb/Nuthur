@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
       },
     });
 
- const BASE_URL = process.env.BACKEND_URL || "http://localhost:3000";
+ const BASE_URL = process.env.FRONTEND_URL ||"http://localhost:3000";
  
     const verificationUrl = `${BASE_URL}/approve-email?email=${email}&token=${verificationToken}`;
 

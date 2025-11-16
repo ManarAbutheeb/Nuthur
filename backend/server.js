@@ -18,26 +18,17 @@ const scheduledCheckRoutes = require("./routes/scheduledCheckRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
-// const corsOptions = {
-//   origin: ["http://localhost:3000", "https://nuthur.up.railway.app"],
-//   credentials: true,
-//   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-// };
-// app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL || "*"||"http://localhost:3000");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  if (req.method === "OPTIONS") return res.sendStatus(204);
-  next();
-});
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://nuthur.up.railway.app"],
+  credentials: true,
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 
-app.get("/_health", (req, res) => {
-  return res.status(200).json({ status: "ok", time: new Date().toISOString() });
-});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))

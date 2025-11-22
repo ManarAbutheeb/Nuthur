@@ -37,7 +37,7 @@ const transporter = nodemailer.createTransport({
 });
 
 cron.schedule("0 */8 * * *", async () => {
-//   cron.schedule("* * * * *", async () => {
+// cron.schedule("* * * * *", async () => {
 
   console.log(" Running automatic weather check...");
   try {

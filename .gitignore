@@ -34,3 +34,5 @@ node_modules/
 .next/
 __pycache__/
 
+
+Models/catboost_info/

@@ -43,7 +43,8 @@ After cleaning: 613 records (73 fire, 540 no-fire)
 Weather variables and FWI components added using the Open-Meteo API
 
 **Total merged dataset:** 857 samples – 14 features
-Will be available soon
+
+the Datasets Will be available soon
 
 ---
 
